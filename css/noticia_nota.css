@@ -1,0 +1,61 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#contenido_noticia{
+    margin-top: 120px;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 30px;
+    
+    
+}
+#noticia{
+    width: 80%;
+    min-width: 250px;
+    margin: auto;
+    line-height: 2.5;
+    font-size: 17px;
+    border: solid 2px cadetblue;
+    
+    padding: 20px;
+  
+   
+
+}
+.titulo_noticia{
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 30px;
+    color:#183152;
+    
+}
+.autor-{
+    margin-top: 30px;
+    text-align: right;
+    font-weight: bolder;
+}
+img{
+    width: 100%;
+}
+.imagen{
+   margin: auto;
+    width: 50%;
+    min-width: 180px;
+
+}
+.fecha{
+    text-align: center;
+    font-weight: bolder;
+    font-size: 20px;
+}
+.negrita{
+    font-weight: bolder;
+}
+.imagen-dieta{
+margin: auto;
+width: 70%;
+    max-width: 350px;
+ min-width: 180px;
+
+}

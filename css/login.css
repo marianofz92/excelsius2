@@ -1,0 +1,74 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+     font-family: 'Montserrat', sans-serif; 
+}
+
+body{
+       background-color:white;
+}
+#contenedor_login{
+    height: 850px;   
+   
+    
+    
+   
+}
+#logeo{
+    padding-top: 30px;
+    
+    width: 500px;
+    margin: auto;
+    height: 500px;
+    width: 40%;
+    min-width: 200px;
+   margin: 40px auto;
+    height: 400px;
+    text-align: center;
+    background: white;
+    border: solid 2px cadetblue;
+
+}
+.box-usuario{
+    margin: auto;
+    height: 35px;
+   width: 80%;
+    margin-top: 10px;
+    
+}
+.box-contra{
+
+
+height: 35px;
+width: 80%;
+margin-top: 10px;
+    
+}
+.btn-enviar{
+    width: 80%;
+    background: cadetblue;
+    color: #fff;
+    margin: auto;
+
+    font-size: 20px;
+}
+.texto-label{
+ color: #183152;
+    font-weight: bolder;
+    font-size: 18px;
+    
+}
+.btn-enviar:active{
+    transform: scale(1.05);
+}
+.crear-cuenta{
+   
+   color:#183152;
+}
+#ingreso-sistema{
+    margin-top: 150px;
+    text-align: center;
+    color: cadetblue;
+    font-size: 35px;
+}

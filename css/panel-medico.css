@@ -1,0 +1,39 @@
+*{
+    box-sizing: border-box;
+     font-family: 'Montserrat', sans-serif; 
+}
+#contenedor_panel{
+height: 850px; 
+   
+   
+}
+#panel{
+    padding-top: 100px;
+    width: 250px;
+    height: 900px;
+    border: solid 2px rgb(24, 49, 82);
+    background-color:cadetblue;
+   
+}
+.menu-paciente{
+    list-style: none;
+    border-bottom: 3px solid #183152;
+    padding: 15px;
+
+}
+
+#panel a{
+    text-decoration: none;
+    color: white;
+   
+}
+
+#texto{ 
+height: 300px;
+width: 300px;
+margin-left:
+
+}
+#contenedor_panel div {
+display: inline-block;   
+}

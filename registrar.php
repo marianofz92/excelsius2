@@ -42,7 +42,7 @@ $fila_correo=mysqli_num_rows($verificar2);
                 echo 'Error al registrarse';
             }
             else{
-                header('Location: http://localhost/excelsius-master/registro-exitoso.html');
+                header('Location: http://localhost/excelsius2/registro-exitoso.html');
                 //AQUI SE DEBERIA CREAR LA SESION DE USUARIO..
         }
         }

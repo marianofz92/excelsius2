@@ -61,7 +61,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 <li><a href="contacto.php">Contacto</a></li>
 <li class="submenu"><a href="javascript:$.scrollTo('#equipo_m',700); ">Buscar<span class="icon-search"></span></a></li>
 </li>
-</nav> 
+</nav>     
 </div>
 
 <a href="<?php echo $enlace ?>" class="etiqueta-ingresar"> <?php echo $usuario ?> <img src="img/user.png" alt=""> </a>

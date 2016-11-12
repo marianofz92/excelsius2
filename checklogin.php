@@ -27,6 +27,7 @@ $result = $conexion->query($sql);
 if ($result->num_rows > 0) {
 }
 $row = $result->fetch_array(MYSQLI_ASSOC);
+
 if ($password =$row['clave']) {
 
     $_SESSION['loggedin'] = true;
@@ -34,8 +35,7 @@ if ($password =$row['clave']) {
     $_SESSION['start'] = time();
     $_SESSION['expire'] = $_SESSION['start'] + (5 * 60);
 
-    
-    header('Location: http://localhost/excelsius-master/index.php');
+   header('Location: http://localhost/excelsius2/index.php');
 
 } else {
     echo "Username o Password estan incorrectos.";

@@ -5,6 +5,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
     $usuario=$_SESSION['username']; 
     $enlace='panel-paciente.php';
+
     
 } else {
     

@@ -34,6 +34,10 @@ $resultado=$connect->query($consulta);
 $fila= mysqli_fetch_assoc($resultado);
 $total=mysqli_num_rows($resultado);
 $insert="UPDATE profesionales2 SET visitas=visitas+1 WHERE id_profesional=".$id_profesional."";
+global $id;
+$id='hola';
+
+
 $update= $connect->query($insert) or die ("No se ha podido actualizar la pagina");
 ?>
 <!DOCTYPE html>

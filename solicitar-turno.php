@@ -9,6 +9,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
     $usuario=$_SESSION['username']; 
     $enlace='panel-paciente.php';
+    global $id;
     
 } else {
     
@@ -74,7 +75,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 </header>
 <section id="contenedor_s">
   <div id="divs">
-      <p>SELECCIONE DIA Y HORA DEL TURNO CON <?php global $id ;echo $id; ?></p>
+      <p>SELECCIONE DIA Y HORA DEL TURNO CON <?php echo $_SESSION['idprofesional']; ?></p>
+      
       
     <div id="turnos">
         <ul >

@@ -43,7 +43,8 @@ $update= $connect->query($insert) or die ("No se ha podido actualizar la pagina"
              <a href="index.php#equipo_m"><label class="icon-search" for=""></label></a>
                <nav class="menu">
                 
-                  <ul>  
+                  <ul> 
+                     <li id="item-ingresar"><a href="<?php echo $enlace ?>"><?php echo $usuario ?><img src="img/user.png" alt=""></a></li> 
                      <li><a href="index.php">Inicio</a></li>
                      <li><a href="servicios.php">Servicios</a></li>
                      <li><a href="nosotros.php">Nosotros</a></li>

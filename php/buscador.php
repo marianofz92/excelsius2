@@ -8,7 +8,14 @@ if(isset ($_POST['search'])){
     $search=$_POST['search'];
     
 }
-$consulta ="SELECT * FROM profesionales2 WHERE  CONCAT (nombre1, '',nombre2, '', apellido1, '', apellido2) LIKE '%".$search."%' OR especialidad LIKE '%".$search."%'  ORDER BY visitas DESC";
+
+$searcht = trim( $search, " ");
+
+
+$searchsn = str_replace(' ', '', $searcht);
+
+
+$consulta ="SELECT * FROM profesionales2 WHERE  CONCAT (nombre1, '',nombre2, '', apellido1, '', apellido2) LIKE '%".$searchsn."%' OR especialidad LIKE '%".$search."%'  ORDER BY visitas DESC";
 $resultado=$connect->query($consulta);
 $fila= mysqli_fetch_assoc($resultado);
 $total=mysqli_num_rows($resultado);

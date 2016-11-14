@@ -32,10 +32,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                <a href="index.php"><img src="img/logoblancosolo.png" id="logo" ></a>
                <a id="textologo" href="javascript:$.scrollTo('0px',700);"><h1>Excelsius</h1></a>
                <input type="checkbox" id="menu-bar">
+               <label class="icon-menu" for="menu-bar"></label>
                <a href="index.php#equipo_m"><label class="icon-search" for=""></label></a>
                <nav class="menu">
                 
                   <ul>  
+                     <li id="item-ingresar"><a href="<?php echo $enlace ?>"><?php echo $usuario ?><img src="img/user.png" alt=""></a></li>
                      <li><a href="index.php">Inicio</a></li>
                      <li><a href="servicios.php">Servicios</a></li>
                      <li><a href="nosotros.php">Nosotros</a></li>

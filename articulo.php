@@ -64,7 +64,7 @@ $update= $connect->query($insert) or die ("No se ha podido actualizar la pagina"
 <nav class="menu">
 
 <ul> 
-
+<li id="item-ingresar"><a href="<?php echo $enlace ?>"><?php echo $usuario ?><img src="img/user.png" alt=""></a></li>
 <li><a href="index.php">Inicio</a></li>
 <li><a href="nosotros.html">Nosotros</a></li>
 <li><a href="profesionales.php">Profesionales</a></li>

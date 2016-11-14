@@ -51,7 +51,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
 <ul> 
 
-<li id="item-ingresar"><a href="login.html">ingresar<img src="img/user.png" alt=""></a></li>
+<li id="item-ingresar"><a href="<?php echo $enlace ?>"><?php echo $usuario ?><img src="img/user.png" alt=""></a></li>
 <li><a href="index.php">Inicio</a></li>
 <li><a href="nosotros.php">Nosotros</a></li>
 <li><a href="profesionales.php">Profesionales</a></li>
@@ -59,7 +59,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 <li><a href="servicios.php">Servicios</a></li>
 <li><a href="noticias.php">Noticias</a></li>
 <li><a href="contacto.php">Contacto</a></li>
-<li class="submenu"><a href="javascript:$.scrollTo('#equipo_m',700); ">Buscar<span class="icon-search"></span></a></li>
+<li class="submenu"><a href="index.php#equipo_m">Buscar<span class="icon-search"></span></a></li>
 </li>
 </nav>     
 </div>
@@ -67,12 +67,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 <a href="<?php echo $enlace ?>" class="etiqueta-ingresar"> <?php echo $usuario ?> <img src="img/user.png" alt=""> </a>
 
 </header>
-<main>
-   <section id="contenedor">
+
    
-    <div id="contenedor_panel">
-    <div id="panel">
-     <nav>
+  <section class="principal"> 
+    <div class="sidebar" >
+         <h1><?php echo $usuario ?><img src="img/default_avatar.png" alt=""></h1>
          <ul>
              <li class="menu-paciente"><a href="">Editar Perfil</a></li>
              <li class="menu-paciente"><a href="profesionales.php">Solicitar Turno</a></li>
@@ -80,16 +79,26 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
              <li class="menu-paciente"><a href="logout.php">Cerrar sesión</a></li>
              
          </ul>
-         </div>
-     </nav>
-       <div id="texto">
-        <h1>PANEL DE CONTROL </h1>
-    </div>         
     </div>
-  
-    </section>
-</main>
- <footer>
+    
+    <div id="contenido">
+       <div id="titulo"><h1>Perfil de <?php echo $usuario ?></h1></div>
+       <article class="datos-personales">
+           <img src="img/default_avatar.png" alt="">
+            <ul>
+                <li>Nombre de usuario:</li>
+                <li>Nombre:</li>
+                <li>E-mail:</li>
+                <li>Turnos:</li>
+            </ul>
+       </article>
+       <div class="turnos">
+           
+       </div>
+    </div>
+   </section> 
+       
+        <footer>
             <div class="contenedor">
                <p class="copy">Excelsius salud &copy; 2016</p>
                 <div class="sociales">

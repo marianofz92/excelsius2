@@ -38,6 +38,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
 <ul> 
 
+<li id="item-ingresar"><a href="<?php echo $enlace ?>"><?php echo $usuario ?><img src="../img/user.png" alt=""></a></li>
 <li><a href="../index.php">Inicio</a></li>
 <li><a href="../nosotros.php">Nosotros</a></li>
 <li><a href="../profesionales.php">Profesionales</a></li>

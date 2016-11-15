@@ -30,6 +30,9 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
         <link rel="stylesheet" href="css/fontello.css">
         <link rel="stylesheet" href="css/estilos.css">
+        <link rel="stylesheet" href="css/jquery-ui.min.css">
+        <script src="js/jquery.js"></script>
+    
 </head>
 <body>
 </head>
@@ -120,6 +123,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                    <li class="horarios-li"><a href="">13:00</a></li>
     </div>
   </div>
+ <p>Fecha</p> <input id="fecha" type="text">
+     <script src="js/jquery-ui.min.js"></script>
+        <script>
+        $("#fecha").datepicker();s
+    
+    </script>
 </section>
 <footer>
             <div class="contenedor">

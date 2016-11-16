@@ -60,7 +60,7 @@
 .horarios li{
     height: 40px;
     padding: 5px;
-    border: 0.1px solid  cadetblue;
+    border: 0.1px solid gray;
     display: flex;
 }
 .hora{
@@ -79,9 +79,11 @@
 .estado-nd{
     margin-left: 100px;
     color: red;
+    margin-right: 100px;
 }
 .lugar{
-    width: 150px;
+   
+    margin-left: 250px;
     
 }.hora1{
     width: 65px;
@@ -102,4 +104,5 @@
 }
 .horarios li:first-child{
     background-color: cadetblue;
+    border: none;
 }

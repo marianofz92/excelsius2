@@ -27,10 +27,13 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 <meta charset="utf-8">
 	<title>Excelsius Salud - Nuestros Servicios</title>
 	<link rel="shortcut icon" href="img/icono.ico">
-	<link rel="stylesheet" href="css/turno.css">
+	<link rel="stylesheet" href="css/solicitar-turno.css">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
         <link rel="stylesheet" href="css/fontello.css">
         <link rel="stylesheet" href="css/estilos.css">
+        <link rel="stylesheet" href="css/jquery-ui.min.css">
+        <script src="js/jquery.js"></script>
+    
 </head>
 <body>
 </head>
@@ -74,6 +77,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
 </header>
 <section id="contenedor_s">
+<<<<<<< HEAD
   <div id="divs">
       <p>SELECCIONE DIA Y HORA DEL TURNO CON <?php echo utf8_encode($_SESSION['apynom'])?></p>
       <?php  $time = time();
@@ -113,21 +117,56 @@ $anio= date("Y") ; ?>
                    <li class="horarios-li"><a href="">12:00</a></li>
                    <li class="horarios-li"><a href="">12:30</a></li>
                    <li class="horarios-li"><a href="">13:00</a></li>
+=======
+ <div id="contenido">
+  <div id="titulo">
+      <p>SELECCIONE LA FECHA DEL TURNO CON <?php echo utf8_encode($_SESSION['prof'])  ?></p>
+    </div> 
+    <form class="formulario" action="consultar-fecha.php" method="post" >
+      
+      <label >Fecha: </label> 
+      <input id="lblfecha" class="fecha-inp"  placeholder="SELECCIONE LA FECHA DEL TURNO" type="text" required  name="lblfecha">
+      <input type="submit" value="CONSULTAR" class="btnconsulta" >
+     <script src="js/jquery-ui.min.js"></script>
+        <script>
+        $("#lblfecha").datepicker();
+    
+    </script>
+      
+  </form>
+  <div id="resultado">
+      <form action="" method="post" class="formulario-resultado" >
+        <ul class="horarios">
+            <li><p class="hora1"> HORA </p> <p class="estado1"> ESTADO</p> <p class="lugar1">LUGAR</p></li>
+            <li><p class="hora">08:00</p> <p class="estado"> DISPONIBLE</p></li> <p class="lugar1">San Juan 889</p>
+            <li><p class="hora">08:15</p> <p class="estado-nd">NO DISPONIBLE</p></li>
+            <li><p class="hora">08:30</p></li>
+            <li><p class="hora">08:45</p></li>
+            <li><p class="hora">09:00</p></li>
+            <li><p class="hora">09:15</p></li>
+            <li><p class="hora">09:30</p></li>
+            <li><p class="hora">09:45</p></li>
+            <li><p class="hora">10:15</p></li>
+            <li><p class="hora">10:30</p></li>
+            <li><p class="hora">10:45</p></li>
+            <li><p class="hora">11:00</p></li>
+            <li><p class="hora">11:15</p></li>
+            <li><p class="hora">11:30</p></li>
+            <li><p class="hora">11:45</p></li>
+            <li><p class="hora">12:00</p></li>
+            <li><p class="hora">12:15</p></li>
+            <li><p class="hora">12:30</p></li>
+           
+       
+            
+>>>>>>> origin/master
             
         </ul>
-        <li class="dias"><div class="ancho-dias">LUNES</div>
-               <ul class="horarios">
-                   <li class="horarios-li"><a href="">08:30</a></li>
-                   <li class="horarios-li"><a href="">09:00</a></li>
-                   <li class="horarios-li"><a href="">09:30</a></li>
-                   <li class="horarios-li"><a href="">10:30</a></li>
-                   <li class="horarios-li"><a href="">11:00</a></li>
-                   <li class="horarios-li"><a href="">11:30</a></li>
-                   <li class="horarios-li"><a href="">12:00</a></li>
-                   <li class="horarios-li"><a href="">12:30</a></li>
-                   <li class="horarios-li"><a href="">13:00</a></li>
-    </div>
+          
+          
+      </form>
   </div>
+ </div>
 </section>
 <footer>
             <div class="contenedor">

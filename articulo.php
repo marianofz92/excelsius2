@@ -34,8 +34,6 @@ $resultado=$connect->query($consulta);
 $fila= mysqli_fetch_assoc($resultado);
 $total=mysqli_num_rows($resultado);
 $insert="UPDATE profesionales2 SET visitas=visitas+1 WHERE id_profesional=".$id_profesional."";
-global $id;
-$id='hola';
 
 
 $update= $connect->query($insert) or die ("No se ha podido actualizar la pagina");
@@ -104,7 +102,10 @@ $update= $connect->query($insert) or die ("No se ha podido actualizar la pagina"
             <img src="data:image/jpg;base64,<?php echo base64_encode($fila['img']); ?>"/>                
        <div id="texto_resultados">
        <?php $nombre_apellido ="{$fila['nombre1']} {$fila['nombre2']} {$fila['apellido1']} {$fila['apellido2']} ";?>
-        <h1><?php echo utf8_encode($nombre_apellido)?></h1>
+        <h1><?php echo utf8_encode($nombre_apellido); $_SESSION['prof']=$nombre_apellido; ?></h1>
+        
+        
+    
         
         
         <ul style="circle">

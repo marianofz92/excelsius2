@@ -77,50 +77,10 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
 </header>
 <section id="contenedor_s">
-<<<<<<< HEAD
-  <div id="divs">
-      <p>SELECCIONE DIA Y HORA DEL TURNO CON <?php echo utf8_encode($_SESSION['apynom'])?></p>
-      <?php  $time = time();
 
-//echo date("d-m-Y ", $time);
-$dia= date("d")+1;
-$mes=date("m");
-$anio= date("Y") ; ?>
-      
-    <div id="turnos">
-        <ul >
-            <li class="dias"><div class="ancho-dias">LUNES <?php echo $dia.'-' .$mes ?>
-            </div>
-               <ul class="horarios">
-                   <li class="horarios-li"><a href="">08:30</a></li>
-                   <li class="horarios-li"><a href="">09:00</a></li>
-                   <li class="horarios-li"><a href="">09:30</a></li>
-                   <li class="horarios-li"><a href="">10:30</a></li>
-                   <li class="horarios-li"><a href="">11:00</a></li>
-                   <li class="horarios-li"><a href="">11:30</a></li>
-                   <li class="horarios-li"><a href="">12:00</a></li>
-                   <li class="horarios-li"><a href="">12:30</a></li>
-                   <li class="horarios-li"><a href="">13:00</a></li>
-                   
-                    
-                     
-            </ul>
-            </li>
-            <li class="dias"><div class="ancho-dias">LUNES</div>
-               <ul class="horarios">
-                   <li class="horarios-li"><a href="">08:30</a></li>
-                   <li class="horarios-li"><a href="">09:00</a></li>
-                   <li class="horarios-li"><a href="">09:30</a></li>
-                   <li class="horarios-li"><a href="">10:30</a></li>
-                   <li class="horarios-li"><a href="">11:00</a></li>
-                   <li class="horarios-li"><a href="">11:30</a></li>
-                   <li class="horarios-li"><a href="">12:00</a></li>
-                   <li class="horarios-li"><a href="">12:30</a></li>
-                   <li class="horarios-li"><a href="">13:00</a></li>
-=======
  <div id="contenido">
   <div id="titulo">
-      <p>SELECCIONE LA FECHA DEL TURNO CON <?php echo utf8_encode($_SESSION['prof'])  ?></p>
+      <p>SELECCIONE LA FECHA DEL TURNO CON <?php echo utf8_encode($_SESSION['profes'])  ?></p>
     </div> 
     <form class="formulario" action="consultar-fecha.php" method="post" >
       
@@ -138,7 +98,7 @@ $anio= date("Y") ; ?>
       <form action="" method="post" class="formulario-resultado" >
         <ul class="horarios">
             <li><p class="hora1"> HORA </p> <p class="estado1"> ESTADO</p> <p class="lugar1">LUGAR</p></li>
-            <li><p class="hora">08:00</p> <p class="estado"> DISPONIBLE</p></li> <p class="lugar1">San Juan 889</p>
+            <li><p class="hora">08:00</p> <p class="estado"> DISPONIBLE</p>  <p class="lugar">San Juan 889</p></li>
             <li><p class="hora">08:15</p> <p class="estado-nd">NO DISPONIBLE</p></li>
             <li><p class="hora">08:30</p></li>
             <li><p class="hora">08:45</p></li>
@@ -158,8 +118,7 @@ $anio= date("Y") ; ?>
             <li><p class="hora">12:30</p></li>
            
        
-            
->>>>>>> origin/master
+
             
         </ul>
           

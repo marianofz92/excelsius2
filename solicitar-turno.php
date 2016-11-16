@@ -75,12 +75,18 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 </header>
 <section id="contenedor_s">
   <div id="divs">
-      <p>SELECCIONE DIA Y HORA DEL TURNO CON <?php echo $_SESSION['idprofesional']; ?></p>
-      
+      <p>SELECCIONE DIA Y HORA DEL TURNO CON <?php echo utf8_encode($_SESSION['apynom'])?></p>
+      <?php  $time = time();
+
+//echo date("d-m-Y ", $time);
+$dia= date("d")+1;
+$mes=date("m");
+$anio= date("Y") ; ?>
       
     <div id="turnos">
         <ul >
-            <li class="dias"><div class="ancho-dias">LUNES</div>
+            <li class="dias"><div class="ancho-dias">LUNES <?php echo $dia.'-' .$mes ?>
+            </div>
                <ul class="horarios">
                    <li class="horarios-li"><a href="">08:30</a></li>
                    <li class="horarios-li"><a href="">09:00</a></li>

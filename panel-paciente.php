@@ -3,28 +3,40 @@
 <?php
 session_start();
 
-if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['privilegio']==0) {
 
     $usuario=$_SESSION['username']; 
     $enlace='panel-paciente.php';
+    $privilegio=$_SESSION['privilegio'];
     
     require_once('conn/connect.php');
     
     $consulta ="SELECT * FROM usuario WHERE nombre_usuario ='$usuario'";
     $resultado=$connect->query($consulta);
     $fila= mysqli_fetch_assoc($resultado);
+    
 
     
 } else {
     
-    $usuario='Ingresar';
-    $enlace='login.php';
-    header('Location: http://localhost/excelsius-master/inicie-sesion.html');
+            if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']!=0) {
+                
+            
+    
+                echo 'Usted no tiene persimo para acceder a esta página.';
+                exit;
+                
+            } else {
+                 $usuario='Ingresar';
+                 $enlace='login.php';
+                 header('Location: http://localhost/github/excelsius2/inicie-sesion.html');
+    
+    
+            
+            }
+        }
 
-    exit;
-}
 ?>
-
 
 
 

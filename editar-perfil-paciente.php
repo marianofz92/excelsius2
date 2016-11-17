@@ -12,6 +12,10 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     $consulta ="SELECT * FROM usuario WHERE nombre_usuario ='$usuario'";
     $resultado=$connect->query($consulta);
     $fila= mysqli_fetch_assoc($resultado);
+    $nombre= $fila['nombres'];
+    $apellido = $fila['apellidos'];
+    $email = $fila['correo'];
+    $_SESSION['idusuario'] = $fila['id_usuario'];
 
     
 } else {
@@ -99,12 +103,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
        <div id="titulo"><h1>Editar datos personales</h1></div>
         <div id="contenedor_registro">
         <img src="img/default_avatar.png" alt="">
-    <form action="registrar.php" method="post" class="form-register">
+    <form action="actualizar-datos.php" method="post" class="form-register">
     
     <div class="contenedor-inputs">
-    <input type="text"name="nombre" placeholder="Nombre" class="input-48" required>
-    <input type="text" name="apellidos" placeholder="Apellidos" class="input-48" required>
-    <input type="email" name="email" placeholder="E-mail" class="input-100" required>
+    <input type="text"name="nombre" value="<?php echo $nombre ?>"  class="input-48" required> </input> 
+    <input type="text" name="apellidos" value="<?php echo $apellido ?>" class="input-48" required>
+    <input type="email" name="email" value="<?php echo $email ?>" class="input-100" required>
     <input type="submit" value="Guardar" class="btn-enviar">
 </div>
        

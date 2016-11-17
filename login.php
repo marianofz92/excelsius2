@@ -1,10 +1,16 @@
 <?php
 session_start();
 
+require_once('conn/connect.php');
+
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
     $usuario=$_SESSION['username']; 
-    $enlace='contacto.php';
+    $enlace='login.php';
+    $consulta ="SELECT * FROM usuario WHERE nombre_usuario ='$usuario'";
+    $resultado=$connect->query($consulta);
+    $fila= mysqli_fetch_assoc($resultado);
+    $_SESSION['privilegio']=$fila['privilegio'];
     
 } else {
     

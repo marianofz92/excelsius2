@@ -1,7 +1,9 @@
 <?php
 session_start();
 
-if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+require_once('conn/connect.php');
+
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']==1) {
 
     $usuario=$_SESSION['username']; 
    
@@ -10,12 +12,24 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     
 } else {
     
-    $usuario='Ingresar';
-    $enlace='login.php';
-    header('Location: http://localhost/excelsius-master/inicie-sesion.html');
-
-    exit;
-}
+            if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']!=1) {
+                
+            
+    
+                echo 'Usted no tiene persimo para acceder a esta página.';
+                exit;
+                
+            } else {
+                 $usuario='Ingresar';
+                 $enlace='login.php';
+                 header('Location: http://localhost/github/excelsius2/inicie-sesion.html');
+    
+    
+            
+            }
+        }
+    
+    
 ?>
 <!DOCTYPE html>
 <html lang="es">

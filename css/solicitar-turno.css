@@ -1,4 +1,5 @@
 *{
+    box-sizing: border-box;
 }
 #titulo{
     margin-top: 140px;
@@ -58,10 +59,11 @@
     
 }
 .horarios li{
-    height: 40px;
-    padding: 5px;
+    height: 55px;
+    padding-top: 10px;
     border: 0.1px solid  cadetblue;
     display: flex;
+    
 }
 .hora{
     width: 65px;
@@ -70,6 +72,7 @@
     background-color: #183152;
     color: white;
     padding: 2px;
+    margin-left: 5px;
 }
 .estado{
     margin-left: 100px;
@@ -102,5 +105,24 @@
     
 }
 .horarios li:first-child{
+    background-color: #183152;
+    border-color: #183152;
+    
+}
+.solicitar{
+    border-style: none;
+    width:100px;
+    margin-left: 100px;
+    border-radius: 10px;
+    height: 30px;
     background-color: cadetblue;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    text-decoration: underline;
+}
+.solicitar:hover{
+    cursor: pointer;
+}
+.solicitar:active{
+    transform: scale(1.1);
 }

@@ -82,7 +82,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                                  </li>    
                                  <li>Servicios: <br>
                                  Adminsitración y Gestión de RR HH, Marketing, Comunicación. <br>
-                                 Organizacion de eventos corporativos, jornadas de capacitación y congresos.<br>
+                                 Organización de eventos corporativos, jornadas de capacitación y congresos.<br>
                                  </li>
                                  <li>Dirección: Monteagudo 857 4° C.</li>
                                  <li>Teléfonos: 381-4225733 / 381-154401774.</li>

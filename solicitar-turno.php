@@ -1,9 +1,9 @@
 <?php
 
 session_start();
+
 ?>
 <?php
-
 
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
@@ -19,6 +19,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
     exit;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -87,7 +88,9 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
       
       <label >Fecha: </label> 
       <input id="lblfecha" class="fecha-inp"  placeholder="SELECCIONE LA FECHA DEL TURNO" type="text" required  name="lblfecha">
+      
       <input type="submit" value="CONSULTAR" class="btnconsulta" >
+      
      <script src="js/jquery-ui.min.js"></script>
         <script>
         $("#lblfecha").datepicker();
@@ -102,6 +105,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             <li><p class="hora">08:00</p> <p class="estado"> DISPONIBLE</p>  <p class="lugar">San Juan 889</p> <input class="solicitar" type="submit" value="SOLICITAR"></li>
             <li> <p class="hora">08:15</p> <p class="estado-nd">NO DISPONIBLE</p> 
             </li>   
+            
             <li><p class="hora">08:30</p></li>
             <li><p class="hora">08:45</p></li>
             <li><p class="hora">09:00</p></li>
@@ -132,7 +136,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             <li><p class="hora">17:45</p></li>
             <li><p class="hora">18:00</p></li>
             <li><p class="hora">18:15</p></li>
-                
+                            
         </ul>
            
       </form>

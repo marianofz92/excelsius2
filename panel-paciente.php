@@ -10,7 +10,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
     $privilegio=$_SESSION['privilegio'];
     
     require_once('conn/connect.php');
-    
+
     $consulta ="SELECT * FROM usuario WHERE nombre_usuario ='$usuario'";
     $resultado=$connect->query($consulta);
     $fila= mysqli_fetch_assoc($resultado);
@@ -97,7 +97,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
    
   <section class="principal"> 
     <div class="sidebar" >
-         <h1><?php echo $usuario ?><img src="img/default_avatar.png" alt=""></h1>
+         <a href="panel-paciente.php"><h1><?php echo $usuario ?><img src="img/default_avatar.png" alt=""></h1></a>
          <ul>
              <li class="menu-paciente"><a href="editar-perfil-paciente.php">Editar Perfil</a></li>
              <li class="menu-paciente"><a href="profesionales.php">Solicitar Turno</a></li>
@@ -116,7 +116,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
                 <li><img src="img/icono-user.png" alt=""><span>Nombre de usuario:</span> <?php echo $usuario ?></li>
                 <li><img src="img/icono-nombre.png" alt=""><span>Nombre:</span> <?php echo utf8_encode($nombre_apellido) ?></li>
                 <li><img src="img/icono-mail.png" alt=""><span>E-mail:</span> <?php echo utf8_encode($fila ['correo']) ?></li>
-                <li><img src="img/icono-turno.png" alt=""><span>Turnos:</span> </li>
+                <li><img src="img/icono-turno.png" alt=""><span>Turnos:</span> <?php echo $privilegio ?></li>
             </ul>
        </article>
        <div class="turnos">

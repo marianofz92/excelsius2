@@ -45,14 +45,15 @@ $update= $connect->query($insert) or die ("No se ha podido actualizar la pagina"
                <nav class="menu">
                 
                   <ul> 
-                     <li id="item-ingresar"><a href="<?php echo $enlace ?>"><?php echo $usuario ?><img src="img/user.png" alt=""></a></li>     
-                     <li><a href="index.php">Inicio</a></li>
-                     <li><a href="servicios.php">Servicios</a></li>
-                     <li><a href="nosotros.php">Nosotros</a></li>
-                     <li><a href="noticias.php">Noticias</a></li>
-                    <li><a href="profesionales.php">Profesionales</a></li>
-                     <li><a href="contacto.php">Contacto</a></li>
-                  <li class="submenu"><a href="index.php#equipo_m">Buscar<span class="icon-search"></span></a></li>
+                     <li id="item-ingresar"><a href="<?php echo $enlace ?>"><?php echo $usuario ?><img src="img/user.png" alt=""></a></li>
+                      <li><a href="index.php">Inicio</a></li>
+                      <li><a href="nosotros.php">Nosotros</a></li>
+                      <li><a href="profesionales.php">Profesionales</a></li>
+                      <li><a href="asociados.php">Asociados</a></li>
+                      <li><a href="servicios.php">Servicios</a></li>
+                      <li><a href="noticias.php">Noticias</a></li>
+                      <li><a href="contacto.php">Contacto</a></li>
+                      <li class="submenu"><a href="index.php#equipo_m">Buscar<span class="icon-search"></span></a></li>
                          <ul>
                              <li>Especialidad<select name="" id="">
                                                  <option value="">Cardiología</option>

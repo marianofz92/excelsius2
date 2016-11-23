@@ -34,9 +34,12 @@ $resultado=$connect->query($consulta);
 $fila= mysqli_fetch_assoc($resultado);
 $total=mysqli_num_rows($resultado);
 $insert="UPDATE profesionales2 SET visitas=visitas+1 WHERE id_profesional=".$id_profesional."";
-
+$_SESSION['idprofesional']=$id_profesional;
 
 $update= $connect->query($insert) or die ("No se ha podido actualizar la pagina");
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -101,11 +104,9 @@ $update= $connect->query($insert) or die ("No se ha podido actualizar la pagina"
          <article> 
             <img src="data:image/jpg;base64,<?php echo base64_encode($fila['img']); ?>"/>                
        <div id="texto_resultados">
-       <?php $nombre_apellido ="{$fila['nombre1']} {$fila['nombre2']} {$fila['apellido1']} {$fila['apellido2']} ";?>
-        <h1><?php echo utf8_encode($nombre_apellido); $_SESSION['prof']=$nombre_apellido; ?></h1>
-        
-        
-    
+       <?php $nombre_apellido ="{$fila['nombre1']} {$fila['nombre2']} {$fila['apellido1']} {$fila['apellido2']} ";
+           $_SESSION['profes']=$nombre_apellido; ?>
+        <h1><?php echo utf8_encode($nombre_apellido)?></h1>
         
         
         <ul style="circle">
@@ -118,9 +119,11 @@ $update= $connect->query($insert) or die ("No se ha podido actualizar la pagina"
             <li>Visitas: <?php echo $fila['visitas']?></li>
             <li>Otro: <?php echo utf8_encode ($fila['otro'])?></li>
             
+            
         </ul>
         
         <a  class="solicitar-turno"href="solicitar-turno.php">SOLICITAR TURNO</a>
+        <?php ?>
         </div>
   
                        

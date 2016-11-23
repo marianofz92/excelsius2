@@ -89,7 +89,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
    
   <section class="principal"> 
     <div class="sidebar" >
-         <h1><?php echo $usuario ?><img src="img/default_avatar.png" alt=""></h1>
+         <a href="panel-paciente.php"><h1><?php echo $usuario ?><img src="img/default_avatar.png" alt=""></h1></a>
          <ul>
              <li class="menu-paciente"><a href="">Editar Perfil</a></li>
              <li class="menu-paciente"><a href="profesionales.php">Solicitar Turno</a></li>
@@ -106,9 +106,9 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     <form action="actualizar-datos.php" method="post" class="form-register">
     
     <div class="contenedor-inputs">
-    <input type="text"name="nombre" value="<?php echo $nombre ?>"  class="input-48" required> </input> 
-    <input type="text" name="apellidos" value="<?php echo $apellido ?>" class="input-48" required>
-    <input type="email" name="email" value="<?php echo $email ?>" class="input-100" required>
+    <input type="text"name="nombre" placeholder="Nombre" value="<?php echo $nombre ?>"  class="input-48" required> </input> 
+    <input type="text" name="apellidos" placeholder="Apellido" value="<?php echo $apellido ?>" class="input-48" required>
+    <input type="email" name="email" placeholder="E-mail" value="<?php echo $email ?>" class="input-100" required>
     <input type="submit" value="Guardar" class="btn-enviar">
 </div>
        

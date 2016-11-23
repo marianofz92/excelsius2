@@ -36,6 +36,28 @@ $id=$_SESSION['idusuario'];
 $consulta = "UPDATE usuario SET nombres = '$nombre', apellidos = '$apellidos', correo = '$email' WHERE id_usuario =$id";
 $resultado=$connect->query($consulta) or die ("ERROR");
 
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['privilegio']==0) {
+
+   
 header('Location: http://localhost/github/excelsius2/panel-paciente.php');
+    
+} else {
+    
+            if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']==1) {
+                
+            
+    
+                header('Location: http://localhost/github/excelsius2/panel-profesional.php');
+                exit;
+                
+            } else {
+                 $usuario='Ingresar';
+                 $enlace='login.php';
+                 header('Location: http://localhost/github/excelsius2/inicie-sesion.html');
+    
+            }
+        }
+
+
 
 ?>

@@ -121,7 +121,7 @@ header .contenedor{
     background-color: #fff;
 }
 
-@media (min-width:1024px) {
+@media (min-width:1025px) {
     
     .menu a:hover {
     background: #183152;

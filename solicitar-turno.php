@@ -9,6 +9,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
     $usuario=$_SESSION['username']; 
     $enlace='panel-paciente.php';
+    global $id;
     
 } else {
     
@@ -76,9 +77,10 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
 </header>
 <section id="contenedor_s">
+
  <div id="contenido">
   <div id="titulo">
-      <p>SELECCIONE LA FECHA DEL TURNO CON <?php echo utf8_encode($_SESSION['prof'])  ?></p>
+      <p>SELECCIONE LA FECHA DEL TURNO CON <?php echo utf8_encode($_SESSION['profes'])  ?></p>
     </div> 
     <form class="formulario" action="consultar-fecha.php" method="post" >
       
@@ -96,7 +98,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
       <form action="" method="post" class="formulario-resultado" >
         <ul class="horarios">
             <li><p class="hora1"> HORA </p> <p class="estado1"> ESTADO</p> <p class="lugar1">LUGAR</p></li>
-            <li><p class="hora">08:00</p> <p class="estado"> DISPONIBLE</p></li> <p class="lugar1">San Juan 889</p>
+            <li><p class="hora">08:00</p> <p class="estado"> DISPONIBLE</p>  <p class="lugar">San Juan 889</p></li>
             <li><p class="hora">08:15</p> <p class="estado-nd">NO DISPONIBLE</p></li>
             <li><p class="hora">08:30</p></li>
             <li><p class="hora">08:45</p></li>
@@ -116,7 +118,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             <li><p class="hora">12:30</p></li>
            
        
-            
+
             
         </ul>
           

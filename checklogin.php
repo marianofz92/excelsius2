@@ -28,18 +28,25 @@ if ($result->num_rows > 0) {
 }
 $row = $result->fetch_array(MYSQLI_ASSOC);
 
-if ($password =$row['clave']) {
+if ($password == $row['clave']) {
 
     $_SESSION['loggedin'] = true;
     $_SESSION['username'] = $username;
     $_SESSION['start'] = time();
     $_SESSION['expire'] = $_SESSION['start'] + (5 * 60);
+    
+    require_once('conn/connect.php');
+    
+    $consulta ="SELECT * FROM usuario WHERE nombre_usuario ='$username'";
+    $resultado=$connect->query($consulta);
+    $fila= mysqli_fetch_assoc($resultado);
+    $_SESSION['privilegio']=$fila['privilegio'];
 
-   header('Location: http://localhost/excelsius2/index.php');
+   header('Location: http://localhost/github/excelsius2/index.php');
 
 } else {
     echo "Username o Password estan incorrectos.";
 
-    echo "<br><a href='login.html'>Volver a Intentarlo</a>";
+    echo "<br><a href='login.php'>Volver a Intentarlo</a>";
 }
 mysqli_close($conexion);

@@ -126,12 +126,18 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
      </article>
      
       <article id="noticia9">
+      
       <img src="img/osdepym2.jpg" alt=""> 
          <h4> <a  class="titulo_link" href="noticias/apertura-filial-osdepym.html"><p class="fecha"> 17/11/2016</p>Apertura filial OSDEPyM sede S.M. de Tucumán</a></h4>
       <p>Excelsius Salud estuvo presente el día 17 de Noviembre, en la apertura de la filial Osdepym en San Miguel de Tucumán, situada en Córdoba 1001 (Esq. Catamarca)..</p>
       <a href="noticias/apertura-filial-osdepym.html"class="leer_mas">Leer más..</a>
      </article>
-     
+     <article id="noticia10">
+      <img src="img/consultora-2.jpg" alt=""> 
+         <h4> <a  class="titulo_link" href="noticias/eventos-institucionales-corporativos.php"><p class="fecha"> 17/11/2016</p>Eventos institucionales corporativos</a></h4>
+      <p>Un evento es una actividad pública y social, que para las organizaciones, instituciones y personas son actos no habituales. Estos encuentros..</p>
+      <a href="noticias/eventos-institucionales-corporativos.php"class="leer_mas">Leer más..</a>
+     </article>
      </div>
     </section>   
  

@@ -6,6 +6,6 @@ session_destroy();
 global $privilegio;
 $privilegio='';
 
-header('Location: http://localhost/excelsius2/index.php');
+header('Location: http://localhost/github/excelsius2/index.php');
 
 ?>

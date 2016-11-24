@@ -27,6 +27,7 @@ display: flex;
 flex-wrap: wrap;
 width: 90%;
 margin: auto;
+text-align: center;
 }
 
 article{
@@ -35,8 +36,8 @@ display: inline-block;
 width: 30%;
 min-width: 200px;
 vertical-align: top;
-
-   
+text-align: left;    
+  
 }
 
 #contenedor_noticias img {
@@ -50,6 +51,10 @@ padding: 10px;
 text-decoration: none;
 color: cadetblue; 
 
+}
+
+.leer_mas:hover {
+text-decoration: underline;
 }
 
 #titulo h1 {
@@ -80,8 +85,11 @@ article h4{
 .titulo_link{
     font-size: 25px;
     text-decoration: none;
-    color:#183152;
-    
+    color:#183152;  
+}
+
+.titulo_link:hover {
+    text-decoration: underline;
 }
 
 .fecha{

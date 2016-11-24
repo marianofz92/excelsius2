@@ -1,39 +1,36 @@
 <?php
 session_start();
 
-require_once('conn/connect.php');
-
-if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']==1) {
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
     $usuario=$_SESSION['username']; 
     $enlace='panel-profesional.php';
-    $privilegio=$_SESSION['privilegio'];
+    
+    require_once('conn/connect.php');
     
     $consulta ="SELECT * FROM usuario WHERE nombre_usuario ='$usuario'";
     $resultado=$connect->query($consulta);
     $fila= mysqli_fetch_assoc($resultado);
+    $nombre= $fila['nombres'];
+    $apellido = $fila['apellidos'];
+    $email = $fila['correo'];
+    $_SESSION['idusuario'] = $fila['id_usuario'];
+
     
 } else {
     
-            if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']!=1) {
-                
-            
-    
-                echo 'Usted no tiene persimo para acceder a esta página.';
-                exit;
-                
-            } else {
-                 $usuario='Ingresar';
-                 $enlace='login.php';
-                 header('Location: http://localhost/github/excelsius2/inicie-sesion.html');
-    
-    
-            
-            }
-        }
-    
-    
+    $usuario='Ingresar';
+    $enlace='login.php';
+    header('Location: http://localhost/excelsius-master/inicie-sesion.html');
+
+    exit;
+}
 ?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -48,6 +45,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
         <link rel="stylesheet" href="css/fontello.css">        
         <link rel="stylesheet" href="css/estilos.css">
         <link rel="stylesheet" href="css/panel-medico.css">
+        <link rel="stylesheet" href="css/editar-perfil-profesional.css">
       
         
         <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
@@ -80,18 +78,19 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
 <li><a href="contacto.php">Contacto</a></li>
 <li class="submenu"><a href="index.php#equipo_m">Buscar<span class="icon-search"></span></a></li>
 </li>
-</nav> 
+</nav>     
 </div>
 
 <a href="<?php echo $enlace ?>" class="etiqueta-ingresar"> <?php echo $usuario ?> <img src="img/user.png" alt=""> </a>
 
 </header>
 
-<section class="principal"> 
+   
+  <section class="principal"> 
     <div class="sidebar" >
          <a href="panel-profesional.php"><h1><?php echo $usuario ?><img src="img/default_avatar.png" alt=""></h1></a>
          <ul>
-             <li class="menu-paciente"><a href="editar-perfil-profesional.php">Editar Perfil</a></li>
+            <li class="menu-paciente"><a href="editar-perfil-profesional.php">Editar Perfil</a></li>
              <li class="menu-paciente"><a href="">Nuevo Turno</a></li>
              <li class="menu-paciente"><a href="">Ver Turnos</a></li>
              <li class="menu-paciente"><a href="">Modificar Turno</a></li>
@@ -102,25 +101,25 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
     </div>
     
     <div id="contenido">
-       <div id="titulo"><h1>Perfil de <?php echo $usuario ?></h1></div>
-       <article class="datos-personales">
-           <img src="img/default_avatar.png" alt="">
-            <ul>
-                <?php $nombre_apellido ="{$fila['nombres']} {$fila['apellidos']}";?>
-                <li><img src="img/icono-user.png" alt=""><span>Nombre de usuario:</span> <?php echo $usuario ?></li>
-                <li><img src="img/icono-nombre.png" alt=""><span>Nombre:</span> <?php echo utf8_encode($nombre_apellido) ?></li>
-                <li><img src="img/icono-mail.png" alt=""><span>E-mail:</span> <?php echo utf8_encode($fila ['correo']) ?></li>
-                <li><img src="img/icono-turno.png" alt=""><span>Turnos:</span> <?php echo $privilegio ?></li>
-            </ul>
-       </article>
-       <div class="turnos">
-           
-       </div>
+       <div id="titulo"><h1>Editar datos personales</h1></div>
+        <div id="contenedor_registro">
+        <img src="img/default_avatar.png" alt="">
+    <form action="actualizar-datos.php" method="post" class="form-register">
+    
+    <div class="contenedor-inputs">
+   
+    <input type="text"name="nombre" placeholder="Nombre" value="<?php echo $nombre ?>"  class="input-48" required></input>
+    <input type="text" name="apellidos" placeholder="Apellido" value="<?php echo $apellido ?>" class="input-48" required></input>
+    <input type="email" name="email" placeholder="E-mail" value="<?php echo $email ?>" class="input-100" required></input>
+    <input type="submit" value="Guardar" class="btn-enviar">
+</div>
+       
+   </div>
+       
     </div>
    </section> 
-
-
- <footer>
+       
+        <footer>
             <div class="contenedor">
                <p class="copy">Excelsius salud &copy; 2016</p>
                 <div class="sociales">

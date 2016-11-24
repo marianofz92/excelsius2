@@ -1,10 +1,13 @@
 <?php
 session_start();
 
+require_once('conn/connect.php');
+
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
     $usuario=$_SESSION['username']; 
-    $enlace='contacto.php';
+    $enlace='login.php';
+    
     
 } else {
     

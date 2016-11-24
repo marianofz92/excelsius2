@@ -78,7 +78,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                                     Programas de prevención. <br>
                                     Atención secundaria. <br>
                                     Medicamentos. <br>
-                                    Salud mental.s </li>
+                                    Salud mental.</li>
                                  <li>Dirección: Córdoba 1001 (San Miguel de Tucumán)</li>
                                  <li>Teléfonos: 0381-430-3583 / 0800-288-8432</li>
                                  <li>Web: <a href="http://www.osdepym.com.ar/index.html" target="_blank"> www.osdepym.com.ar</a></li>

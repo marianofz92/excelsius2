@@ -105,7 +105,7 @@ $update= $connect->query($insert) or die ("No se ha podido actualizar la pagina"
             <img src="data:image/jpg;base64,<?php echo base64_encode($fila['img']); ?>"/>                
        <div id="texto_resultados">
        <?php $nombre_apellido ="{$fila['nombre1']} {$fila['nombre2']} {$fila['apellido1']} {$fila['apellido2']} ";
-           $_SESSION['profes']=$nombre_apellido; ?>
+           $_SESSION['prof']=$nombre_apellido; ?>
         <h1><?php echo utf8_encode($nombre_apellido)?></h1>
         
         

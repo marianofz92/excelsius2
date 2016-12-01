@@ -32,6 +32,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         <link rel="stylesheet" href="css/estilos.css">
         <link rel="stylesheet" href="css/jquery-ui.min.css">
         <script src="js/jquery.js"></script>
+        script
+        
     
 </head>
 <body>
@@ -80,16 +82,18 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
   <div id="titulo">
       <p>SELECCIONE LA FECHA DEL TURNO CON <?php echo utf8_encode($_SESSION['prof'])  ?></p>
     </div> 
-    <form class="formulario" action="consultar-fecha.php" method="post" >
+    <form class="formulario" action="consultar-fecha.php" method="post" id="formulario" >
       
       <label >Fecha: </label> 
       <input id="lblfecha" class="fecha-inp"  placeholder="SELECCIONE LA FECHA DEL TURNO" type="text" required  name="lblfecha">
-      <input type="submit" value="CONSULTAR" class="btnconsulta" >
+      <input type="submit" value="CONSULTAR" class="btnconsulta"  id="btnconsultar">
      <script src="js/jquery-ui.min.js"></script>
+       <script src="js/datepicker-es.js"></script>
         <script>
-        $("#lblfecha").datepicker();
+        $("#lblfecha").datepicker( $.datepicker.regional[ "es" ]);
     
     </script>
+
       
   </form>
   <div id="resultado">

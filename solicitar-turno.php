@@ -100,8 +100,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
       <form action="" method="post" class="formulario-resultado" >
         <ul class="horarios">
             <li><p class="hora1"> HORA </p> <p class="estado1"> ESTADO</p> <p class="lugar1">LUGAR</p></li>
-            <li><p class="hora">08:00</p> <p class="estado"> DISPONIBLE</p> <p class="lugar">SAN JUAN 899</p></li>
-            <li><p class="hora">08:15</p> <p class="estado-nd">NO DISPONIBLE</p></li>
+            <li><p class="hora">08:00</p> <p class="estado"></p> <p class="lugar"></p></li>
+            <li><p class="hora">08:15</p> <p class="estado-nd"></p></li>
             <li><p class="hora">08:30</p></li>
             <li><p class="hora">08:45</p></li>
             <li><p class="hora">09:00</p></li>

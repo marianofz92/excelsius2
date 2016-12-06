@@ -47,7 +47,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
         <link rel="stylesheet" href="css/fontello.css">        
         <link rel="stylesheet" href="css/estilos.css">
-        <link rel="stylesheet" href="css/panel-medico.css">
+        <link rel="stylesheet" href="css/configurar-turno.css">
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
        
       
         
@@ -90,7 +91,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
 
 <section class="principal"> 
     <div class="sidebar" >
-         <a href="panel-profesional.php"><h1><?php echo $usuario ?><img src="img/default_avatar.png" alt=""></h1></a>
+         <a href="panel-profesional.php" id="sidebar-usuario"><h1><?php echo $usuario ?><img src="img/default_avatar.png" alt=""></h1></a>
          <ul>
              <li class="menu-paciente"><a href="editar-perfil-profesional.php">Editar Perfil</a></li>
              <li class="menu-paciente"><a href="">Nuevo Turno</a></li>
@@ -104,17 +105,100 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
     </div>
     
     <div id="contenido">
-       <div id="titulo"><h1>Perfil de <?php echo $usuario ?></h1></div>
-       <article class="datos-personales">
-           <img src="img/default_avatar.png" alt="">
-            <ul>
-                <?php $nombre_apellido ="{$fila['nombres']} {$fila['apellidos']}";?>
-                <li><img src="img/icono-user.png" alt=""><span>Nombre de usuario:</span> <?php echo $usuario ?></li>
-                <li><img src="img/icono-nombre.png" alt=""><span>Nombre:</span> <?php echo utf8_encode($nombre_apellido) ?></li>
-                <li><img src="img/icono-mail.png" alt=""><span>E-mail:</span> <?php echo utf8_encode($fila ['correo']) ?></li>
-                <li><img src="img/icono-turno.png" alt=""><span>Turnos:</span> <?php echo $privilegio ?></li>
-            </ul>
-       </article>
+       <div id="titulo"><h1>Configuración de turnos</h1></div>
+      
+       
+       <div class="container col-md-3">
+        <h4>Seleccione los días</h4>
+         <table>
+         <tbody>
+          <tr>
+              <td><div class="checkbox">
+                        <input id="checkbox1" type="checkbox" value="lunes">
+                        <label for="checkbox1">
+                           Lun
+                        </label>
+            </div></td>
+              <td><div class="checkbox">
+                        <input id="checkbox2" type="checkbox">
+                        <label for="checkbox2">
+                           Mar
+                        </label>
+            </div></td>
+              <td><div class="checkbox">
+                        <input id="checkbox3" type="checkbox">
+                        <label for="checkbox3">
+                           Mie
+                        </label>
+            </div></td>
+          </tr>
+
+          <tr>
+            <td><div class="checkbox">
+                        <input id="checkbox4" type="checkbox">
+                        <label for="checkbox4">
+                           Jue
+                        </label>
+            </div></td>
+            <td><div class="checkbox">
+                        <input id="checkbox5" type="checkbox">
+                        <label for="checkbox5">
+                           Vie
+                        </label>
+            </div></td>
+            <td><div class="checkbox">
+                        <input id="checkbox6" type="checkbox">
+                        <label for="checkbox6">
+                           Sab
+                        </label>
+            </div></td> 
+          </tr>
+          
+          <tr>
+              <td><div class="checkbox">
+                        <input id="checkbox7" type="checkbox">
+                        <label for="checkbox7">
+                           Dom
+                        </label>
+            </div></td>
+          </tr>
+          </tbody>
+           </table>
+       </div>
+       
+       <div class="container col-md-7" id="intervalos">
+        <h4>Seleccione un intervalo</h4>
+         <table>
+         <tbody>
+          <tr>
+              <td><div class="form-desde">
+                      <label for="desde">Desde</label>
+                      <select class="form-control" id="desde">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                      </select>
+                    </div>
+              </td>
+                    
+                    
+               <td><div class="form-hasta">
+                      <label for="hasta">Hasta</label>
+                      <select class="form-control" id="hasta">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                      </select>
+                    </div>
+              </td>
+          </tr>
+          </tbody>
+           </table>
+       </div>
+     
+      
        <div class="turnos">
            
        </div>

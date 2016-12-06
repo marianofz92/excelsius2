@@ -132,6 +132,13 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
       <a href="noticias/apertura-filial-osdepym.html"class="leer_mas">Leer más..</a>
      </article>
      
+     <article id="noticia11">
+      <img src="noticias/img-notic/dia-medico-img.jpg" alt=""> 
+         <h4> <a  class="titulo_link" href="noticias/dia-del-medico.html"><p class="fecha"> 3/12/2016</p>Acto por el día del médico</a></h4>
+      <p>Estuvimos presentes en el acto por el Día del Médico que se realizó en el Colegio Médico. El mismo contó con la presencia de autoridades de nuestro medio y..</p>
+      <a href="noticias/dia-del-medico.html"class="leer_mas">Leer más..</a>
+     </article>
+     
      </div>
     </section>   
  

@@ -1,5 +1,4 @@
-*{
-}
+
 #titulo{
     margin-top: 140px;
     padding-top: 30px;
@@ -65,7 +64,7 @@
     display: flex;
 }
 .hora{
-    width: 65px;
+    width:100px;
     text-align: center;
     height: 25px;
     background-color: #183152;

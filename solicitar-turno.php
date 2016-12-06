@@ -1,6 +1,7 @@
 <?php
-
+require_once('conn/connect.php');
 session_start();
+
 ?>
 <?php
 
@@ -32,7 +33,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         <link rel="stylesheet" href="css/estilos.css">
         <link rel="stylesheet" href="css/jquery-ui.min.css">
         <script src="js/jquery.js"></script>
-        script
+    
         
     
 </head>
@@ -82,10 +83,10 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
   <div id="titulo">
       <p>SELECCIONE LA FECHA DEL TURNO CON <?php echo utf8_encode($_SESSION['prof'])  ?></p>
     </div> 
-    <form class="formulario" action="consultar-fecha.php" method="post" id="formulario" >
+    <form class="formulario" method="post" id="formulario" >
       
       <label >Fecha: </label> 
-      <input id="lblfecha" class="fecha-inp"  placeholder="SELECCIONE LA FECHA DEL TURNO" type="text" required  name="lblfecha">
+      <input id="lblfecha" class="fecha-inp"  placeholder="SELECCIONE LA FECHA DEL TURNO"  type="text" required name="lblfecha">
       <input type="submit" value="CONSULTAR" class="btnconsulta"  id="btnconsultar">
      <script src="js/jquery-ui.min.js"></script>
        <script src="js/datepicker-es.js"></script>
@@ -98,35 +99,77 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
   </form>
   <div id="resultado">
       <form action="" method="post" class="formulario-resultado" >
-        <ul class="horarios">
-            <li><p class="hora1"> HORA </p> <p class="estado1"> ESTADO</p> <p class="lugar1">LUGAR</p></li>
-            <li><p class="hora">08:00</p> <p class="estado"></p> <p class="lugar"></p></li>
-            <li><p class="hora">08:15</p> <p class="estado-nd"></p></li>
-            <li><p class="hora">08:30</p></li>
-            <li><p class="hora">08:45</p></li>
-            <li><p class="hora">09:00</p></li>
-            <li><p class="hora">09:15</p></li>
-            <li><p class="hora">09:30</p></li>
-            <li><p class="hora">09:45</p></li>
-            <li><p class="hora">10:15</p></li>
-            <li><p class="hora">10:30</p></li>
-            <li><p class="hora">10:45</p></li>
-            <li><p class="hora">11:00</p></li>
-            <li><p class="hora">11:15</p></li>
-            <li><p class="hora">11:30</p></li>
-            <li><p class="hora">11:45</p></li>
-            <li><p class="hora">12:00</p></li>
-            <li><p class="hora">12:15</p></li>
-            <li><p class="hora">12:30</p></li>
-           
-       
-            
-            
-        </ul>
-          
-          
-      </form>
+             <?php
+    $id_profesional=$_SESSION['idprofesional'];
+ $consulta="SELECT * FROM config_horario INNER JOIN profesionales2 ON profesional_idProfesional =id_profesional AND profesional_idProfesional=$id_profesional";
+ $resultado=$connect->query($consulta);
+?>
+        <ul id="listas" class="horarios">
+         <li><p class="hora1"> HORA </p> <p class="estado1"> ESTADO</p> <p class="lugar1">LUGAR</p></li>
+<?php       
+  while($fila=mysqli_fetch_assoc($resultado))
+  { 
+   $desde=$fila['desde']; 
+   $hasta=$fila['hasta'];
+    $rango=$hasta-$desde;
+   $segundos_horaInicial=strtotime($desde);
+   $segundos_horaFinal=strtotime($hasta);
+   $segundos_intervalo= 15*60; //15 es la cantidad de minutos entre turno y turno.
+   
+
+while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su hora puntual.
+  {
+     $nuevaHora=date("H:i",$segundos_horaInicial);
+      ?> <li class="hora"><p> <?php echo $nuevaHora ?></p>
+    
+     </li>
+   <?php
+    $segundos_horaInicial=$segundos_horaInicial+$segundos_intervalo; 
+        
+  }//while de los rangos
+  }//while de los registros encontrados.
+    
+?>
+ </ul>
+</form>
   </div>
+ <script src="js/jquery-ui.min.js"></script>
+<?php
+$fecha=$_POST['lblfecha']; 
+list($dia, $mes, $anio)= explode ("/", $fecha);
+$fecha_consulta= $anio . '-' . $mes . '-' . $dia;
+
+$consulta2="SELECT * FROM turno WHERE '$fecha_consulta'=fecha";
+$resultado=$connect->query($consulta2);
+$total=mysqli_num_rows($resultado);
+
+echo $total;
+//recorer la tabla con los horarios primero y comparar ese horario. U obtener los horarios primero y fijarlos en la tabla.
+while($fila=mysqli_fetch_assoc($resultado))
+    
+{ 
+    
+    if($hora=$fila['hora']);
+    {
+    $estado='no disponible';
+    }
+    
+}
+
+    ?>
+  <script>
+      $(document).ready(function(){
+        $("#btnconsultar").click(function(){
+            
+		    $("#listas li").each(function(){
+        	    alert($(this).text())
+                
+        	});
+	});
+});
+     </script>
+
+  
  </div>
 </section>
 <footer>

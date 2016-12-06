@@ -1,5 +1,4 @@
 *{
-    box-sizing: border-box;
 }
 #titulo{
     margin-top: 140px;
@@ -51,6 +50,7 @@
     margin: 20px auto;
     overflow: scroll;
     overflow-x: hidden;
+ 
     
 }   
 
@@ -59,11 +59,10 @@
     
 }
 .horarios li{
-    height: 55px;
-    padding-top: 10px;
-    border: 0.1px solid  cadetblue;
+    height: 40px;
+    padding: 5px;
+    border: 0.1px solid gray;
     display: flex;
-    
 }
 .hora{
     width: 65px;
@@ -72,7 +71,6 @@
     background-color: #183152;
     color: white;
     padding: 2px;
-    margin-left: 5px;
 }
 .estado{
     margin-left: 100px;
@@ -82,10 +80,11 @@
 .estado-nd{
     margin-left: 100px;
     color: red;
+    margin-right: 100px;
 }
 .lugar{
+   
     margin-left: 250px;
-    width: 150px;
     
 }.hora1{
     width: 65px;
@@ -105,24 +104,6 @@
     
 }
 .horarios li:first-child{
-    background-color: #183152;
-    border-color: #183152;
-    
-}
-.solicitar{
-    border-style: none;
-    width:100px;
-    margin-left: 100px;
-    border-radius: 10px;
-    height: 30px;
     background-color: cadetblue;
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-    text-decoration: underline;
-}
-.solicitar:hover{
-    cursor: pointer;
-}
-.solicitar:active{
-    transform: scale(1.1);
+    border: none;
 }

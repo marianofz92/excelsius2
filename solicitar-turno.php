@@ -1,15 +1,14 @@
 <?php
 
 session_start();
-
 ?>
 <?php
+
 
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
     $usuario=$_SESSION['username']; 
     $enlace='panel-paciente.php';
-    
     
 } else {
     
@@ -19,7 +18,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
     exit;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -34,6 +32,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         <link rel="stylesheet" href="css/estilos.css">
         <link rel="stylesheet" href="css/jquery-ui.min.css">
         <script src="js/jquery.js"></script>
+        script
+        
     
 </head>
 <body>
@@ -78,34 +78,30 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
 </header>
 <section id="contenedor_s">
-
  <div id="contenido">
   <div id="titulo">
-     
-      <p>SELECCIONE LA FECHA DEL TURNO CON <?php echo utf8_encode($_SESSION['profes'])  ?></p>
+      <p>SELECCIONE LA FECHA DEL TURNO CON <?php echo utf8_encode($_SESSION['prof'])  ?></p>
     </div> 
-    <form class="formulario" action="consultar-fecha.php" method="post" >
+    <form class="formulario" action="consultar-fecha.php" method="post" id="formulario" >
       
       <label >Fecha: </label> 
       <input id="lblfecha" class="fecha-inp"  placeholder="SELECCIONE LA FECHA DEL TURNO" type="text" required  name="lblfecha">
-      
-      <input type="submit" value="CONSULTAR" class="btnconsulta" >
-      
+      <input type="submit" value="CONSULTAR" class="btnconsulta"  id="btnconsultar">
      <script src="js/jquery-ui.min.js"></script>
+       <script src="js/datepicker-es.js"></script>
         <script>
-        $("#lblfecha").datepicker();
+        $("#lblfecha").datepicker( $.datepicker.regional[ "es" ]);
     
     </script>
+
       
   </form>
   <div id="resultado">
-      <form action="confirmar.php" method="post" class="formulario-resultado" >
+      <form action="" method="post" class="formulario-resultado" >
         <ul class="horarios">
             <li><p class="hora1"> HORA </p> <p class="estado1"> ESTADO</p> <p class="lugar1">LUGAR</p></li>
-            <li><p class="hora">08:00</p> <p class="estado"> DISPONIBLE</p>  <p class="lugar">San Juan 889</p> <input class="solicitar" type="submit" value="SOLICITAR"></li>
-            <li> <p class="hora">08:15</p> <p class="estado-nd">NO DISPONIBLE</p> 
-            </li>   
-            
+            <li><p class="hora">08:00</p> <p class="estado"> DISPONIBLE</p> <p class="lugar">SAN JUAN 899</p></li>
+            <li><p class="hora">08:15</p> <p class="estado-nd">NO DISPONIBLE</p></li>
             <li><p class="hora">08:30</p></li>
             <li><p class="hora">08:45</p></li>
             <li><p class="hora">09:00</p></li>
@@ -122,23 +118,13 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             <li><p class="hora">12:00</p></li>
             <li><p class="hora">12:15</p></li>
             <li><p class="hora">12:30</p></li>
-            <li><p class="hora">13:00</p></li>
-            <li><p class="hora">13:15</p></li>
-            <li><p class="hora">13:30</p></li>
-            <li><p class="hora">13:45</p></li>
-            <li><p class="hora">14:00</p></li>
-            <li><p class="hora">16:00</p></li>
-            <li><p class="hora">16:15</p></li>
-            <li><p class="hora">16:30</p></li>
-            <li><p class="hora">17:00</p></li>
-            <li><p class="hora">17:15</p></li>
-            <li><p class="hora">17:30</p></li>
-            <li><p class="hora">17:45</p></li>
-            <li><p class="hora">18:00</p></li>
-            <li><p class="hora">18:15</p></li>
-                            
-        </ul>
            
+       
+            
+            
+        </ul>
+          
+          
       </form>
   </div>
  </div>

@@ -83,31 +83,63 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
   <div id="titulo">
       <p>SELECCIONE LA FECHA DEL TURNO CON <?php echo utf8_encode($_SESSION['prof'])  ?></p>
     </div> 
-    <form class="formulario" method="post" id="formulario" >
+    <form class="formulario"  method="post" id="formulario">
       
       <label >Fecha: </label> 
-      <input id="lblfecha" class="fecha-inp"  placeholder="SELECCIONE LA FECHA DEL TURNO"  type="text" required name="lblfecha">
-      <input type="submit" value="CONSULTAR" class="btnconsulta"  id="btnconsultar">
+      <input id="lblfecha" class="fecha-inp"  placeholder="SELECCIONE LA FECHA DEL TURNO"  type="text" required name="lblfechaa">
+      <input type="submit" value="CONSULTAR" class="btnconsulta"  id="btnconsultar" >
+      <input type="submit" value ="PROBAR" id="probar_btn">
      <script src="js/jquery-ui.min.js"></script>
        <script src="js/datepicker-es.js"></script>
         <script>
         $("#lblfecha").datepicker( $.datepicker.regional[ "es" ]);
     
     </script>
+    
+  </form>    
+  <script src="js/jquery-ui.min.js"></script>
 
-      
-  </form>
+  <script>
+      $(document).ready(function(){
+        $("#probar_btn").click(function(){
+            alert("<?php  echo cargarListaDias();?>"); 
+		    
+	});
+});
+     </script> 
   <div id="resultado">
+   
       <form action="" method="post" class="formulario-resultado" >
-             <?php
-    $id_profesional=$_SESSION['idprofesional'];
- $consulta="SELECT * FROM config_horario INNER JOIN profesionales2 ON profesional_idProfesional =id_profesional AND profesional_idProfesional=$id_profesional";
+<?php
+ 
+    function cargarListaDias()
+{
+        
+ $fecha=$_POST['lblfecha']; 
+list($dia, $mes, $anio)= explode ("/", $fecha);
+$fecha_consulta= $anio . '-' . $mes . '-' . $dia;
+$fechats=strtotime($fecha_consulta);
+switch (date('w', $fechats))
+{ 
+    case 0: $dia_c="Domingo"; break; 
+    case 1: $dia_c="Lunes"; break; 
+    case 2: $dia_c="Martes"; break; 
+    case 3: $dia_c="Miercoles"; break; 
+    case 4: $dia_c="Jueves"; break; 
+    case 5: $dia_c="Viernes"; break; 
+    case 6: $dia_c="Sabado"; break; 
+   
+}  
+ $id_profesional=$_SESSION['idprofesional'];  
+ $consulta="SELECT * FROM config_horario WHERE profesional_idProfesional=$id_profesional AND dia =$dia_c";
+//$consulta="SELECT * FROM config_horario INNER JOIN profesionales2 ON profesional_idProfesional =id_profesional AND profesional_idProfesional=$id_profesional AND dia =$dia_c"; ES NECESARIO EL JOIN????
  $resultado=$connect->query($consulta);
+    
 ?>
         <ul id="listas" class="horarios">
          <li><p class="hora1"> HORA </p> <p class="estado1"> ESTADO</p> <p class="lugar1">LUGAR</p></li>
 <?php       
-  while($fila=mysqli_fetch_assoc($resultado))
+  while($fila=mysqli_fetch_assoc($resultado)) // ACA SE DIVIDE POR RANGO
   { 
    $desde=$fila['desde']; 
    $hasta=$fila['hasta'];
@@ -121,53 +153,38 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
   {
      $nuevaHora=date("H:i",$segundos_horaInicial);
       ?> <li class="hora"><p> <?php echo $nuevaHora ?></p>
-    
+      <?php 
+          $consulta2="SELECT hora FROM turno WHERE profesional_idProfesional='$id_profesional' AND fecha='$fecha'";
+          $resultado2=$connect->query($consulta2);
+          while($fila2=mysqli_fetch_assoc($resultado2)) // TODOS LOS TURNOS DE ESE DIA Y SE ESE PROFESIONAL Y LOS COMPARA CON LA FECHA
+          {
+             if($fila2['hora']=$nuevaHora)//
+             {
+                echo "<p> NO DISPONIBLE </p>";
+                    
+             }
+    else
+    {
+        echo "<p> DISPONIBLE </p>";
+        
+    }
+          }
+               
+    ?> 
      </li>
    <?php
     $segundos_horaInicial=$segundos_horaInicial+$segundos_intervalo; 
         
   }//while de los rangos
   }//while de los registros encontrados.
-    
+}
+   
+  
 ?>
  </ul>
 </form>
   </div>
- <script src="js/jquery-ui.min.js"></script>
-<?php
-$fecha=$_POST['lblfecha']; 
-list($dia, $mes, $anio)= explode ("/", $fecha);
-$fecha_consulta= $anio . '-' . $mes . '-' . $dia;
-
-$consulta2="SELECT * FROM turno WHERE '$fecha_consulta'=fecha";
-$resultado=$connect->query($consulta2);
-$total=mysqli_num_rows($resultado);
-
-echo $total;
-//recorer la tabla con los horarios primero y comparar ese horario. U obtener los horarios primero y fijarlos en la tabla.
-while($fila=mysqli_fetch_assoc($resultado))
-    
-{ 
-    
-    if($hora=$fila['hora']);
-    {
-    $estado='no disponible';
-    }
-    
-}
-
-    ?>
-  <script>
-      $(document).ready(function(){
-        $("#btnconsultar").click(function(){
-            
-		    $("#listas li").each(function(){
-        	    alert($(this).text())
-                
-        	});
-	});
-});
-     </script>
+ 
 
   
  </div>

@@ -1,0 +1,27 @@
+body{
+    padding-top: 150px;
+}
+
+
+#contenido{
+    width: 75%;
+   height: 800px;
+    margin: auto;
+
+}
+
+#tabla{
+    height: 500px;
+    overflow: scroll
+}
+tbody td{
+    height: 50px;
+    vertical-align: middle;
+}
+thead{
+    background-color :cadetblue;
+    color: white;
+}
+.solic-turno{
+    
+}

@@ -83,12 +83,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
   <div id="titulo">
       <p>SELECCIONE LA FECHA DEL TURNO CON <?php echo utf8_encode($_SESSION['prof'])  ?></p>
     </div> 
-    <form class="formulario"  method="post" id="formulario">
+    <form class="formulario"  method="post" id="formulario" action="prueba-tabla.php">
       
       <label >Fecha: </label> 
-      <input id="lblfecha" class="fecha-inp"  placeholder="SELECCIONE LA FECHA DEL TURNO"  type="text" required name="lblfechaa">
+      <input id="lblfecha" class="fecha-inp"  placeholder="SELECCIONE LA FECHA DEL TURNO"  type="text" required name="lblfecha">
       <input type="submit" value="CONSULTAR" class="btnconsulta"  id="btnconsultar" >
-      <input type="submit" value ="PROBAR" id="probar_btn">
      <script src="js/jquery-ui.min.js"></script>
        <script src="js/datepicker-es.js"></script>
         <script>

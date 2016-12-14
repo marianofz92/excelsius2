@@ -18,7 +18,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     header('Location: http://localhost/excelsius2/inicie-sesion.html');
 
     exit;
-}
+}//VALIDACIONES PARA QUE NO SE PUEDA INGRESAR SI NO SE SELECCIONO ALGUM MEDICO.
 ?>
 
 <!DOCTYPE html>
@@ -108,78 +108,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
      </script> 
   <div id="resultado">
    
-      <form action="" method="post" class="formulario-resultado" >
-<?php
- 
-    function cargarListaDias()
-{
-        
- $fecha=$_POST['lblfecha']; 
-list($dia, $mes, $anio)= explode ("/", $fecha);
-$fecha_consulta= $anio . '-' . $mes . '-' . $dia;
-$fechats=strtotime($fecha_consulta);
-switch (date('w', $fechats))
-{ 
-    case 0: $dia_c="Domingo"; break; 
-    case 1: $dia_c="Lunes"; break; 
-    case 2: $dia_c="Martes"; break; 
-    case 3: $dia_c="Miercoles"; break; 
-    case 4: $dia_c="Jueves"; break; 
-    case 5: $dia_c="Viernes"; break; 
-    case 6: $dia_c="Sabado"; break; 
-   
-}  
- $id_profesional=$_SESSION['idprofesional'];  
- $consulta="SELECT * FROM config_horario WHERE profesional_idProfesional=$id_profesional AND dia =$dia_c";
-//$consulta="SELECT * FROM config_horario INNER JOIN profesionales2 ON profesional_idProfesional =id_profesional AND profesional_idProfesional=$id_profesional AND dia =$dia_c"; ES NECESARIO EL JOIN????
- $resultado=$connect->query($consulta);
-    
-?>
-        <ul id="listas" class="horarios">
-         <li><p class="hora1"> HORA </p> <p class="estado1"> ESTADO</p> <p class="lugar1">LUGAR</p></li>
-<?php       
-  while($fila=mysqli_fetch_assoc($resultado)) // ACA SE DIVIDE POR RANGO
-  { 
-   $desde=$fila['desde']; 
-   $hasta=$fila['hasta'];
-    $rango=$hasta-$desde;
-   $segundos_horaInicial=strtotime($desde);
-   $segundos_horaFinal=strtotime($hasta);
-   $segundos_intervalo= 15*60; //15 es la cantidad de minutos entre turno y turno.
-   
-
-while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su hora puntual.
-  {
-     $nuevaHora=date("H:i",$segundos_horaInicial);
-      ?> <li class="hora"><p> <?php echo $nuevaHora ?></p>
-      <?php 
-          $consulta2="SELECT hora FROM turno WHERE profesional_idProfesional='$id_profesional' AND fecha='$fecha'";
-          $resultado2=$connect->query($consulta2);
-          while($fila2=mysqli_fetch_assoc($resultado2)) // TODOS LOS TURNOS DE ESE DIA Y SE ESE PROFESIONAL Y LOS COMPARA CON LA FECHA
-          {
-             if($fila2['hora']=$nuevaHora)//
-             {
-                echo "<p> NO DISPONIBLE </p>";
-                    
-             }
-    else
-    {
-        echo "<p> DISPONIBLE </p>";
-        
-    }
-          }
-               
-    ?> 
-     </li>
-   <?php
-    $segundos_horaInicial=$segundos_horaInicial+$segundos_intervalo; 
-        
-  }//while de los rangos
-  }//while de los registros encontrados.
-}
-   
-  
-?>
+      <form action="" method="post" class="formulario-resultado" >  
  </ul>
 </form>
   </div>

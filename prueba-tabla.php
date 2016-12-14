@@ -81,6 +81,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 <?php
        
  $fecha=$_POST['lblfecha']; 
+ $_SESSION['fecha_pantalla']=$fecha;// AUMENTA LA SEGURIDAD AL ENVIAR VARIABLES X LA SESSION EN VEZ DE MANDARLA X METODO GET, YA QUE SE PODRIA ALTERAR EL DIA DE CONSULTA X UN DIA QUE EL PROFESIONAL NO ATIENDA ( EN GET). AL ALMACENAR EN LA SESSION NO TENDRA INTERACCION CON EL HORARIO. DE TODOS MODOS SE DEBERA VALIDAR AL MOMENTO DE CONFIRMAR EL TURNO. SOLO CAMBIARA  ESTA VARIABLE CUANDO SE SELECCIONE UNA FECHA DEL CALENDARIO.
 list($dia, $mes, $anio)= explode ("/", $fecha);
 $fecha_consulta= $anio . '-' . $mes . '-' . $dia;
 $fechats=strtotime($fecha_consulta);
@@ -98,7 +99,7 @@ switch (date('w', $fechats))
  $id_profesional=$_SESSION['idprofesional'];  
  $consulta1="SELECT * FROM config_horario WHERE profesional_idProfesional=$id_profesional AND dia ='$dia_c'";
 
-//$consulta="SELECT * FROM config_horario INNER JOIN profesionales2 ON profesional_idProfesional =id_profesional AND profesional_idProfesional=$id_profesional AND dia =$dia_c"; ES NECESARIO EL JOIN????
+//$consulta="SELECT * FROM config_horario INNER JOIN profesionales2 ON profesional_idProfesional =id_profesional AND profesional_idProfesional=$id_profesional AND dia =$dia_c"; ES NECESARIO EL JOIN????--------NO!
  $resultado1=$connect->query($consulta1);
    
     
@@ -109,10 +110,10 @@ switch (date('w', $fechats))
       <table class="table table-hover table-bordered">
     <thead>
         <tr>
-        <th>HORA</th>
-        <th>ESTADO</th>
-        <th>CONSULTORIO</th>
-        <th></th>
+        <th class="col-md-3">HORA</th>
+        <th class="col-md-3" >ESTADO</th>
+        <th class="col-md-3">CONSULTORIO</th>
+        <th class="col-md-3"></th>
         </tr>
     </thead>
     <tbody>
@@ -149,27 +150,23 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
      {
          $busca=1;
        
-         
      }
-       else//no se encontro, o sea que esta libre el turno y necesito saber el domicilio.
-       {
-           
-       }
-
+    
      }
     if($busca==1)
     {
-        echo '<td class="danger">OCUPADO</td>
+        echo '<td class="danger ocupado">OCUPADO</td>
              <td></td>
                <td></td>
         </tr>';
     }
     else
     { //TURNO LIBRE. TENGO TODO LO Q NECESITO PARA SACAR EL TURNO (DOMICILIO, HORA)
-        echo '<td class="success">DISPONIBLE</td>';
+        echo '<td class="success disponible">DISPONIBLE</td>';
         echo '<td>';echo $domicilio_rango;echo'</td>';
-        echo '<td><a class="solic-turno" href="">SOLICITAR TURNO</a> </td>
+        echo '<td><a class="solic-turno"href="confirmar-turno.php?hora=';echo $nuevaHora;echo'&domicilio=';echo $domicilio_rango;echo'">SOLICITAR TURNO</a> </td>
         </tr>';
+      
         
     }
     

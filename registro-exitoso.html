@@ -1,13 +1,52 @@
+ <?php
+session_start();
+require_once('conn/connect.php');
+?>
+<?php
+
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+    $usuario=$_SESSION['username']; 
+    $consulta="SELECT * FROM usuario WHERE nombre_usuario ='$usuario'";
+    $resultado=$connect->query($consulta);
+    $fila=mysqli_fetch_assoc($resultado);
+    $privilegio=$fila['privilegio'];
+    if($privilegio ==1)//MEDICO TIENE PRIVILEGIO 1
+    {
+        $enlace='panel-profesional.php';
+    }
+    else{//ES PACIENTE (por ahora, luego se implementaran secretarias.)
+        $enlace='panel-paciente.php';
+    }
+    
+    
+}
+else {
+    
+    $usuario='Ingresar';
+    $enlace='login.php';
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
         <title>Excelsius Salud</title>
         <link rel="shortcut icon" href="img/icono.ico">
         <meta charset="utf-8">
+        <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+        <script type="text/javascript" src="js/ajax.js"></script>
+        <link rel="stylesheet" href="css/estilo-buscador.css">
+        
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
-        <link rel="stylesheet" href="css/fontello.css">
+        <link rel="stylesheet" href="css/fontello.css">        
         <link rel="stylesheet" href="css/estilos.css">
-        <link rel="stylesheet" href="css/gracias.css">
+        <link rel="stylesheet" href="css/servicios_index.css">
+      
+        
+        <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+         <script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
+       
+        
+        
     </head>
     <body>
         <header>
@@ -23,6 +62,7 @@
 
 <ul> 
 
+<li id="item-ingresar"><a href="<?php echo $enlace ?>"><?php echo $usuario ?><img src="img/user.png" alt=""></a></li>
 <li><a href="index.php">Inicio</a></li>
 <li><a href="nosotros.php">Nosotros</a></li>
 <li><a href="profesionales.php">Profesionales</a></li>
@@ -30,26 +70,14 @@
 <li><a href="servicios.php">Servicios</a></li>
 <li><a href="noticias.php">Noticias</a></li>
 <li><a href="contacto.php">Contacto</a></li>
-<li class="submenu"><a href="index.php#equipo_m">Buscar<span class="icon-search"></span></a></li>
-<ul>
-<li>Especialidad<select name="" id="">
-<option value="">Cardiología</option>
-<option value="">Odontología</option>
-</select>
+<li class="submenu"><a href="javascript:$.scrollTo('#equipo_m',700); ">Buscar<span class="icon-search"></span></a></li>
 </li>
-<li id="nombre-buscador">Nombre<input type="text"><input type="submit" value="Buscar" id="buscar-menu"></li>
-
-</ul> 
-</li>
-
-</ul> 
 </nav> 
 </div>
 
-<a href="login.php" class="etiqueta-ingresar"> Ingresar<img src="img/user.png" alt=""> </a>
+<a href="<?php echo $enlace ?>" class="etiqueta-ingresar"> <?php echo $usuario ?> <img src="img/user.png" alt=""> </a>
 
 </header>
-        
        <main>
            <section id="mensaje">
                 <div class="contenedor">

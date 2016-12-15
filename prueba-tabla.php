@@ -97,8 +97,7 @@ switch (date('w', $fechats))
    
 }  
  $id_profesional=$_SESSION['idprofesional'];  
- $consulta1="SELECT * FROM config_horario WHERE profesional_idProfesional=$id_profesional AND dia ='$dia_c'";
-
+ $consulta1="SELECT * FROM config_horario WHERE dia ='$dia_c' AND profesional_idProfesional=$id_profesional  ORDER BY  'desde' ASC";
 //$consulta="SELECT * FROM config_horario INNER JOIN profesionales2 ON profesional_idProfesional =id_profesional AND profesional_idProfesional=$id_profesional AND dia =$dia_c"; ES NECESARIO EL JOIN????--------NO!
  $resultado1=$connect->query($consulta1);
    
@@ -124,7 +123,20 @@ switch (date('w', $fechats))
    $desde=$fila1['desde']; 
    $hasta=$fila1['hasta'];
   $domicilio_rango=$fila1['Domicilio_idDomicilio'];
-    $rango=$hasta-$desde;
+  $consulta4="SELECT * FROM domicilio WHERE id_domicilio =$domicilio_rango";
+  $resultado4=$connect->query($consulta4);
+  $fila4=mysqli_fetch_assoc($resultado4);
+  if($fila4['tipo']=='departamento')
+  {
+      $domicilio_consulta="{$fila4['calle']} {$fila4['numero']} Piso:{$fila4['piso']} Dpto: {$fila4['dpto']} ";
+      
+  }
+      else
+      {
+          $domicilio_consulta="{$fila4['calle']} {$fila4['numero']}";
+      }
+      
+   
    $segundos_horaInicial=strtotime($desde);
    $segundos_horaFinal=strtotime($hasta);
    $segundos_intervalo= 15*60; //15 es la cantidad de minutos entre turno y turno.
@@ -163,8 +175,8 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
     else
     { //TURNO LIBRE. TENGO TODO LO Q NECESITO PARA SACAR EL TURNO (DOMICILIO, HORA)
         echo '<td class="success disponible">DISPONIBLE</td>';
-        echo '<td>';echo $domicilio_rango;echo'</td>';
-        echo '<td><a class="solic-turno"href="confirmar-turno.php?hora=';echo $nuevaHora;echo'&domicilio=';echo $domicilio_rango;echo'">SOLICITAR TURNO</a> </td>
+        echo '<td>';echo $domicilio_consulta;echo'</td>';
+        echo '<td><a class="solic-turno"href="confirmar-turno.php?hora=';echo $nuevaHora;echo'&domicilio=';echo $domicilio_consulta;echo'">SOLICITAR TURNO</a> </td>
         </tr>';
       
         

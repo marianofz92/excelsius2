@@ -88,6 +88,7 @@ else {
                       <label>FECHA:<?php echo $fecha ?></label><br>
                       <label>HORA:<?php echo $hora ?></label><br>
                       <label>PROFESIONAL:<?php echo utf8_encode($profesional)?></label><br>
+                      <label>DOMICILIO CONSULTA:<?php echo utf8_encode($domicilio)?></label><br>
                        <label>OBRA SOCIAL:</label><input type="text" class="input-obra" name="obrasocial" id="obrasocial" required placeholder="Ingrese su obra social" > <br>
                       <label>USUARIO:<?php echo $usuario; ?></label><br>    
                       <?php

@@ -1,14 +1,28 @@
-<?php
+    <?php
 session_start();
+require_once('conn/connect.php');
+?>
+<?php
 
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-
     $usuario=$_SESSION['username']; 
-    $enlace='panel-paciente.php';
+    $consulta="SELECT * FROM usuario WHERE nombre_usuario ='$usuario'";
+    $resultado=$connect->query($consulta);
+    $fila=mysqli_fetch_assoc($resultado);
+    $privilegio=$fila['privilegio'];
+    if($privilegio ==1)//MEDICO TIENE PRIVILEGIO 1
+    {
+        $enlace='panel-profesional.php';
+    }
+    else{//ES PACIENTE (por ahora, luego se implementaran secretarias.)
+        $enlace='panel-paciente.php';
+    }
     
-} else {
     
-    $usuario='ingresar';
+}
+else {
+    
+    $usuario='Ingresar';
     $enlace='login.php';
 }
 ?>

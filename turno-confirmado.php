@@ -1,25 +1,32 @@
 <?php
 require_once('conn/connect.php');
 session_start();
-//PRIMERO HACER VALIDACION QUE EL TURNO NO SE ENCUENTRE ASIGNADO EN EL MISMO MOMENTO. CASO CONTRATIO, ELSE---->
+
 $fecha=$_SESSION['fecha_turno'];
 $hora=$_SESSION['hora_turno'];
 $id_usuario=$_SESSION['id_usuario'];   
 $ide_profe=$_SESSION['id_profesional_turno'];
 $domicilio=$_SESSION['domicilio_turno'];  
+$consulta2="SELECT id_turno FROM turno WHERE fecha ='$fecha' AND hora='$hora' AND profesional_idProfesional=$ide_profe";
+$resultado2=$connect->query($consulta2);
+
+if(mysqli_num_rows($resultado2)!=0)//encontro algo
+{
+   header('Location: http://localhost:8080/excelsius2/error-turno.php');
+    
+    
+}
+else{
 
 
 $consulta="INSERT INTO turno(fecha,hora,estado,usuario_idUsuario,profesional_idProfesional, domicilio) VALUES ('$fecha','$hora','asignado', $id_usuario, $ide_profe, '$domicilio')";
 $resultado=$connect->query($consulta);
 if($resultado>0)
-echo 'turno registrado con exito';
+{
+    header('Location: http://localhost:8080/excelsius2/turno-exitoso.php');
+}
 
-
-
-
-
-
-
+}
 
 
 ?>

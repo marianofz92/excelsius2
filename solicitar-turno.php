@@ -18,7 +18,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     header('Location: http://localhost/excelsius2/inicie-sesion.html');
 
     exit;
-}//VALIDACIONES PARA QUE NO SE PUEDA INGRESAR SI NO SE SELECCIONO ALGUM MEDICO.
+}//VALIDACIONES PARA QUE NO SE PUEDA INGRESAR SI NO SE SELECCIONO ALGUM MEDICO.<--------------EXACTO!!
 ?>
 
 <!DOCTYPE html>

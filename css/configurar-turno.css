@@ -133,7 +133,7 @@
     }
     
     #contenido {
-        margin-top: 380px;
+        margin-top: 420px;
         margin-left: 20px;
         margin-right: 20px;
         
@@ -219,7 +219,7 @@ footer a:hover {
 */
 
 .checkbox {
-    width: 60px
+    width: 60px;
 }
 
 .checkbox input {
@@ -236,6 +236,10 @@ table {
     height: 100px;
 }
 
+#dias-turnos, #intervalos, #direcciones {
+    background-color: rgba(95, 158, 160, .4);
+}
+
 .container h4 {
     width: 100%;
     text-align: center;
@@ -244,7 +248,7 @@ table {
 }
 
 #intervalos {
-    margin-left: 40px;
+    margin-left: 30px;
 }
 
 #intervalos tr input {
@@ -252,9 +256,6 @@ table {
     height: 30px;
 }
 
-#intervalos td {
-    
-}
 
 .form-desde {
     margin-right: 10px;
@@ -264,5 +265,28 @@ table {
     margin-left: 10px;
 }
 
+#direcciones {
+    margin-left: 30px;
+}
+
+#seleccionar-datos button {
+    margin-top: 40px;
+    float: right;
+    margin-right: 35px;
+    width: 180px
+}
+
+#turnos {
+    margin-top: 40px;
+    display: none;
+}
+
+#guardar {
+    margin-top: 30px;
+    float: right;
+    margin-right: 40px;
+    display: none;
+}
 
 
+/* con js hacer que se aumente el margin-bottom del contenedor mas grande o aumentar el height

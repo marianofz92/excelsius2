@@ -13,6 +13,10 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
     $resultado=$connect->query($consulta);
     $fila= mysqli_fetch_assoc($resultado);
     
+    //$consulta2 =""
+    //$resultado=$connect->query($consulta);
+    //$fila= mysqli_fetch_assoc($resultado);
+    
 } else {
     
             if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']!=1) {
@@ -26,7 +30,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
                  $usuario='Ingresar';
                  $enlace='login.php';
                  header('Location: http://localhost/github/excelsius2/inicie-sesion.html');
-    
     
             
             }
@@ -107,26 +110,26 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
     <div id="contenido">
        <div id="titulo"><h1>Configuración de turnos</h1></div>
       
-       
-       <div class="container col-md-3">
+      <div class="container-fluid col-md-12 col-sm-12" id="seleccionar-datos"> 
+       <div class="container col-md-3" id="dias-turnos">
         <h4>Seleccione los días</h4>
          <table>
          <tbody>
           <tr>
               <td><div class="checkbox">
-                        <input id="checkbox1" type="checkbox" value="lunes">
+                        <input id="checkbox1" type="checkbox" name="orderbox[]" value="Lunes">
                         <label for="checkbox1">
                            Lun
                         </label>
             </div></td>
               <td><div class="checkbox">
-                        <input id="checkbox2" type="checkbox">
+                        <input id="checkbox2" type="checkbox" name="orderbox[]" value="Martes">
                         <label for="checkbox2">
                            Mar
                         </label>
             </div></td>
               <td><div class="checkbox">
-                        <input id="checkbox3" type="checkbox">
+                        <input id="checkbox3" type="checkbox" name="orderbox[]" value="Miercoles">
                         <label for="checkbox3">
                            Mie
                         </label>
@@ -135,19 +138,19 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
 
           <tr>
             <td><div class="checkbox">
-                        <input id="checkbox4" type="checkbox">
+                        <input id="checkbox4" type="checkbox" name="orderbox[]" value="Jueves">
                         <label for="checkbox4">
                            Jue
                         </label>
             </div></td>
             <td><div class="checkbox">
-                        <input id="checkbox5" type="checkbox">
+                        <input id="checkbox5" type="checkbox" name="orderbox[]" value="Viernes">
                         <label for="checkbox5">
                            Vie
                         </label>
             </div></td>
             <td><div class="checkbox">
-                        <input id="checkbox6" type="checkbox">
+                        <input id="checkbox6" type="checkbox" name="orderbox[]" value="Sabado">
                         <label for="checkbox6">
                            Sab
                         </label>
@@ -156,7 +159,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
           
           <tr>
               <td><div class="checkbox">
-                        <input id="checkbox7" type="checkbox">
+                        <input id="checkbox7" type="checkbox" name="orderbox[]" value="Domingo">
                         <label for="checkbox7">
                            Dom
                         </label>
@@ -166,7 +169,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
            </table>
        </div>
        
-       <div class="container col-md-7" id="intervalos">
+       <div class="container col-md-3" id="intervalos">
         <h4>Seleccione un intervalo</h4>
          <table>
          <tbody>
@@ -174,10 +177,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
               <td><div class="form-desde">
                       <label for="desde">Desde</label>
                       <select class="form-control" id="desde">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
+                        <option>01:00</option>
+                        <option>02:00</option>
+                        <option>03:00</option>
+                        <option>04:00</option>
+                        <option>05:00</option>
                       </select>
                     </div>
               </td>
@@ -186,10 +190,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
                <td><div class="form-hasta">
                       <label for="hasta">Hasta</label>
                       <select class="form-control" id="hasta">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
+                        <option>01:00</option>
+                        <option>02:00</option>
+                        <option>03:00</option>
+                        <option>04:00</option>
+                        <option>05:00</option>
                       </select>
                     </div>
               </td>
@@ -197,15 +202,118 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
           </tbody>
            </table>
        </div>
-     
+       
+       <div class="container col-md-4" id="direcciones">
+        <h4>Seleccione un domicilio</h4>
+         <table>
+         <tbody>
+          <tr>
+              <td><div class="form-direccion">
+                      <select class="form-control" id="direccion">
+                        <option>san juan 889</option>
+                        <option>balcarce 441</option>
+                        <option>cordoba 215</option>
+                      </select>
+                    </div>
+              </td>
+          </tr>
+              </tbody>
+               </table>
+           </div>
+    <button  onclick="mostrarTabla(); agregar();"  type="button" class="btn btn-primary">Agregar</button>
+
+ </div> 
       
-       <div class="turnos">
-           
-       </div>
+        
+      <div id="turnos" class="turnos-disponibles container col-md-11">
+       <form action="guardar-config-turnos.php" method="POST" id="enviar-turnos" >
+        <table  class="table table-hover" id="turnos-config">
+           <thead>
+               <th>día</th>
+               <th>horario</th>
+               <th>dirección</th>
+               <th></th>
+           </thead>
+            <tbody>
+                <tr>
+            </tbody>
+        </table>
+        <script src="tabla-configuracion-turnos.js"></script>
+        </form>
+      </div>
+      
+      <button id="guardar" class="btn btn-primary" >Guardar configuración</button>
+     
+      <div id='response'></div>
+     
+      <script>
+          
+        $(function () {
+            $("#guardar").click(function () 
+            {
+                 var campo1='', campo2='', campo3='';
+                 var fila = '';
+                 var n = 0;
+                 var m =0;
+                 var filas = '';
+                
+                $("#turnos-config tbody tr").each(function (index) 
+                {
+                    n = index;
+                    $(this).children("td").each(function (index2) 
+                    {
+                        m = index2; 
+                        switch (index2) 
+                        {
+                            case 0: campo1 = $(this).text();
+                                    break;
+                            case 1: campo2 = $(this).text();
+                                    break;
+                            case 2: campo3 = $(this).text();
+                                    break;       
+                        }
+                     fila = campo1 + ' - ' + campo2 + ' -- ' + campo3;
+                        
+                       
+                    })
+                     
+                    //filas =  
+                    filas = (filas + ' / ' + fila); 
+                    //alert(campo1 + ' - ' + campo2 + ' - ' + campo3);
+                     //alert(fila);
+                    
+                })
+               /* var i = 0;
+                var j = 0;
+                
+               for(i=0; i<n; i++){
+                   for(j=0; j<m; j++){
+                       alert(filas[i][j]);
+                   }
+               } */
+                alert(filas);
+                $.ajax({
+                                    type: 'get', 
+                                    url: 'guardar-config-turnos.php?filas='+ filas,
+                                    success: function(data){
+                                        $("#response") .html(data)
+                                    },
+                                    error: function(data){
+                                    $("#response") .html(data) 
+                                    }
+                        })
+            })
+        })
+
+        
+      </script>
+
+     
     </div>
+    
+      
    </section> 
-
-
+ 
  <footer>
             <div class="contenedor">
                <p class="copy">Excelsius salud &copy; 2016</p>
@@ -216,5 +324,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
                 </div>
             </div>
         </footer>  
+        
+        <script src="js/jquery.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
     </body>
 </html>

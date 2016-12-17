@@ -146,6 +146,14 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
       <a href="noticias/dia-del-medico.html"class="leer_mas">Leer más..</a>
      </article>
      
+      <article id="noticia12">
+      <img src="img/fotos/ruiz-pinto.jpg" alt=""> 
+         <h4> <a  class="titulo_link" href="noticias/naturaleza-fuente-vida.html"><p class="fecha"> 10/12/2016</p>Acto por el día del médico</a></h4>
+      <p>La naturaleza es nuestra fuente de vida, en la cual el hombre, encontró su alimento, su hábitat y conservación. El
+      agua indispensable para los seres vivos...</p>
+      <a href="noticias/naturaleza-fuente-vida.html"class="leer_mas">Leer más..</a>
+     </article>
+     
      </div>
     </section>   
  

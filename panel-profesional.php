@@ -94,7 +94,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
          <ul>
              <li class="menu-paciente"><a href="editar-perfil-profesional.php">Editar Perfil</a></li>
              <li class="menu-paciente"><a href="">Nuevo Turno</a></li>
-             <li class="menu-paciente"><a href="">Configuración de turnos</a></li>
+             <li class="menu-paciente"><a href="configurar-turno.php">Configuración de turnos</a></li>
              <li class="menu-paciente"><a href="">Ver Turnos</a></li>
              <li class="menu-paciente"><a href="">Modificar Turno</a></li>
              <li class="menu-paciente"><a href="">Eliminar Turno</a></li>

@@ -126,7 +126,6 @@ else {
                 <input placeholder="Ingresa nombre, apellido o especialidad.." type="text" name="search" id="search">
 
 
-
             </form>
        </div>
     <div id="resultados" class="formato-resultados"></div>

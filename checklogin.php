@@ -40,9 +40,14 @@ if ($password == $row['clave']) {
     $consulta ="SELECT * FROM usuario WHERE nombre_usuario ='$username'";
     $resultado=$connect->query($consulta);
     $fila= mysqli_fetch_assoc($resultado);
+    $privilegio=$fila['privilegio'];
     $_SESSION['privilegio']=$fila['privilegio'];
+    $_SESSION['id_usuario']=$fila['id_usuario'];
+    
+        
 
-   header('Location: http://localhost/github/excelsius2/index.php');
+   header('Location: http://localhost:8080/excelsius2/index.php');
+    
 
 } else {
     echo "Username o Password estan incorrectos.";

@@ -19,21 +19,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         <title>Excelsius Salud</title>
         <link rel="shortcut icon" href="img/icono.ico">
         <meta charset="utf-8">
-        <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
-        <script type="text/javascript" src="js/ajax.js"></script>
-        <link rel="stylesheet" href="css/estilo-buscador.css">
-        
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
         <link rel="stylesheet" href="css/fontello.css">        
         <link rel="stylesheet" href="css/estilos.css">
         <link rel="stylesheet" href="css/registro.css">
-      
-        
-        <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
-         <script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
-       
-        
-        
+     
     </head>
     <body>
         <header>

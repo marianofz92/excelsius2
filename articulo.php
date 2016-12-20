@@ -114,7 +114,29 @@ $update= $connect->query($insert) or die ("No se ha podido actualizar la pagina"
             <li>Especialidad: <?php echo utf8_encode ($fila['especialidad'])?> </li>
             <li> <?php echo utf8_encode ($fila['descripcion'])?> </li>
             <li>Teléfono: <?php echo $fila['telefono']?></li>
-            <li>Dirección: <?php echo utf8_encode ($fila['domicilio_laboral'])?></li>
+            <?php
+    $consulta_dom="SELECT * FROM profesional_domicilio  INNER JOIN domicilio ON domicilio_idDomicilio=id_domicilio AND profesional_idProfesional=$id_profesional";
+    $resultado_dom=$connect->query($consulta_dom);
+       echo '<li>Domicilio: ';   
+            
+     
+     while($fila_dom=mysqli_fetch_assoc($resultado_dom)){
+         if($fila_dom['tipo']=='casa')
+         {
+             echo $fila_dom['calle']; echo ' '; echo $fila_dom['numero'];echo '.'; echo'<br>';
+         }
+         
+         else
+         {
+             echo $fila_dom['calle']; echo ' '; echo $fila_dom['numero']; echo ' Piso: ' ;echo $fila_dom['piso']; echo ' Departamento: '; echo $fila_dom['dpto'];echo '.';
+             echo'<br>';
+                
+         }
+        
+     } 
+            echo'</li>';
+    ?>
+          
             <li>Mail: <?php echo $fila['mail']?></li>
             <li>Visitas: <?php echo $fila['visitas']?></li>
             <li>Otro: <?php echo utf8_encode ($fila['otro'])?></li>
@@ -131,9 +153,10 @@ $update= $connect->query($insert) or die ("No se ha podido actualizar la pagina"
            </section>
            
            <section  id="mapa-street">
+
                <h4>Ubicación</h4>
-               <iframe src="<?php echo $fila['maps']?>" allowfullscreen></iframe>
-               <iframe src="<?php echo  $fila['street']?>" allowfullscreen></iframe>
+               <iframe src="<?php echo $fila_dom['maps']?>" allowfullscreen></iframe>
+               <iframe src="<?php echo  $fila_dom['street']?>" allowfullscreen></iframe>
            </section>
 
   

@@ -115,7 +115,7 @@ switch (date('w', $fechats))
     case 6: $dia_c="Sabado"; break; 
    
 }  
- $id_profesional=$_SESSION['idprofesional'];  
+ $id_profesional=$_SESSION['id_profesional_sesion'];  
  $consulta1="SELECT * FROM config_horario WHERE dia ='$dia_c' AND profesional_idProfesional=$id_profesional  ORDER BY  'desde' ASC";
 //$consulta="SELECT * FROM config_horario INNER JOIN profesionales2 ON profesional_idProfesional =id_profesional AND profesional_idProfesional=$id_profesional AND dia =$dia_c"; ES NECESARIO EL JOIN????--------NO!
  $resultado1=$connect->query($consulta1);
@@ -177,6 +177,7 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
     
    while($fila2=mysqli_fetch_assoc($resultado2))//compara la cantidad de turnos del dia con la hora(nuevahora)
     {  
+       $obra_social=$fila2['obra_social'];
        
      if($fila2['hora']==$nuevaHora)
      {
@@ -190,7 +191,7 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
         echo '<td class="danger ocupado">OCUPADO</td>';
              echo '<td>';echo $domicilio_consulta;echo'</td>';
             echo '<td>PACIENTE</td>';
-            echo '<td>O.SOCIAL</td>';
+            echo '<td>';echo $obra_social ;echo'</td>';
         echo '</tr>';
     }
     else
@@ -200,7 +201,7 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
       //  echo '<td><a class="solic-turno"href="confirmar-turno.php?hora=';echo $nuevaHora;echo'&domicilio=';echo $domicilio_consulta;echo'">SOLICITAR TURNO</a> </td>
         //</tr>';
        echo '<td>PACIENTE</td>';
-            echo '<td>O.SOCIAL</td>';
+      echo '<td>';echo '';echo'</td>';
         echo '</tr>';
         
     }

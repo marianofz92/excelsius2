@@ -100,10 +100,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
        
        <div id="titulo">
       <p>SELECCIONE LA FECHA PARA CONSULTAR SUS TURNOS:</p>
+     
     </div> 
     <form class="formulario"  method="post" id="formulario" action="listar-turnos-profesional.php">
       
       <label >Fecha: </label> 
+      
       <input id="fecha_ver_turnos" class="fecha-inp"  placeholder="SELECCIONE LA FECHA DEL TURNO"  type="text" required name="fecha_ver_turnos">
       <input type="submit" value="CONSULTAR" class="btnconsulta"  id="btnconsultar" >
      <script src="js/jquery-ui.min.js"></script>

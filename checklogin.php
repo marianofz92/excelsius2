@@ -41,8 +41,19 @@ if ($password == $row['clave']) {
     $resultado=$connect->query($consulta);
     $fila= mysqli_fetch_assoc($resultado);
     $privilegio=$fila['privilegio'];
-    $_SESSION['privilegio']=$fila['privilegio'];
-    $_SESSION['id_usuario']=$fila['id_usuario'];
+    $id_usuario=$fila['id_usuario'];
+    $_SESSION['privilegio']=$privilegio;
+    $_SESSION['id_usuario']=$id_usuario;
+    if($privilegio==1)
+    {
+    
+    $consulta3="SELECT id_profesional FROM profesionales2 WHERE usuario_idUsuario=$id_usuario";
+    $resultado3=$connect->query($consulta3);
+    $fila3= mysqli_fetch_assoc($resultado3);
+    $id_profesional_session=$fila3['id_profesional'];
+    $_SESSION['id_profesional_sesion'] = $id_profesional_session;
+       
+    }
 
    header('Location: http://localhost/github/excelsius2/index.php');
 

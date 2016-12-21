@@ -113,7 +113,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
                 <li><img src="img/icono-nombre.png" alt=""><span>Nombre:</span> <?php echo utf8_encode($nombre_apellido) ?></li>
                 <li><img src="img/icono-mail.png" alt=""><span>E-mail:</span> <?php echo utf8_encode($fila ['correo']) ?></li>
                 <li><img src="img/icono-turno.png" alt=""><span>Turnos:</span> <?php echo $privilegio ?></li>
-            </ul>
+      
        </article>
        <div class="turnos">
            

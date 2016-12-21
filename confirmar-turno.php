@@ -82,15 +82,19 @@ else {
                  $fecha_consulta= $anio . '-' . $mes . '-' . $dia; 
                     ?>
                     <div id="formulario">
-                    
                    <form action="turno-confirmado.php" method="post" class="form-confirmacion">
                       <h1 class="cabecera">CONFIRME SU TURNO</h1>
+                     <div class="contenedor-inputs">
+
+                      <p>Por favor verifique los datos de su turno:</p>
                       <label>FECHA:<?php echo $fecha ?></label><br>
                       <label>HORA:<?php echo $hora ?></label><br>
+                      
                       <label>PROFESIONAL:<?php echo utf8_encode($profesional)?></label><br>
                       <label>DOMICILIO CONSULTA:<?php echo utf8_encode($domicilio)?></label><br>
                        <label>OBRA SOCIAL:</label><input type="text" class="input-obra" name="obrasocial" id="obrasocial" required placeholder="Ingrese su obra social" > <br>
-                      <label>USUARIO:<?php echo $usuario; ?></label><br>    
+                      <label>USUARIO:<?php echo $usuario; ?></label><br>   
+                      
                       <?php
                        
     $consulta1 ="SELECT * FROM usuario WHERE nombre_usuario ='$usuario'";
@@ -99,10 +103,8 @@ else {
     $nombres=$fila['nombres'];
     $apellidos=$fila['apellidos'];
     $mail=$fila['correo'];
-    $id_usuario=$fila['id_usuario'];
     $_SESSION['fecha_turno']=$fecha_consulta;
-    $_SESSION['hora_turno']=$hora;
-    $_SESSION['id_usuario']=$id_usuario;            
+    $_SESSION['hora_turno']=$hora;           
     $_SESSION['id_profesional_turno']=$ide; 
     $_SESSION['domicilio_turno']=$domicilio;       
                        
@@ -110,10 +112,10 @@ else {
                       <label>NOMBRE:<?php echo $nombres ?></label><br>
                       <label>APELLIDO:<?php echo $apellidos ?></label><br>
                       <label>CORREO: <?php echo $mail?></label>
-                       <br><input type="submit" value="CONFIRMAR" class="btn-confirmar">
-                       
+                       <input type="submit" value="CONFIRMAR" class="btn-confirmar">
+                    <div class="link-form">¿Desea modificar su consulta? <a href="profesionales.php">Clic aquí.</a></div>
                    </form>
-                  
+                  </div>
                     </div>
                 </div>
            

@@ -7,6 +7,7 @@ $hora=$_SESSION['hora_turno'];
 $id_usuario=$_SESSION['id_usuario'];   
 $ide_profe=$_SESSION['id_profesional_turno'];
 $domicilio=$_SESSION['domicilio_turno'];  
+$obra_social=$_POST['obrasocial'];
 $consulta2="SELECT id_turno FROM turno WHERE fecha ='$fecha' AND hora='$hora' AND profesional_idProfesional=$ide_profe";
 $resultado2=$connect->query($consulta2);
 
@@ -19,7 +20,7 @@ if(mysqli_num_rows($resultado2)!=0)//encontro algo
 else{
 
 
-$consulta="INSERT INTO turno(fecha,hora,estado,usuario_idUsuario,profesional_idProfesional, domicilio) VALUES ('$fecha','$hora','asignado', $id_usuario, $ide_profe, '$domicilio')";
+$consulta="INSERT INTO turno(fecha,hora,estado,usuario_idUsuario,profesional_idProfesional, domicilio, obra_social) VALUES ('$fecha','$hora','asignado', $id_usuario, $ide_profe, '$domicilio', '$obra_social')";
 $resultado=$connect->query($consulta);
 if($resultado>0)
 {

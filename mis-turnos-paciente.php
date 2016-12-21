@@ -6,6 +6,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
     $usuario=$_SESSION['username']; 
     $enlace='panel-paciente.php';
     $privilegio=$_SESSION['privilegio'];
+    $id_usuario=$_SESSION['id_usuario']; 
     
     require_once('conn/connect.php');
 
@@ -13,6 +14,15 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
     $resultado=$connect->query($consulta);
     $fila= mysqli_fetch_assoc($resultado);
     
+    $consulta2 = "SELECT * FROM turno WHERE usuario_idUsuario = $id_usuario";
+    $resultado2=$connect->query($consulta2);
+    $fila2= mysqli_fetch_assoc($resultado2);
+    
+    $id_prof = $fila2['profesional_idProfesional'];
+    
+    $consulta3 = "SELECT nombre1, nombre2, apellido1, apellido2 FROM profesionales2 WHERE id_profesional = $id_prof";
+    $resultado3=$connect->query($consulta3);
+    $fila3= mysqli_fetch_assoc($resultado3);
 
     
 } else {
@@ -52,7 +62,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
         <link rel="stylesheet" href="css/fontello.css">        
         <link rel="stylesheet" href="css/estilos.css">
-        <link rel="stylesheet" href="css/panel-paciente.css">
+        <link rel="stylesheet" href="css/mis-turnos-paciente.css">
         <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
         
         <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
@@ -106,19 +116,26 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
     </div>
     
     <div id="contenido">
-       <div id="titulo"><h1>Perfil de <?php echo $usuario ?></h1></div>
-       <article class="datos-personales">
-           <img src="img/default_avatar.png" alt="">
-            <ul>
-                <?php $nombre_apellido ="{$fila['nombres']} {$fila['apellidos']}";?>
-                <li><img src="img/icono-user.png" alt=""><span>Nombre de usuario:</span> <?php echo $usuario ?></li>
-                <li><img src="img/icono-nombre.png" alt=""><span>Nombre:</span> <?php echo utf8_encode($nombre_apellido) ?></li>
-                <li><img src="img/icono-mail.png" alt=""><span>E-mail:</span> <?php echo utf8_encode($fila ['correo']) ?></li>
-                <li><img src="img/icono-turno.png" alt=""><span>Turnos:</span> <?php echo $privilegio ?></li>
-            </ul>
-       </article>
-       <div class="turnos">
-           
+       <div id="titulo"><h1>Mis turnos</h1></div>
+       <div class="col-md-10 table-responsive">
+           <table class="table table-hover table-bordered">
+               <thead>
+                   <th>Fecha</th>
+                   <th>Hora</th>
+                   <th>Profesional</th>
+                   <th>Lugar</th>
+               </thead>
+               <tbody>
+                  <?php do { ?>
+                   <tr>
+                       <td><?php echo $fila2['fecha'] ?></td>
+                       <td><?php echo $fila2['hora'] ?></td>
+                       <td><?php echo $fila3['nombre1']." ".$fila3['nombre2']." ".$fila3['apellido1']." ".$fila3['apellido2'] ?></td>
+                       <td><?php echo $fila2['domicilio'] ?></td>
+                   </tr>
+                   <?php } while ($fila2=mysqli_fetch_assoc($resultado2));?> 
+               </tbody>
+           </table>
        </div>
     </div>
    </section> 

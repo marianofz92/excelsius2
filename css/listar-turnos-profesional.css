@@ -1,0 +1,6 @@
+.contenido_tabla{
+    width: 90%;
+    margin-top: 20px;
+    overflow-y: scroll;
+    height: 550px
+}

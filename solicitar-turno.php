@@ -25,7 +25,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 <html lang="es">
 <head>
 <meta charset="utf-8">
-	<title>Excelsius Salud - Nuestros Servicios</title>
+	<title>Excelsius Salud</title>
 	<link rel="shortcut icon" href="img/icono.ico">
 	<link rel="stylesheet" href="css/solicitar-turno.css">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">

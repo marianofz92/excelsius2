@@ -1,45 +1,56 @@
 <?php
-require_once('conn/connect.php');
 session_start();
 
-?>
-<?php
+require_once('conn/connect.php');
 
-
-if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']==1) {
 
     $usuario=$_SESSION['username']; 
-    $enlace='panel-paciente.php';
+    $enlace='panel-profesional.php';
+    $privilegio=$_SESSION['privilegio'];
+    
+    $consulta ="SELECT * FROM usuario WHERE nombre_usuario ='$usuario'";
+    $resultado=$connect->query($consulta);
+    $fila= mysqli_fetch_assoc($resultado);
     
 } else {
     
-    $usuario='Ingresar';
-    $enlace='login.php';
-    header('Location: http://localhost/excelsius2/inicie-sesion.html');
-
-    exit;
-}
+            if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']!=1) {
+                
+            
+    
+                echo 'Usted no tiene persimo para acceder a esta página.';
+                exit;
+                
+            } else {
+                 $usuario='Ingresar';
+                 $enlace='login.php';
+                 header('Location: http://localhost/github/excelsius2/inicie-sesion.html');
+    
+    
+            
+            }
+        }
+    
+    
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="utf-8">
-	<title>Excelsius Salud - Nuestros Servicios</title>
-	<link rel="shortcut icon" href="img/icono.ico">
-	<link rel="stylesheet" href="css/solicitar-turno2.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <head>
+        <title>Excelsius Salud</title>
+        <link rel="shortcut icon" href="img/icono.ico">
+        <meta charset="utf-8">   
+        <link rel="stylesheet" href="css/fontello.css">        
+        <link rel="stylesheet" href="css/estilos.css">
+        <link rel="stylesheet" href="css/panel-medico.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
        <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="css/fontello.css">
-        <link rel="stylesheet" href="css/estilos.css">
-        <link rel="stylesheet" href="css/solicitar-turno2.css">
-    
-</head>
-<body>
-</head>
+         <link rel="stylesheet" href="css/listar-turnos-profesional.css">
+
+    </head>
     <body>
-<header>
+        <header>
 
 <div id="barramenu" class="contenedor">
 <a href="index.php"><img src="img/logoblancosolo.png" id="logo" ></a>
@@ -47,10 +58,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 <input type="checkbox" id="menu-bar">
 <label class="icon-menu" for="menu-bar"></label>
 <a href="index.php#equipo_m"><label class="icon-search" for=""></label></a>
+
 <nav class="menu">
 
 <ul> 
 
+<li id="item-ingresar"><a href="<?php echo $enlace ?>"><?php echo $usuario ?><img src="img/user.png" alt=""></a></li>
 <li><a href="index.php">Inicio</a></li>
 <li><a href="nosotros.php">Nosotros</a></li>
 <li><a href="profesionales.php">Profesionales</a></li>
@@ -59,30 +72,35 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 <li><a href="noticias.php">Noticias</a></li>
 <li><a href="contacto.php">Contacto</a></li>
 <li class="submenu"><a href="index.php#equipo_m">Buscar<span class="icon-search"></span></a></li>
-<ul>
-<li>Especialidad<select name="" id="">
-<option value="">Cardiología</option>
-<option value="">Odontología</option>
-</select>
 </li>
-<li id="nombre-buscador">Nombre<input type="text"><input type="submit" value="Buscar" id="buscar-menu"></li>
-
-</ul> 
-</li>
-
-</ul> 
 </nav> 
 </div>
 
 <a href="<?php echo $enlace ?>" class="etiqueta-ingresar"> <?php echo $usuario ?> <img src="img/user.png" alt=""> </a>
 
 </header>
-<section id="contenedor_s">
- <div id="contenido"> 
-<?php
+
+<section class="principal"> 
+    <div class="sidebar" >
+         <a href="panel-profesional.php"><h1><?php echo $usuario ?><img src="img/default_avatar.png" alt=""></h1></a>
+         <ul>
+             <li class="menu-paciente"><a href="editar-perfil-profesional.php">Editar Perfil</a></li>
+             <li class="menu-paciente"><a href="">Nuevo Turno</a></li>
+             <li class="menu-paciente"><a href="configurar-turno.php">Configuración de turnos</a></li>
+             <li class="menu-paciente"><a href="ver-turnos-profesional.php">Ver Turnos</a></li>
+             <li class="menu-paciente"><a href="">Modificar Turno</a></li>
+             <li class="menu-paciente"><a href="">Eliminar Turno</a></li>
+             <li class="menu-paciente"><a href="logout.php">Cerrar sesión</a></li>
+             
+         </ul>
+    </div>
+    <div id="contenido">
+    <div class="contenido_tabla">
        
- $fecha=$_POST['lblfecha']; 
- $_SESSION['fecha_pantalla']=$fecha;// AUMENTA LA SEGURIDAD AL ENVIAR VARIABLES X LA SESSION EN VEZ DE MANDARLA X METODO GET, YA QUE SE PODRIA ALTERAR EL DIA DE CONSULTA X UN DIA QUE EL PROFESIONAL NO ATIENDA ( EN GET). AL ALMACENAR EN LA SESSION NO TENDRA INTERACCION CON EL HORARIO. DE TODOS MODOS SE DEBERA VALIDAR AL MOMENTO DE CONFIRMAR EL TURNO. SOLO CAMBIARA  ESTA VARIABLE CUANDO SE SELECCIONE UNA FECHA DEL CALENDARIO.
+  <?php
+       
+$fecha=$_POST['fecha_ver_turnos']; 
+echo '<h3>TURNOS DEL DIA :'; echo $fecha; echo'</h3>'; 
 list($dia, $mes, $anio)= explode ("/", $fecha);
 $fecha_consulta= $anio . '-' . $mes . '-' . $dia;
 $fechats=strtotime($fecha_consulta);
@@ -110,10 +128,11 @@ switch (date('w', $fechats))
       <table class="table table-hover table-bordered">
     <thead>
         <tr>
-        <th class="col-md-3">HORA</th>
-        <th class="col-md-3" >ESTADO</th>
+        <th class="col-md-1">HORA</th>
+        <th class="col-md-2" >ESTADO</th>
         <th class="col-md-3">CONSULTORIO</th>
-        <th class="col-md-3"></th>
+         <th class="col-md-3">PACIENTE</th>
+         <th class="col-md-3">O.SOCIAL</th>
         </tr>
     </thead>
     <tbody>
@@ -168,18 +187,21 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
      }
     if($busca==1)
     {
-        echo '<td class="danger ocupado">OCUPADO</td>
-             <td></td>
-               <td></td>
-        </tr>';
+        echo '<td class="danger ocupado">OCUPADO</td>';
+             echo '<td>';echo $domicilio_consulta;echo'</td>';
+            echo '<td>PACIENTE</td>';
+            echo '<td>O.SOCIAL</td>';
+        echo '</tr>';
     }
     else
     { //TURNO LIBRE. TENGO TODO LO Q NECESITO PARA SACAR EL TURNO (DOMICILIO, HORA)
         echo '<td class="success disponible">DISPONIBLE</td>';
         echo '<td>';echo $domicilio_consulta;echo'</td>';
-        echo '<td><a class="solic-turno"href="confirmar-turno.php?hora=';echo $nuevaHora;echo'&domicilio=';echo $domicilio_consulta;echo'">SOLICITAR TURNO</a> </td>
-        </tr>';
-      
+      //  echo '<td><a class="solic-turno"href="confirmar-turno.php?hora=';echo $nuevaHora;echo'&domicilio=';echo $domicilio_consulta;echo'">SOLICITAR TURNO</a> </td>
+        //</tr>';
+       echo '<td>PACIENTE</td>';
+            echo '<td>O.SOCIAL</td>';
+        echo '</tr>';
         
     }
     
@@ -194,15 +216,12 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
 </div> 
 
 </div>
-
-
- <?php 
-   
-      
- ?>    
  </div>
-</section>
-<footer>
+    </div>
+   </section> 
+
+
+ <footer>
             <div class="contenedor">
                <p class="copy">Excelsius salud &copy; 2016</p>
                 <div class="sociales">
@@ -212,7 +231,5 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
                 </div>
             </div>
         </footer>  
-        <script src="bootstrap/js/bootstrap.min.js"></script>
-        <script src="bootstrap/js/npm.js"></script>
-</body>
+    </body>
 </html>

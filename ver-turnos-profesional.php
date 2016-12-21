@@ -39,23 +39,15 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
     <head>
         <title>Excelsius Salud</title>
         <link rel="shortcut icon" href="img/icono.ico">
-        <meta charset="utf-8">
-        <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
-        <script type="text/javascript" src="js/ajax.js"></script>
-        <link rel="stylesheet" href="css/estilo-buscador.css">
-        
+        <meta charset="utf-8">   
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
         <link rel="stylesheet" href="css/fontello.css">        
         <link rel="stylesheet" href="css/estilos.css">
         <link rel="stylesheet" href="css/panel-medico.css">
-       
-      
-        
-        <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
-         <script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
-       
-        
-        
+        <link rel="stylesheet" href="css/jquery-ui.min.css">
+        <script src="js/jquery.js"></script>
+        <link rel="stylesheet" href="css/ver-turno-profesional.css">
+
     </head>
     <body>
         <header>
@@ -104,20 +96,24 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
     </div>
     
     <div id="contenido">
-       <div id="titulo"><h1>Perfil de <?php echo $usuario ?></h1></div>
-       <article class="datos-personales">
-           <img src="img/default_avatar.png" alt="">
-            <ul>
-                <?php $nombre_apellido ="{$fila['nombres']} {$fila['apellidos']}";?>
-                <li><img src="img/icono-user.png" alt=""><span>Nombre de usuario:</span> <?php echo $usuario ?></li>
-                <li><img src="img/icono-nombre.png" alt=""><span>Nombre:</span> <?php echo utf8_encode($nombre_apellido) ?></li>
-                <li><img src="img/icono-mail.png" alt=""><span>E-mail:</span> <?php echo utf8_encode($fila ['correo']) ?></li>
-                <li><img src="img/icono-turno.png" alt=""><span>Turnos:</span> <?php echo $privilegio ?></li>
+       
+       
+       <div id="titulo">
+      <p>SELECCIONE LA FECHA PARA CONSULTAR SUS TURNOS:</p>
+    </div> 
+    <form class="formulario"  method="post" id="formulario" action="listar-turnos-profesional.php">
       
-       </article>
-       <div class="turnos">
-           
-       </div>
+      <label >Fecha: </label> 
+      <input id="fecha_ver_turnos" class="fecha-inp"  placeholder="SELECCIONE LA FECHA DEL TURNO"  type="text" required name="fecha_ver_turnos">
+      <input type="submit" value="CONSULTAR" class="btnconsulta"  id="btnconsultar" >
+     <script src="js/jquery-ui.min.js"></script>
+       <script src="js/datepicker-es.js"></script>
+        <script>
+        $("#fecha_ver_turnos").datepicker( $.datepicker.regional[ "es" ]);
+    
+    </script>
+    
+  </form>    
     </div>
    </section> 
 

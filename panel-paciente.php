@@ -101,7 +101,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
          <ul>
              <li class="menu-paciente"><a href="editar-perfil-paciente.php">Editar Perfil</a></li>
              <li class="menu-paciente"><a href="profesionales.php">Solicitar Turno</a></li>
-             <li class="menu-paciente"><a href="">Mis Turnos</a></li>
+             <li class="menu-paciente"><a href="mis-turnos-paciente.php">Mis Turnos</a></li>
              <li class="menu-paciente"><a href="logout.php">Cerrar sesión</a></li>
              
          </ul>

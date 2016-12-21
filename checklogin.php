@@ -40,7 +40,9 @@ if ($password == $row['clave']) {
     $consulta ="SELECT * FROM usuario WHERE nombre_usuario ='$username'";
     $resultado=$connect->query($consulta);
     $fila= mysqli_fetch_assoc($resultado);
+    $privilegio=$fila['privilegio'];
     $_SESSION['privilegio']=$fila['privilegio'];
+    $_SESSION['id_usuario']=$fila['id_usuario'];
 
    header('Location: http://localhost/github/excelsius2/index.php');
 

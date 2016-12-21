@@ -95,7 +95,8 @@
 .sidebar h1 {
     padding: 15px;
     background-color: rgba(95, 158, 160, 1);
-    font-size: 20px
+    font-size: 20px;
+    margin: 0;
 }
 
 .sidebar h1 img {
@@ -161,3 +162,37 @@
 }
     
 }
+
+header ul a:hover {
+    text-decoration: none;
+    color: #fff
+}
+
+header .etiqueta-ingresar:hover {
+    text-decoration: none;
+    color: #fff
+}
+
+footer a:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+.sidebar a:hover {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 
+}
+
+.sidebar h1 {
+    font-weight: bold;
+}
+
+
+/*---------------------------------------------*/
+
+
+
+
+
+

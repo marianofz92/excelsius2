@@ -154,6 +154,13 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
       <a href="noticias/naturaleza-fuente-vida.html"class="leer_mas">Leer más..</a>
      </article>
      
+     <article id="noticia13">
+      <img src="noticias/img-notic/excelsius-portada.jpg" alt=""> 
+         <h4> <a  class="titulo_link" href="noticias/consideraciones-seguridad-cirugia-plastica-estetica.html"><p class="fecha"> 19/12/2016</p>Consideraciones sobre Seguridad del Paciente en Cirugía Plástica y Estética</a></h4>
+      <p>Aunque selectiva, la cirugía estética implica Riesgos y Posibles Efectos Secundarios. Numerosas sociedades que nuclean a los profesionales formados en la especialidad...</p>
+      <a href="noticias/consideraciones-seguridad-cirugia-plastica-estetica.html" class="leer_mas">Leer más..</a>
+     </article>
+     
      </div>
     </section>   
  

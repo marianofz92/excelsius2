@@ -3,19 +3,22 @@ session_start();
 
 require_once('conn/connect.php');
 
-if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']==1) {
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']==1) { // es medico por lo tanto tiene asociada una cuenta y x ahi puedo sacar el id del medico.
 
     $usuario=$_SESSION['username']; 
     $enlace='panel-profesional.php';
     $privilegio=$_SESSION['privilegio'];
-    
-    $consulta ="SELECT * FROM usuario WHERE nombre_usuario ='$usuario'";
+   $id_usuario= $_SESSION['id_usuario'];
+    $consulta ="SELECT * FROM profesionales2 WHERE usuario_idUsuario=$id_usuario";
     $resultado=$connect->query($consulta);
     $fila= mysqli_fetch_assoc($resultado);
+    $id_profesional_session=$fila['id_profesional'];
+    $_SESSION['id_profesional'] = $id_profesional_session;
     
-    //$consulta2 =""
-    //$resultado=$connect->query($consulta);
-    //$fila= mysqli_fetch_assoc($resultado);
+    $consulta2 = "SELECT * FROM profesional_domicilio INNER JOIN domicilio ON domicilio_idDomicilio=id_domicilio AND profesional_idProfesional=$id_profesional_session";
+    $resultado2=$connect->query($consulta2);
+    $fila2= mysqli_fetch_assoc($resultado2);
+//  $domicilios=$fila2['calle'];
     
 } else {
     
@@ -31,12 +34,14 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
                  $enlace='login.php';
                  header('Location: http://localhost/github/excelsius2/inicie-sesion.html');
     
+    
             
             }
         }
     
     
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -75,7 +80,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
 
 <ul> 
 
-<li id="item-ingresar"><a href="<?php echo $enlace ?>"><?php echo $usuario ?><img src="img/user.png" alt=""></a></li>
+<li id="item-ingresar"><a href="<?php echo $enlace ?>"><?php echo $usuario?><img src="img/user.png" alt=""></a></li>
 <li><a href="index.php">Inicio</a></li>
 <li><a href="nosotros.php">Nosotros</a></li>
 <li><a href="profesionales.php">Profesionales</a></li>
@@ -210,9 +215,15 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
           <tr>
               <td><div class="form-direccion">
                       <select class="form-control" id="direccion">
-                        <option>san juan 889</option>
-                        <option>balcarce 441</option>
-                        <option>cordoba 215</option>
+                       <?php do {?> 
+                       <option><?php echo $fila2['calle']." ".$fila2['numero']." - piso: ".$fila2['piso']." - depto: ".$fila2['dpto']." -  ".$fila2['localidad'].", ".$fila2['provincia'];echo '<p class="invisible">';$id_dom[]= $fila2['id_domicilio'];echo '</p>';/*." id=".$fila2['id_domicilio'] */?></option>
+                       
+                        <?php } while ($fila2=mysqli_fetch_assoc($resultado2));?>
+                        
+                        <?php 
+                           $_SESSION['id_dom']=$id_dom;     
+                          ?>     
+                                    
                       </select>
                     </div>
               </td>

@@ -199,7 +199,15 @@ footer a:hover {
 /*---------------------------------------------*/
 
 
+#mis-turnos td {
+    text-align: center;
+    vertical-align: middle;
 
+}
 
+#mis-turnos th {
+    text-align: center;
+}
 
-
+#mis-turnos thead {
+    background-color: darkturquoise;

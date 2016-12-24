@@ -18,12 +18,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
     $resultado2=$connect->query($consulta2);
     $fila2= mysqli_fetch_assoc($resultado2);
     
-    $id_prof = $fila2['profesional_idProfesional'];
+   /* $id_prof = $fila2['profesional_idProfesional'];
     
     $consulta3 = "SELECT nombre1, nombre2, apellido1, apellido2 FROM profesionales2 WHERE id_profesional = $id_prof";
     $resultado3=$connect->query($consulta3);
     $fila3= mysqli_fetch_assoc($resultado3);
-
+*/
     
 } else {
     
@@ -118,20 +118,33 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
     <div id="contenido">
        <div id="titulo"><h1>Mis turnos</h1></div>
        <div class="col-md-10 table-responsive">
-           <table class="table table-hover table-bordered">
+           <table class="table table-hover table-bordered" id="mis-turnos">
                <thead>
                    <th>Fecha</th>
                    <th>Hora</th>
                    <th>Profesional</th>
                    <th>Lugar</th>
+                   <th></th>
                </thead>
                <tbody>
-                  <?php do { ?>
+                  <?php do 
+                        
+
+
+                    { ?>
                    <tr>
                        <td><?php echo $fila2['fecha'] ?></td>
                        <td><?php echo $fila2['hora'] ?></td>
-                       <td><?php echo $fila3['nombre1']." ".$fila3['nombre2']." ".$fila3['apellido1']." ".$fila3['apellido2'] ?></td>
+                       <td><?php                     
+                                $id_prof = $fila2['profesional_idProfesional'];
+                                $consulta3 = "SELECT nombre1, nombre2, apellido1, apellido2 FROM profesionales2 WHERE id_profesional = $id_prof";
+                                $resultado3=$connect->query($consulta3);
+                                $fila3= mysqli_fetch_assoc($resultado3);    
+                                echo $fila3['nombre1']." ".$fila3['nombre2']." ".$fila3['apellido1']." ".$fila3['apellido2'] 
+                            ?>
+                       </td>
                        <td><?php echo $fila2['domicilio'] ?></td>
+                       <td><button class="btn btn-danger">Cancelar turno</button></td>
                    </tr>
                    <?php } while ($fila2=mysqli_fetch_assoc($resultado2));?> 
                </tbody>

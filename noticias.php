@@ -161,6 +161,13 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
       <a href="noticias/consideraciones-seguridad-cirugia-plastica-estetica.html" class="leer_mas">Leer más..</a>
      </article>
      
+      <article id="noticia14">
+      <img src="img/fotos/perez.jpg" alt=""> 
+         <h4> <a  class="titulo_link" href="noticias/guias-prevencion-cardiovascular.html"><p class="fecha"> 21/12/2016</p>Guías europeas 2016 para la prevención cardiovascular: 6ª documentos de consenso de 10 sociedades.</a></h4>
+      <p>Si bien son sociedades europeas las que avalan este consenso, es importante conocer la opinión y concepto del control y manejo del riesgo cardiovascular en la población adulta...</p>
+      <a href="noticias/guias-prevencion-cardiovascular.html" class="leer_mas">Leer más..</a>
+     </article>
+     
      </div>
     </section>   
  

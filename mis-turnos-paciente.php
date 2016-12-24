@@ -124,6 +124,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
                    <th>Hora</th>
                    <th>Profesional</th>
                    <th>Lugar</th>
+                   <th>Estado</th>
                    <th></th>
                </thead>
                <tbody>
@@ -133,7 +134,16 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
 
                     { ?>
                    <tr>
-                       <td><?php echo $fila2['fecha'] ?></td>
+                       <td><?php 
+                            $date = $fila2['fecha'];
+                            $fecha = explode("-", $date);
+                            $anio = $fecha[0];
+                            $mes = $fecha[1];
+                            $dia = $fecha[2];
+                     
+                            echo $dia.'-'.$mes.'-'.$anio;
+                           ?>
+                       </td>
                        <td><?php echo $fila2['hora'] ?></td>
                        <td><?php                     
                                 $id_prof = $fila2['profesional_idProfesional'];
@@ -144,7 +154,34 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
                             ?>
                        </td>
                        <td><?php echo $fila2['domicilio'] ?></td>
-                       <td><button class="btn btn-danger">Cancelar turno</button></td>
+                          <?php
+                                $c = 0;
+                                if( date("Y-m-d") <= $fila2['fecha'] and $fila2['estado'] != 'cancelado')
+                                 {
+                                     echo '<td class = "warning"> Por atender </td>';
+                                 }
+                                    else { 
+                                        
+                                        if($fila2['estado'] == 'cancelado'){
+                                            echo '<td class = "danger"> Cancelado </td>';
+                                            $c = 1;
+                                        }
+                                            else {
+                                                echo '<td class = "success"> Atendido </td>';
+                                                $c = 1;
+                                            }    
+                                    }
+                           ?>
+                       <td>
+                           <?php 
+                                if($c == 1){
+                                    echo '';
+                                }
+                                    else {
+                                        echo '<button class="btn btn-danger btn-sm">Cancelar turno</button>';
+                                    }
+                            ?>
+                       </td>
                    </tr>
                    <?php } while ($fila2=mysqli_fetch_assoc($resultado2));?> 
                </tbody>

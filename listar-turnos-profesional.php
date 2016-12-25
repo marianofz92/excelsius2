@@ -130,9 +130,11 @@ switch (date('w', $fechats))
         <tr>
         <th class="col-md-1">HORA</th>
         <th class="col-md-2" >ESTADO</th>
-        <th class="col-md-3">CONSULTORIO</th>
+        <th class="col-md-2">CONSULTORIO</th>
          <th class="col-md-3">PACIENTE</th>
-         <th class="col-md-3">O.SOCIAL</th>
+         <th class="col-md-2">O.SOCIAL</th>
+         <th class="col-md-2">Cancelar</th>
+         
         </tr>
     </thead>
     <tbody>
@@ -166,7 +168,7 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
   {
      $nuevaHora=date("H:i:s",$segundos_horaInicial);
       
-          $consulta2="SELECT * FROM turno WHERE profesional_idProfesional=$id_profesional AND fecha='$fecha_consulta'";
+          $consulta2="SELECT * FROM turno INNER JOIN usuario ON id_usuario=usuario_idUsuario AND profesional_idProfesional=$id_profesional AND fecha='$fecha_consulta'";
           $resultado2=$connect->query($consulta2);                                      
 
 ?>
@@ -177,20 +179,24 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
     
    while($fila2=mysqli_fetch_assoc($resultado2))//compara la cantidad de turnos del dia con la hora(nuevahora)
     {  
-       $obra_social=$fila2['obra_social'];
+       
        
      if($fila2['hora']==$nuevaHora)
      {
          $busca=1;
-       
+         $obra_social=$fila2['obra_social'];
+         $paciente="{$fila2['nombres']} {$fila2['apellidos']} ";
+            
      }
     
      }
     if($busca==1)
     {
+       
+       
         echo '<td class="danger ocupado">OCUPADO</td>';
              echo '<td>';echo $domicilio_consulta;echo'</td>';
-            echo '<td>PACIENTE</td>';
+            echo '<td>';echo $paciente;echo'</td>';
             echo '<td>';echo $obra_social ;echo'</td>';
         echo '</tr>';
     }
@@ -200,7 +206,7 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
         echo '<td>';echo $domicilio_consulta;echo'</td>';
       //  echo '<td><a class="solic-turno"href="confirmar-turno.php?hora=';echo $nuevaHora;echo'&domicilio=';echo $domicilio_consulta;echo'">SOLICITAR TURNO</a> </td>
         //</tr>';
-       echo '<td>PACIENTE</td>';
+       echo '<td> </td>';
       echo '<td>';echo '';echo'</td>';
         echo '</tr>';
         

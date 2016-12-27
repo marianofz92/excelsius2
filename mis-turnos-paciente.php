@@ -18,12 +18,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
     $resultado2=$connect->query($consulta2);
     $fila2= mysqli_fetch_assoc($resultado2);
     
-   /* $id_prof = $fila2['profesional_idProfesional'];
-    
-    $consulta3 = "SELECT nombre1, nombre2, apellido1, apellido2 FROM profesionales2 WHERE id_profesional = $id_prof";
-    $resultado3=$connect->query($consulta3);
-    $fila3= mysqli_fetch_assoc($resultado3);
-*/
     
 } else {
     
@@ -64,9 +58,20 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
         <link rel="stylesheet" href="css/estilos.css">
         <link rel="stylesheet" href="css/mis-turnos-paciente.css">
         <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<!--        <link rel="stylesheet" href="sweetalert/sweetalert.css">-->
+        <link rel="stylesheet" href="alertify/css/alertify.css">
+        <link rel="stylesheet" href="alertify/css/themes/semantic.css">
+       
         
         <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
         <script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
+        <script type="text/javascript" src="alertify/alertify.min.js"></script>
+        <script type="text/javascript">
+        //override defaults
+        alertify.defaults.transition = "zoom";
+        alertify.defaults.theme.ok = "btn btn-success";
+        alertify.defaults.theme.cancel = "btn btn-danger";
+        </script>
        
         
         
@@ -178,7 +183,41 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
                                     echo '';
                                 }
                                     else {
-                                        echo '<button class="btn btn-danger btn-sm">Cancelar turno</button>';
+                                        
+                                        echo '<button  type="button" data-toggle="modal" class="btn btn-danger btn-sm" data-target=".bs-example-modal-sm" onclick="
+                                        
+                                      alertify.confirm(\'¡Atención!\', \'¿Seguro que desea cancelar el turno?\', function(){
+                                      window.location = \'cancelar-turno.php?idturno='.$fila2['id_turno'].'\';
+                                      }, function(){}).set(\'labels\', {ok:\'Si\', cancel:\'No\'});
+    
+                                        ">Cancelar turno</button>';
+                                        
+                                        /*echo '<button  type="button" data-toggle="modal" class="btn btn-danger btn-sm" data-target=".bs-example-modal-sm" onclick="
+                                        
+                                        swal({
+                                                title: \'¿Seguro que desea cancelar el turno?\',
+                                                type: \'warning\',
+                                                showCancelButton: true,
+                                                confirmButtonColor: \'#5cb85c\',
+                                                confirmButtonText: \'Si, cancelar\',
+                                                cancelButtonColor: \'#d9534f\',
+                                                cancelButtonText: \'No\',
+                                                closeOnConfirm: \'false\',
+                                                closeOnCancel: \'false\',
+                                                allowOutsideClick: true,
+                                                },
+                                                function(isConfirm)
+                                                {
+                                                    if(isConfirm)
+                                                    {
+                                                        window.location = \'cancelar-turno.php?idturno='.$fila2['id_turno'].'\';
+                                                    } 
+                                                }
+                                                
+                                                
+                                                )
+    
+                                        ">Cancelar turno</button>';*/
                                     }
                             ?>
                        </td>
@@ -188,6 +227,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
            </table>
        </div>
     </div>
+    
    </section> 
        
         <footer>
@@ -201,8 +241,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
             </div>
         </footer>
         
-        <script src="js/jquery.js"></script>
-        <script src="bootstrap/js/bootstrap.min.js"></script>  
+        <script src="bootstrap/js/jquery.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script> 
         
     </body>
 </html>

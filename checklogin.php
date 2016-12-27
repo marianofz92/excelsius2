@@ -55,7 +55,7 @@ if ($password == $row['clave']) {
        
     }
 
-   header('Location: http://localhost/github/excelsius2/index.php');
+   header('Location: http://localhost:8080/excelsius2/index.php');
 
 } else {
     echo "Username o Password estan incorrectos.";

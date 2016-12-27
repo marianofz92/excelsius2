@@ -4,3 +4,13 @@
     overflow-y: scroll;
     height: 550px
 }
+.sacar-color{
+    text-decoration: none;
+   
+    padding: 7px;
+    text-align: center;
+    background-color: firebrick; 
+    color: white;
+    border-radius: 10px;
+    vertical-align: middle;
+}

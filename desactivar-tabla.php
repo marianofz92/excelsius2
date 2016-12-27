@@ -99,7 +99,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
        
   <?php
        
-$fecha=$_POST['fecha_ver_turnos']; 
+$fecha=$_POST['fecha_desactivar']; 
 echo '<h3>TURNOS DEL DIA :'; echo $fecha; echo'</h3>'; 
 list($dia, $mes, $anio)= explode ("/", $fecha);
 $fecha_consulta= $anio . '-' . $mes . '-' . $dia;
@@ -211,7 +211,7 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
         //</tr>';
        echo '<td> </td>';
       echo '<td>';echo '';echo'</td>';
-        echo '<td> <a href="confirmar-turno-profesional.php?fecha=';echo $fecha_consulta;echo'&hora=';echo $nuevaHora;echo'&domicilio=';echo $domicilio_consulta;echo'">NUEVO TURNO</a></td>';
+        echo '<td> </td>';
         echo '</tr>';
        
         

@@ -35,7 +35,7 @@ else {
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
         <link rel="stylesheet" href="css/fontello.css">        
         <link rel="stylesheet" href="css/estilos.css">
-        <link rel="stylesheet" href="css/confirmar-turno.css">
+        <link rel="stylesheet" href="css/confirmar-turno-prof.css">
     </head>
     <body>
         <header>
@@ -74,43 +74,32 @@ else {
                     <?php 
                     $hora=$_GET['hora'];
                     $domicilio=$_GET['domicilio'];
-                    $id_profesional=$_SESSION['id_profesional_sesion'];
-                    $fecha=$_GET['fecha_consulta'];
+                    
+                    $fecha=$_GET['fecha'];
             
                     ?>
                     <div id="formulario">
-                   <form action="turno-confirmado.php" method="post" class="form-confirmacion">
-                      <h1 class="cabecera">CONFIRME SU TURNO</h1>
+                   <form action="turno-profesional-confirmado.php" method="post" class="form-confirmacion">
+                      <h1 class="cabecera">CONFIRME EL TURNO</h1>
                      <div class="contenedor-inputs">
 
                       <p>Por favor verifique los datos de su turno:</p>
                       <label>FECHA:<?php echo $fecha ?></label><br>
                       <label>HORA:<?php echo $hora ?></label><br>
-                      
-                      <label>PROFESIONAL:<?php echo utf8_encode($profesional)?></label><br>
-                      <label>DOMICILIO CONSULTA:<?php echo utf8_encode($domicilio)?></label><br>
-                       <label>OBRA SOCIAL:</label><input type="text" class="input-obra" name="obrasocial" id="obrasocial" required placeholder="Ingrese su obra social" > <br>
+                      <label>NOMBRES :</label><input  name="nombres_p"required type="text" class="datos"><br>
+                      <label>APELLIDOS:</label><input   name="apellidos_p"required type="text" class="datos"   > <br>
+                      <label>TELÉFONO: <input  name="tel_p" type="text" class="datos"  required></label><br> 
+                      <input type="hidden" name="fecha_p" id="fecha_p" value="<?php echo $fecha ?>">   
+                      <input type="hidden" name="hora_p" id="hora_p" value="<?php echo $hora?>">
+                         <input type="hidden" name="domicilio_p" value="<?php echo $domicilio?>">
+                         
+                       <label>OBRA SOCIAL:</label><input type="text" class="datos" name="obrasocial" id="obrasocial" required placeholder="Ingrese  obra social" > <br>
+                       <label>DNI PACIENTE:</label><input type="text" class="datos" name="dni_p" required > <br>
+                       <label>DOMICILIO CONSULTA:<?php echo utf8_encode($domicilio)?></label><br>
                       <label>USUARIO:<?php echo $usuario; ?></label><br>   
-                      
-                      <?php
-                       
-    $consulta1 ="SELECT * FROM usuario WHERE nombre_usuario ='$usuario'";
-    $resultado1=$connect->query($consulta1);
-    $fila1 = mysqli_fetch_assoc($resultado1);
-    $nombres=$fila['nombres'];
-    $apellidos=$fila['apellidos'];
-    $mail=$fila['correo'];
-    $_SESSION['fecha_turno']=$fecha_consulta;
-    $_SESSION['hora_turno']=$hora;           
-    $_SESSION['id_profesional_turno']=$ide; 
-    $_SESSION['domicilio_turno']=$domicilio;       
-                       
-                       ?>
-                      <label>NOMBRE:<?php echo $nombres ?></label><br>
-                      <label>APELLIDO:<?php echo $apellidos ?></label><br>
-                      <label>CORREO: <?php echo $mail?></label>
-                       <input type="submit" value="CONFIRMAR" class="btn-confirmar">
-                    <div class="link-form">¿Desea modificar su consulta? <a href="profesionales.php">Clic aquí.</a></div>
+                   
+                    <input type="submit" value="CONFIRMAR" class="btn-confirmar"> 
+                    <div class="link-form">¿Desea modificar su consulta? <a href="ver-turnos-profesional.php">Clic aquí.</a></div>
                    </form>
                   </div>
                     </div>

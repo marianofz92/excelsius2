@@ -10,6 +10,8 @@ $domicilio=$_SESSION['domicilio_turno'];
 $obra_social=$_POST['obrasocial'];
 $consulta2="SELECT id_turno FROM turno WHERE fecha ='$fecha' AND hora='$hora' AND profesional_idProfesional=$ide_profe";
 $resultado2=$connect->query($consulta2);
+if
+$derivador=34;//derivador estandar.
 
 if(mysqli_num_rows($resultado2)!=0)//encontro algo
 {
@@ -20,7 +22,7 @@ if(mysqli_num_rows($resultado2)!=0)//encontro algo
 else{
 
 
-$consulta="INSERT INTO turno(fecha,hora,estado,usuario_idUsuario,profesional_idProfesional, domicilio, obra_social) VALUES ('$fecha','$hora','asignado', $id_usuario, $ide_profe, '$domicilio', '$obra_social')";
+$consulta="INSERT INTO turnofecha,hora,estado,usuario_idUsuario,profesional_idProfesional, domicilio, obra_social, nombres_paciente, apellidos_paciente, dni_paciente, tel_paciente, id_profesionalDerivador) VALUES ('$fecha','$hora','asignado', $id_usuario, $ide_profe, '$domicilio', '$obra_social' ,'','','','',$derivador)";
 $resultado=$connect->query($consulta);
 if($resultado>0)
 {

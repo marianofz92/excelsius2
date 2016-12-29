@@ -10,7 +10,7 @@ $clave= $_POST["clave"];
 
 
 
-$consulta = "INSERT INTO usuario (nombres, apellidos, correo, nombre_usuario, clave, privilegio,fecha_creacion)  VALUES('$nombre','$apellidos', '$email','$usuario','$clave','0', NOW())";
+$consulta = "INSERT INTO usuario (nombres, apellidos, correo, nombre_usuario, clave, privilegio,fecha_creacion)  VALUES('$nombre','$apellidos', '$email','$usuario', '$clave','0', NOW())";
 $consulta1="SELECT * FROM usuario WHERE nombre_usuario='$usuario'";
 $consulta2="SELECT * FROM usuario WHERE correo='$email'";
 $verificar1=$connect->query($consulta1);
@@ -42,7 +42,7 @@ $fila_correo=mysqli_num_rows($verificar2);
                 echo 'Error al registrarse';
             }
             else{
-                header('Location: http://localhost:8080/excelsius2/registro-exitoso.html');
+                header('Location: http://localhost/github/excelsius2/registro-exitoso.html');
                 //AQUI SE DEBERIA CREAR LA SESION DE USUARIO..
         }
         }

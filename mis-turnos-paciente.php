@@ -110,7 +110,15 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
    
   <section class="principal"> 
     <div class="sidebar" >
-         <a href="panel-paciente.php"><h1><?php echo $usuario ?><img src="img/default_avatar.png" alt=""></h1></a>
+         <a href="panel-paciente.php"><h1><?php echo $usuario ?><img src="<?php 
+                if(isset($fila['img_paciente'])){
+                    $foto = $fila['img_paciente'];
+                    echo 'data:image/jpg;base64,'.base64_encode($foto);
+                }else{
+                    echo 'img/default_avatar.png';
+                }
+                
+                ?>" alt=""></h1></a>
          <ul>
              <li class="menu-paciente"><a href="editar-perfil-paciente.php">Editar Perfil</a></li>
              <li class="menu-paciente"><a href="profesionales.php">Solicitar Turno</a></li>

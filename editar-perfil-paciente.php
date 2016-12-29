@@ -15,6 +15,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     $nombre= $fila['nombres'];
     $apellido = $fila['apellidos'];
     $email = $fila['correo'];
+    $img = $fila['img_paciente'];
     $_SESSION['idusuario'] = $fila['id_usuario'];
 
     
@@ -89,7 +90,15 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
    
   <section class="principal"> 
     <div class="sidebar" >
-         <a href="panel-paciente.php"><h1><?php echo $usuario ?><img src="img/default_avatar.png" alt=""></h1></a>
+         <a href="panel-paciente.php"><h1><?php echo $usuario ?><img src="<?php 
+                if(isset($fila['img_paciente'])){
+                    //$foto = $fila['img_paciente'];
+                    echo 'data:image/jpg;base64,'.base64_encode($img);
+                }else{
+                    echo 'img/default_avatar.png';
+                }
+                
+                ?>" alt=""></h1></a></h1></a>
          <ul>
              <li class="menu-paciente"><a href="">Editar Perfil</a></li>
              <li class="menu-paciente"><a href="profesionales.php">Solicitar Turno</a></li>
@@ -102,14 +111,27 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     <div id="contenido">
        <div id="titulo"><h1>Editar datos personales</h1></div>
         <div id="contenedor_registro">
-        <img src="img/default_avatar.png" alt="">
-    <form action="actualizar-datos.php" method="post" class="form-register">
+        <img src="<?php 
+                if(isset($fila['img_paciente'])){
+                    //$foto = $fila['img_paciente'];
+                    echo 'data:image/jpg;base64,'.base64_encode($img);
+                }else{
+                    echo 'img/default_avatar.png';
+                }
+                
+                ?>" alt="">
+    
+    <form action="actualizar-datos.php" method="post" class="form-register" enctype="multipart/form-data">
     
     <div class="contenedor-inputs">
     <input type="text"name="nombre" placeholder="Nombre" value="<?php echo $nombre ?>"  class="input-48" required> </input> 
     <input type="text" name="apellidos" placeholder="Apellido" value="<?php echo $apellido ?>" class="input-48" required>
     <input type="email" name="email" placeholder="E-mail" value="<?php echo $email ?>" class="input-100" required>
+    <input type="file" name="imagen" id="imagen" accept="image/*">
     <input type="submit" value="Guardar" class="btn-enviar">
+    
+    </form>
+    
 </div>
        
    </div>

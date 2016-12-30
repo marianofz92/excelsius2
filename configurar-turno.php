@@ -254,7 +254,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
               <td><div class="form-direccion">
                       <select class="form-control" id="direccion">
                        <?php do {?> 
-                       <option><?php echo $fila2['calle']." ".$fila2['numero']." - piso: ".$fila2['piso']." - depto: ".$fila2['dpto']." -  ".$fila2['localidad'].", ".$fila2['provincia'];echo '<p class="invisible">';$id_dom[]= $fila2['id_domicilio'];echo '</p>';/*." id=".$fila2['id_domicilio'] */?></option>
+                       <option><?php echo $fila2['calle']." ".$fila2['numero']." - piso: ".$fila2['piso']." - depto: ".$fila2['dpto']." -  ".$fila2['localidad'].", ".$fila2['provincia'];/*." id=".$fila2['id_domicilio'] */?></option>
                        
                         <?php } while ($fila2=mysqli_fetch_assoc($resultado2));?>
                         

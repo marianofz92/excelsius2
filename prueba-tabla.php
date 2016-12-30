@@ -77,6 +77,9 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 <a href="<?php echo $enlace ?>" class="etiqueta-ingresar"> <?php echo $usuario ?> <img src="img/user.png" alt=""> </a>
 
 </header>
+
+    <style type="text/css"> header{display: none;} </style>
+
 <section id="contenedor_s">
  <div id="contenido"> 
 <?php

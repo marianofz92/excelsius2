@@ -1,0 +1,71 @@
+#consulta {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background: #E1E6FA;
+}
+
+#consulta form {
+    width: 500px;
+    margin: auto;
+    padding: 10px 20px;
+    padding-top: 30px;
+    box-sizing: border-box;
+    border-radius: 7px;
+    background-color: rgba(0,0,0,.1)
+}
+
+#consulta input, textarea {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 7px;
+    box-sizing: border-box;   
+}
+
+#consulta textarea {
+    min-height: 100px;
+    max-height: 200px;
+    max-width: 100%;  
+}
+
+#consulta #boton {
+    background: cadetblue;
+    color: #fff;
+    padding: 15px;
+    width: 100%;
+    font-family: 'montserrat', sans-serif;
+    border-radius: 8px;
+}
+
+#consulta #boton:hover {
+    cursor: pointer;
+}
+
+#consulta h1 {
+    margin-bottom: 20px;
+    font-size: 50px;
+    width: 100%;
+    text-align: center;
+    color: cadetblue;
+    font-size: 40px;
+}
+
+#consulta h3 {
+    text-align: center;
+    color: #183152;
+    margin-bottom: 40px;
+    font-size: 20px;
+}
+
+@media (max-width:480px) {
+    #consulta form {
+        width: 100%;
+    }
+}
+
+footer {
+    margin-bottom: 0;
+}
+
+@media(max-width:1024px) {
+    
+}

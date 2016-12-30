@@ -40,6 +40,7 @@ else {
         <link rel="stylesheet" href="css/fontello.css">        
         <link rel="stylesheet" href="css/estilos.css">
         <link rel="stylesheet" href="css/servicios_index.css">
+        <link rel="stylesheet" href="css/consulta-orientacion.css">
       
         
         <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
@@ -131,6 +132,19 @@ else {
     <div id="resultados" class="formato-resultados"></div>
     
 </div>
+            </section>
+            
+             <section id="consulta">
+                <div class="contenedor">
+                    <h1>Consulta de orientación médica</h1>
+                    <h3>Envianos tu consulta y te recomendaremos un especialista para tu caso.</h3>
+                    <form action="enviar-consulta.php" method="post">
+                        <input type="text" name="nombre" placeholder="Nombre" required>
+                        <input type="text" name="correo" placeholder="Correo" required>
+                        <textarea name="consulta" placeholder="Escriba aquí su consulta" required></textarea>
+                        <input type="submit" value="ENVIAR" id="boton" >
+                    </form>
+                </div>
             </section>
             
             <section id="mapas">
@@ -274,6 +288,7 @@ else {
                 
                 
             </section>
+            
         </main> 
          
          <footer>

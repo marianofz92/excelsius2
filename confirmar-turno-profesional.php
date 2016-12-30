@@ -76,6 +76,7 @@ else {
                     $domicilio=$_GET['domicilio'];
                     
                     $fecha=$_GET['fecha'];
+                          $derivado=0;
             
                     ?>
                     <div id="formulario">
@@ -96,7 +97,8 @@ else {
                        <label>OBRA SOCIAL:</label><input type="text" class="datos" name="obrasocial" id="obrasocial" required placeholder="Ingrese  obra social" > <br>
                        <label>DNI PACIENTE:</label><input type="text" class="datos" name="dni_p" required > <br>
                        <label>DOMICILIO CONSULTA:<?php echo utf8_encode($domicilio)?></label><br>
-                      <label>USUARIO:<?php echo $usuario; ?></label><br>   
+                      <label>USUARIO:<?php echo $usuario; ?></label><br>
+                      <input type="hidden" name="derivado" value="<?php echo $derivado?>">
                    
                     <input type="submit" value="CONFIRMAR" class="btn-confirmar"> 
                     <div class="link-form">¿Desea modificar su consulta? <a href="ver-turnos-profesional.php">Clic aquí.</a></div>

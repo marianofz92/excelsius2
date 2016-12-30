@@ -6,10 +6,7 @@ require_once('conn/connect.php');
 
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     $usuario=$_SESSION['username']; 
-    $consulta="SELECT * FROM usuario WHERE nombre_usuario ='$usuario'";
-    $resultado=$connect->query($consulta);
-    $fila=mysqli_fetch_assoc($resultado);
-    $privilegio=$fila['privilegio'];
+    $privilegio=$_SESSION['privilegio'];
     if($privilegio ==1)//MEDICO TIENE PRIVILEGIO 1
     {
         $enlace='panel-profesional.php';
@@ -35,7 +32,7 @@ else {
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
         <link rel="stylesheet" href="css/fontello.css">        
         <link rel="stylesheet" href="css/estilos.css">
-        <link rel="stylesheet" href="css/confirmar-turno.css">
+        <link rel="stylesheet" href="css/confirmar-turno-prof.css">
     </head>
     <body>
         <header>
@@ -72,51 +69,98 @@ else {
             <section>
                 <div id="contenido">
                     <?php 
+    
                     $hora=$_GET['hora'];
                     $domicilio=$_GET['domicilio'];
                     $profesional=$_SESSION['prof'];
                     $ide=$_SESSION['idprofesional'];
                     $fecha=$_SESSION['fecha_pantalla'];
                     $usuario= $_SESSION['username'];
+                           $_SESSION['id_profesional_turno']=$ide; 
                  list($dia, $mes, $anio)= explode ("/", $fecha);
                  $fecha_consulta= $anio . '-' . $mes . '-' . $dia; 
-                    ?>
+                    
+                    if($privilegio==1)//existe medico derivador.
+                    {
+                        $derivado=1;
+                         echo '<div id="formulario">
+                   <form action="turno-profesional-confirmado.php" method="post" class="form-confirmacion">
+                      <h1 class="cabecera">CONFIRME EL TURNO DERIVADO</h1>
+                     <div class="contenedor-inputs">
+
+                      <p>Por favor verifique los datos del turno:</p>
+                       
+                       <label>PROFESIONAL: '; echo utf8_encode($profesional);echo'</label><br>
+                      <label>FECHA:'; echo $fecha;echo'</label><br>
+                      <label>HORA:'; echo $hora;echo'</label><br>
+                      <label>NOMBRES :</label><input  name="nombres_p"required type="text" class="datos"><br>
+                      <label>APELLIDOS:</label><input   name="apellidos_p"required type="text" class="datos"   > <br>
+                      <label>TELÉFONO: <input  name="tel_p" type="text" class="datos"  required></label><br> 
+                      <input type="hidden" name="fecha_p" id="fecha_p" value="';echo $fecha_consulta; echo '">   
+                      <input type="hidden" name="hora_p" id="hora_p" value="';echo $hora; echo '">
+                         <input type="hidden" name="domicilio_p" value="'; echo $domicilio;echo '">
+                         <input type="hidden" name="derivado" value="'; echo $derivado;echo '">
+                         
+                       <label>OBRA SOCIAL:</label><input type="text" class="datos" name="obrasocial" id="obrasocial" required placeholder="Ingrese  obra social" > <br>
+                       <label>DNI PACIENTE:</label><input type="text" class="datos" name="dni_p" required > <br>
+                       <label>DOMICILIO CONSULTA:';echo utf8_encode($domicilio);echo'</label><br>
+                       <label>PROFESIONAL DERIVADOR: ';echo $usuario; echo '</label><br> 
+                   
+                    <input type="submit" value="CONFIRMAR" class="btn-confirmar"> 
+                    <div class="link-form">¿Desea modificar su consulta? <a href="ver-turnos-profesional.php">Clic aquí.</a></div>
+                   </form>
+                  </div>
+                    </div>
+                </div>';
+                        
+                     
+                        
+                    }
+                    
+                    
+                    else
+                    {$derivado=0;
+                    echo '
                     <div id="formulario">
                    <form action="turno-confirmado.php" method="post" class="form-confirmacion">
                       <h1 class="cabecera">CONFIRME SU TURNO</h1>
                      <div class="contenedor-inputs">
 
                       <p>Por favor verifique los datos de su turno:</p>
-                      <label>FECHA:<?php echo $fecha ?></label><br>
-                      <label>HORA:<?php echo $hora ?></label><br>
+                      <label>FECHA: '; echo $fecha;echo '</label><br>
+                      <label>HORA:';echo $hora ;echo '</label><br>
                       
-                      <label>PROFESIONAL:<?php echo utf8_encode($profesional)?></label><br>
-                      <label>DOMICILIO CONSULTA:<?php echo utf8_encode($domicilio)?></label><br>
+                      <label>PROFESIONAL: '; echo utf8_encode($profesional);echo'</label><br>
+                      <label>DOMICILIO CONSULTA: ';echo utf8_encode($domicilio);echo '</label><br>
                        <label>OBRA SOCIAL:</label><input type="text" class="input-obra" name="obrasocial" id="obrasocial" required placeholder="Ingrese su obra social" > <br>
-                      <label>USUARIO:<?php echo $usuario; ?></label><br>   
+                      <label>USUARIO: '; echo $usuario; echo'</label><br> ';  
                       
-                      <?php
+                      
                        
     $consulta1 ="SELECT * FROM usuario WHERE nombre_usuario ='$usuario'";
     $resultado1=$connect->query($consulta1);
     $fila1 = mysqli_fetch_assoc($resultado1);
-    $nombres=$fila['nombres'];
-    $apellidos=$fila['apellidos'];
-    $mail=$fila['correo'];
+    $nombres=$fila1['nombres'];
+    $apellidos=$fila1['apellidos'];
+    $mail=$fila1['correo'];
+                     // puedo pasar x el formulario las variables sin hacer variables session.
     $_SESSION['fecha_turno']=$fecha_consulta;
     $_SESSION['hora_turno']=$hora;           
-    $_SESSION['id_profesional_turno']=$ide; 
+   
     $_SESSION['domicilio_turno']=$domicilio;       
                        
-                       ?>
-                      <label>NOMBRE:<?php echo $nombres ?></label><br>
-                      <label>APELLIDO:<?php echo $apellidos ?></label><br>
-                      <label>CORREO: <?php echo $mail?></label>
+                    echo'
+                       
+                      <label>NOMBRE: ';echo $nombres; echo'</label><br>
+                      <label>APELLIDO: ';echo $apellidos; echo'</label><br>
+                      <label>CORREO: ';echo $mail; echo '</label>
                        <input type="submit" value="CONFIRMAR" class="btn-confirmar">
+                       <input type="hidden" name="derivado" value="'; echo $derivado;echo '">
                     <div class="link-form">¿Desea modificar su consulta? <a href="profesionales.php">Clic aquí.</a></div>
                    </form>
                   </div>
-                    </div>
+                    </div>';}
+                          ?>
                 </div>
            
             </section>

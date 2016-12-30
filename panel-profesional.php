@@ -93,7 +93,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
          <a href="panel-profesional.php"><h1><?php echo $usuario ?><img src="img/default_avatar.png" alt=""></h1></a>
          <ul>
              <li class="menu-paciente"><a href="editar-perfil-profesional.php">Editar Perfil</a></li>
-             <li class="menu-paciente"><a href="">Nuevo Turno</a></li>
+             <li class="menu-paciente"><a href="profesionales.php">Derivar Turno</a></li>
              <li class="menu-paciente"><a href="configurar-turno.php">Configuración de turnos</a></li>
              <li class="menu-paciente"><a href="ver-turnos-profesional.php">Ver Turnos</a></li>
              <li class="menu-paciente"><a href="">Modificar Turno</a></li>

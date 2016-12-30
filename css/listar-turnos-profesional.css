@@ -1,5 +1,6 @@
 .contenido_tabla{
-    width: 90%;
+    width: 100%;
+    margin: auto;
     margin-top: 20px;
     overflow-y: scroll;
     height: 550px
@@ -13,4 +14,26 @@
     color: white;
     border-radius: 10px;
     vertical-align: middle;
+}
+.asistio{
+    margin-left: 10px;
+     text-decoration: none;
+    padding: 7px;
+    text-align: center;
+    background-color: forestgreen;  
+    color: white;
+    border-radius: 10px;
+    vertical-align: middle;
+    
+}
+.no-asistio{
+    
+    text-decoration: none;
+    padding: 7px;
+    text-align: center;
+    background-color: firebrick;
+    color: white;
+    border-radius: 10px; 
+    vertical-align: middle; 
+    margin-left: 20px;
 }

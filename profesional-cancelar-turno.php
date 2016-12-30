@@ -5,7 +5,7 @@ $var='<script>
 var mensaje = confirm("¿Desea  cancelar el turno?");
 var bandera=0;
 if (mensaje) {
-alert("¡Turno cancelado!");
+alert("¡Turno cancelado!. Recuerde comunicarse con el paciente para avisarle.");
 bandera=1;
 
 }
@@ -22,7 +22,7 @@ echo $var;
 if($var==0)
 {
   $id_turno=$_GET['id_turno'];
-    $consulta="UPDATE turno  SET estado='cancelado' WHERE id_turno=$id_turno";
+    $consulta="DELETE FROM turno  WHERE id_turno=$id_turno";
     $resultado=$connect->query($consulta);
     
     

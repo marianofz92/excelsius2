@@ -116,7 +116,7 @@ switch (date('w', $fechats))
    
 }  
  $id_profesional=$_SESSION['id_profesional_sesion'];  
- $consulta1="SELECT * FROM config_horario WHERE dia ='$dia_c' AND profesional_idProfesional=$id_profesional  ORDER BY  'desde' ASC";
+ $consulta1="SELECT * FROM config_horario INNER JOIN domicilio ON dia ='$dia_c' AND profesional_idProfesional=$id_profesional  AND Domicilio_idDomicilio=id_domicilio  ORDER BY  'desde' ASC";
 //$consulta="SELECT * FROM config_horario INNER JOIN profesionales2 ON profesional_idProfesional =id_profesional AND profesional_idProfesional=$id_profesional AND dia =$dia_c"; ES NECESARIO EL JOIN????--------NO!
  $resultado1=$connect->query($consulta1);
    
@@ -129,11 +129,14 @@ switch (date('w', $fechats))
     <thead>
         <tr>
         <th class="col-md-1">HORA</th>
-        <th class="col-md-2" >ESTADO</th>
-        <th class="col-md-2">CONSULTORIO</th>
-         <th class="col-md-3">PACIENTE</th>
+        <th class="col-md-1" >ESTADO</th>
+        <th class="col-md-1">CONSULTORIO</th>
+         <th class="col-md-2">PACIENTE</th>
+          <th class="col-md-1">TELÉFONO</th>
          <th class="col-md-2">O.SOCIAL</th>
+         <th class="col-md-1">DERIVADO POR:</th>
          <th class="col-md-2"></th>
+         <th class="col-md-1">¿ASISTÍO?</th>
          
         </tr>
     </thead>
@@ -144,18 +147,18 @@ switch (date('w', $fechats))
   { 
    $desde=$fila1['desde']; 
    $hasta=$fila1['hasta'];
-  $domicilio_rango=$fila1['Domicilio_idDomicilio'];
-  $consulta4="SELECT * FROM domicilio WHERE id_domicilio =$domicilio_rango";
-  $resultado4=$connect->query($consulta4);
-  $fila4=mysqli_fetch_assoc($resultado4);
-  if($fila4['tipo']=='departamento')
+  //$domicilio_rango=$fila1['Domicilio_idDomicilio'];
+//  $consulta4="SELECT * FROM domicilio WHERE id_domicilio =$domicilio_rango";
+  //$resultado4=$connect->query($consulta4);
+  //$fila4=mysqli_fetch_assoc($resultado4);
+  if($fila1['tipo']=='departamento')
   {
-      $domicilio_consulta="{$fila4['calle']} {$fila4['numero']} Piso:{$fila4['piso']} Dpto: {$fila4['dpto']} ";
+      $domicilio_consulta="{$fila1['calle']} {$fila1['numero']} Piso:{$fila1['piso']} Dpto: {$fila1['dpto']} ";
       
   }
       else
       {
-          $domicilio_consulta="{$fila4['calle']} {$fila4['numero']}";
+          $domicilio_consulta="{$fila1['calle']} {$fila1['numero']}";
       }
       
    
@@ -169,7 +172,8 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
      $nuevaHora=date("H:i:s",$segundos_horaInicial);
       
           $consulta2="SELECT * FROM turno INNER JOIN usuario ON id_usuario=usuario_idUsuario AND profesional_idProfesional=$id_profesional AND fecha='$fecha_consulta'";
-          $resultado2=$connect->query($consulta2);                                      
+          $resultado2=$connect->query($consulta2); 
+        
 
 ?>
   <tr> <td><?php echo $nuevaHora ?></td>
@@ -185,22 +189,42 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
      {
          $busca=1;
          $obra_social=$fila2['obra_social'];
-         $paciente="{$fila2['nombres']} {$fila2['apellidos']} ";
+        
          $id_turno=$fila2['id_turno'];
-            
+         $derivado=$fila2['id_profesionalDerivador'];
+         $estado_turno=$fila2['estado'];
+         $consulta_der="SELECT nombre1, nombre2, apellido1, apellido2 FROM profesionales2 WHERE id_profesional=$derivado";
+         $resultado_der=$connect->query($consulta_der);
+         $fila_der=mysqli_fetch_assoc($resultado_der);
+         
+         if($derivado!=34) // algun medico q no es el generico lo derivo a otro profesional.; medico se saca turno para el mismo.
+         {
+             $paciente="{$fila2['nombres_paciente']} {$fila2['apellidos_paciente']} ";
+             $nombre_derivador="{$fila_der['nombre1']} {$fila_der['nombre2']} {$fila_der['apellido1']} {$fila_der['apellido2']} ";
+              $telefono=$fila2['tel_paciente'];
+         }
+         else // el paciente se saca turno
+         {
+               $paciente="{$fila2['nombres']} {$fila2['apellidos']} ";
+              $nombre_derivador='Paciente';
+              $telefono=$fila2['telefono_usuario'];
+              
+         }
      }
     
      }
-    if($busca==1)
+    if($busca==1) //  cancelado: x medico o paciente.. manejar 4 estados: asignado, atendido.
     {
        
        
         echo '<td class="danger ocupado">OCUPADO</td>';
              echo '<td>';echo $domicilio_consulta;echo'</td>';
             echo '<td>';echo $paciente;echo'</td>';
+             echo '<td>';echo $telefono;echo'</td>';
             echo '<td>';echo $obra_social ;echo'</td>';
+            echo '<td>';echo $nombre_derivador ;echo'</td>';
         echo  '<td><a class="sacar-color" href="profesional-cancelar-turno.php?id_turno=';echo $id_turno;echo '">CANCELAR   </a></td>';
-      
+        echo  '<td><a class="asistio" href="asistencia-paciente.php?id_turno=';echo $id_turno;echo'&asistencia=si">SI  </a> <a class="no-asistio" href="asistencia-paciente.php?id_turno=';echo $id_turno;echo'&asistencia=no">NO</a> </td>';
         echo '</tr>';
     }
     else
@@ -211,7 +235,10 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
         //</tr>';
        echo '<td> </td>';
       echo '<td>';echo '';echo'</td>';
+        echo '<td>';echo '' ;echo'</td>';
         echo '<td> <a href="confirmar-turno-profesional.php?fecha=';echo $fecha_consulta;echo'&hora=';echo $nuevaHora;echo'&domicilio=';echo $domicilio_consulta;echo'">NUEVO TURNO</a></td>';
+        echo '<td>';echo '' ;echo'</td>';
+        echo '<td>';echo '' ;echo'</td>';
         echo '</tr>';
        
         

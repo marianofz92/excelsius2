@@ -8,6 +8,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
     $usuario=$_SESSION['username']; 
     $enlace='panel-profesional.php';
     $privilegio=$_SESSION['privilegio'];
+    $fila2 = $_SESSION['fila2'];
     
     $consulta ="SELECT * FROM usuario WHERE nombre_usuario ='$usuario'";
     $resultado=$connect->query($consulta);
@@ -82,7 +83,15 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
 
 <section class="principal"> 
     <div class="sidebar" >
-         <a href="panel-profesional.php"><h1><?php echo $usuario ?><img src="img/default_avatar.png" alt=""></h1></a>
+         <a href="panel-profesional.php"><h1><?php echo $usuario ?><img src="<?php 
+                if(isset($fila2['img'])){
+                    $foto = $fila2['img'];
+                    echo 'data:image/jpg;base64,'.base64_encode($foto);
+                }else{
+                    echo 'img/default_avatar.png';
+                }
+                
+                ?>" alt=""></h1></a>
          <ul>
              <li class="menu-paciente"><a href="editar-perfil-profesional.php">Editar Perfil</a></li>
              <li class="menu-paciente"><a href="">Nuevo Turno</a></li>

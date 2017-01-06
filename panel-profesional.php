@@ -8,10 +8,17 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
     $usuario=$_SESSION['username']; 
     $enlace='panel-profesional.php';
     $privilegio=$_SESSION['privilegio'];
+    $id_usuario = $_SESSION['id_usuario'];
     
     $consulta ="SELECT * FROM usuario WHERE nombre_usuario ='$usuario'";
     $resultado=$connect->query($consulta);
     $fila= mysqli_fetch_assoc($resultado);
+    
+    $consulta2 = "SELECT img FROM profesionales2 WHERE usuario_idUsuario = $id_usuario";
+    $resultado2=$connect->query($consulta2);
+    $fila2= mysqli_fetch_assoc($resultado2);
+    
+    $_SESSION['fila2'] = $fila2;
     
 } else {
     
@@ -88,9 +95,19 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
 
 </header>
 
+   
+
 <section class="principal"> 
     <div class="sidebar" >
-         <a href="panel-profesional.php"><h1><?php echo $usuario ?><img src="img/default_avatar.png" alt=""></h1></a>
+         <a href="panel-profesional.php"><h1><?php echo $usuario ?><img src="<?php 
+                if(isset($fila2['img'])){
+                    $foto = $fila2['img'];
+                    echo 'data:image/jpg;base64,'.base64_encode($foto);
+                }else{
+                    echo 'img/default_avatar.png';
+                }
+                
+                ?>" alt=""></h1></a>
          <ul>
              <li class="menu-paciente"><a href="editar-perfil-profesional.php">Editar Perfil</a></li>
              <li class="menu-paciente"><a href="profesionales.php">Derivar Turno</a></li>
@@ -106,14 +123,22 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
     <div id="contenido">
        <div id="titulo"><h1>Perfil de <?php echo $usuario ?></h1></div>
        <article class="datos-personales">
-           <img src="img/default_avatar.png" alt="">
+           <img src="<?php 
+                if(isset($fila2['img'])){
+                    $foto = $fila2['img'];
+                    echo 'data:image/jpg;base64,'.base64_encode($foto);
+                }else{
+                    echo 'img/default_avatar.png';
+                }
+                
+                ?>" alt="">
             <ul>
                 <?php $nombre_apellido ="{$fila['nombres']} {$fila['apellidos']}";?>
                 <li><img src="img/icono-user.png" alt=""><span>Nombre de usuario:</span> <?php echo $usuario ?></li>
                 <li><img src="img/icono-nombre.png" alt=""><span>Nombre:</span> <?php echo utf8_encode($nombre_apellido) ?></li>
                 <li><img src="img/icono-mail.png" alt=""><span>E-mail:</span> <?php echo utf8_encode($fila ['correo']) ?></li>
                 <li><img src="img/icono-turno.png" alt=""><span>Turnos:</span> <?php echo $privilegio ?></li>
-                <li><img src="img/icono-turno.png" alt=""><span>id_profe:</span> <?php $idprofesi=$_SESSION['id_profesional_sesion']; echo $idprofesi?></li>
+<!--                <li><img src="img/icono-turno.png" alt=""><span>id_profe:</span> <?php //$idprofesi=$_SESSION['id_profesional_sesion']; echo $idprofesi?></li>-->
                 
        </article>
        <div class="turnos">

@@ -7,8 +7,7 @@
 }
 .sacar-color{
     text-decoration: none;
-   
-    padding: 7px;
+    
     text-align: center;
     background-color: firebrick; 
     color: white;
@@ -16,24 +15,23 @@
     vertical-align: middle;
 }
 .asistio{
-    margin-left: 10px;
-     text-decoration: none;
-    padding: 7px;
+    width: 100%;
+    margin-left: 0px;
+    text-decoration: none;
     text-align: center;
     background-color: forestgreen;  
     color: white;
     border-radius: 10px;
-    vertical-align: middle;
-    
+    vertical-align: middle;  
 }
+
 .no-asistio{
-    
+    width: 100%;
     text-decoration: none;
-    padding: 7px;
     text-align: center;
     background-color: firebrick;
     color: white;
     border-radius: 10px; 
     vertical-align: middle; 
-    margin-left: 20px;
+    margin-left: 0px;
 }

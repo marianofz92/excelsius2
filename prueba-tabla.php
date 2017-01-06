@@ -78,7 +78,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
 </header>
 
-    <style type="text/css"> header{display: none;} </style>
 
 <section id="contenedor_s">
  <div id="contenido"> 

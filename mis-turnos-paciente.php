@@ -18,7 +18,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
     $resultado2=$connect->query($consulta2);
     $fila2= mysqli_fetch_assoc($resultado2);
     
-    
 } else {
     
             if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']!=0) {

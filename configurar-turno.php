@@ -14,6 +14,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
     $fila= mysqli_fetch_assoc($resultado);
     $id_profesional_session=$fila['id_profesional'];
     $_SESSION['id_profesional'] = $id_profesional_session;
+    $fila3 = $_SESSION['fila2'];
     
     $consulta2 = "SELECT * FROM profesional_domicilio INNER JOIN domicilio ON domicilio_idDomicilio=id_domicilio AND profesional_idProfesional=$id_profesional_session";
     $resultado2=$connect->query($consulta2);
@@ -99,7 +100,15 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
 
 <section class="principal"> 
     <div class="sidebar" >
-         <a href="panel-profesional.php" id="sidebar-usuario"><h1><?php echo $usuario ?><img src="img/default_avatar.png" alt=""></h1></a>
+         <a href="panel-profesional.php" id="sidebar-usuario"><h1><?php echo $usuario ?><img src="<?php 
+                if(isset($fila3['img'])){
+                    $foto = $fila3['img'];
+                    echo 'data:image/jpg;base64,'.base64_encode($foto);
+                }else{
+                    echo 'img/default_avatar.png';
+                }
+                
+                ?>" alt=""></h1></a>
          <ul>
              <li class="menu-paciente"><a href="editar-perfil-profesional.php">Editar Perfil</a></li>
              <li class="menu-paciente"><a href="">Nuevo Turno</a></li>
@@ -122,7 +131,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
          <tbody>
           <tr>
               <td><div class="checkbox">
-                        <input id="checkbox1" type="checkbox" name="orderbox[]" value="Lunes">
+                        <input id="checkbox1" type="checkbox" name="orderbox[]" value="Lunes" class="checkbox-success">
                         <label for="checkbox1">
                            Lun
                         </label>
@@ -214,7 +223,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
                <td><div class="form-hasta">
                       <label for="hasta">Hasta</label>
                       <select class="form-control" id="hasta">
-                        <option>00:00</option>
                         <option>01:00</option>
                         <option>02:00</option>
                         <option>03:00</option>
@@ -238,6 +246,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
                         <option>21:00</option>
                         <option>22:00</option>
                         <option>23:00</option>
+                        <option>24:00</option>
                       </select>
                     </div>
               </td>
@@ -254,13 +263,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
               <td><div class="form-direccion">
                       <select class="form-control" id="direccion">
                        <?php do {?> 
-                       <option><?php echo $fila2['calle']." ".$fila2['numero']." - piso: ".$fila2['piso']." - depto: ".$fila2['dpto']." -  ".$fila2['localidad'].", ".$fila2['provincia'];/*." id=".$fila2['id_domicilio'] */?></option>
+                       <option value="<?php echo $fila2['id_domicilio'] ?>" ><?php echo $fila2['calle']." ".$fila2['numero']." - piso: ".$fila2['piso']." - depto: ".$fila2['dpto']." -  ".$fila2['localidad'].", ".$fila2['provincia'] ?></option>
                        
                         <?php } while ($fila2=mysqli_fetch_assoc($resultado2));?>
                         
-                        <?php 
-                           $_SESSION['id_dom']=$id_dom;     
-                          ?>     
+                          
                                     
                       </select>
                     </div>
@@ -274,26 +281,28 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
  </div> 
       
         
-      <div id="turnos" class="turnos-disponibles container col-md-11">
+      <div id="turnos" class="turnos-disponibles col-md-11">
        <form action="guardar-config-turnos.php" method="POST" id="enviar-turnos" >
-        <table  class="table table-hover" id="turnos-config">
+        <table  class="table table-bordered table-hover" id="turnos-config">
            <thead>
-               <th>día</th>
-               <th>horario</th>
-               <th>dirección</th>
+               <th>Día</th>
+               <th>Horario</th>
+               <th>Dirección</th>
                <th></th>
            </thead>
             <tbody>
-                <tr>
+                <tr></tr>
             </tbody>
         </table>
         <script src="tabla-configuracion-turnos.js"></script>
         </form>
       </div>
-      
       <button id="guardar" class="btn btn-primary" >Guardar configuración</button>
-     
-      <div id='response'></div>
+      
+      
+     <div id='response' class="col-md-10">
+      
+     </div>
      
       <script>
           
@@ -304,7 +313,9 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
                  var fila = '';
                  var n = 0;
                  var m =0;
-                 var filas = '';
+                 var filas = ''; 
+                 var id = '';
+                 var ids = '';
                 
                 $("#turnos-config tbody tr").each(function (index) 
                 {
@@ -319,31 +330,29 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
                             case 1: campo2 = $(this).text();
                                     break;
                             case 2: campo3 = $(this).text();
-                                    break;       
+                                    break;  
                         }
                      fila = campo1 + ' - ' + campo2 + ' -- ' + campo3;
-                        
-                       
-                    })
                      
-                    //filas =  
-                    filas = (filas + ' / ' + fila); 
-                    //alert(campo1 + ' - ' + campo2 + ' - ' + campo3);
-                     //alert(fila);
+                    })
+                      
+                    //if(campo2)
                     
+                    filas = (filas + ' / ' + fila); 
+                    
+                   
                 })
-               /* var i = 0;
-                var j = 0;
+                $('input[name="oculto[]"]').each(function() {
+                        id += $(this).val() + ",";
+                        ids = id.substring(0, id.length-1);
+                        });
                 
-               for(i=0; i<n; i++){
-                   for(j=0; j<m; j++){
-                       alert(filas[i][j]);
-                   }
-               } */
                 alert(filas);
+                alert(ids);
+                
                 $.ajax({
                                     type: 'get', 
-                                    url: 'guardar-config-turnos.php?filas='+ filas,
+                                    url: 'guardar-config-turnos.php?filas='+filas+'&ids='+ids, //mandar los id de los domicilios seleccionados en orden
                                     success: function(data){
                                         $("#response") .html(data)
                                     },
@@ -361,7 +370,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
     </div>
     
       
-   </section> 
+   </section>
  
  <footer>
             <div class="contenedor">
@@ -374,6 +383,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
             </div>
         </footer>  
         
+        <script src="bootstrap/js/jquery.js"></script>
         <script src="js/jquery.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
     </body>

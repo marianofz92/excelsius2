@@ -223,11 +223,10 @@ footer a:hover {
 }
 
 .checkbox input {
-   
+
 }
 
 .checkbox label {
-    
     
 }
 
@@ -237,7 +236,9 @@ table {
 }
 
 #dias-turnos, #intervalos, #direcciones {
-    background-color: rgba(95, 158, 160, .4);
+background-color: rgba(95, 158, 160, .4);
+
+    
 }
 
 .container h4 {
@@ -274,7 +275,7 @@ table {
     float: right;
     margin-right: 35px;
     width: 180px
-}
+} 
 
 #turnos {
     margin-top: 40px;
@@ -288,5 +289,18 @@ table {
     display: none;
 }
 
+
+#turnos-config th {
+    color: #fff;
+    background-color:cadetblue
+}
+
+#turnos-config td {
+    border-color: cadetblue
+}
+
+#response {
+  
+}
 
 /* con js hacer que se aumente el margin-bottom del contenedor mas grande o aumentar el height

@@ -15,6 +15,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     $apellido = $fila['apellidos'];
     $email = $fila['correo'];
     $_SESSION['idusuario'] = $fila['id_usuario'];
+    $fila2 = $_SESSION['fila2'];
 
     
 } else {
@@ -88,7 +89,15 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
    
   <section class="principal"> 
     <div class="sidebar" >
-         <a href="panel-profesional.php"><h1><?php echo $usuario ?><img src="img/default_avatar.png" alt=""></h1></a>
+         <a href="panel-profesional.php"><h1><?php echo $usuario ?><img src="<?php 
+                if(isset($fila2['img'])){
+                    $foto = $fila2['img'];
+                    echo 'data:image/jpg;base64,'.base64_encode($foto);
+                }else{
+                    echo 'img/default_avatar.png';
+                }
+                
+                ?>" alt=""></h1></a>
          <ul>
             <li class="menu-paciente"><a href="editar-perfil-profesional.php">Editar Perfil</a></li>
              <li class="menu-paciente"><a href="">Nuevo Turno</a></li>
@@ -103,7 +112,15 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     <div id="contenido">
        <div id="titulo"><h1>Editar datos personales</h1></div>
         <div id="contenedor_registro">
-        <img src="img/default_avatar.png" alt="">
+        <img src="<?php 
+                if(isset($fila2['img'])){
+                    $foto = $fila2['img'];
+                    echo 'data:image/jpg;base64,'.base64_encode($foto);
+                }else{
+                    echo 'img/default_avatar.png';
+                }
+                
+                ?>" alt="">
     <form action="actualizar-datos.php" method="post" class="form-register">
     
     <div class="contenedor-inputs">

@@ -47,7 +47,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
         <link rel="stylesheet" href="css/panel-medico.css">
         <link rel="stylesheet" href="css/jquery-ui.min.css">
         <script src="js/jquery.js"></script>
-        <link rel="stylesheet" href="css/ver-turno-profesional.css">
+        <link rel="stylesheet" href="css/desactivar-turnos.css">
 
     </head>
     <body>
@@ -104,27 +104,46 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
          </ul>
     </div>
     
-    <div id="contenido">
-       
-       
-       <div id="titulo">
-      <p>SELECCIONE LA FECHA PARA DESACTIVAR SUS HORARIOS:</p>
-     
-    </div> 
-    <form class="formulario"  method="post" id="formulario" action="desactivar-tabla.php">
+    <div class="contenido" id="contenido">
+     <div id="titulo">
+    <h1>Desactivar horarios</h1>
+     </div>
+       <div id="formulario"> 
       
+       <form class="formulario-rango"  method="post" id="formulario_dia" action="desactivar-tabla.php">
+     <h1>Seleccione un rango:</h1> <br>
+      
+     
+      <label >Desde: </label> 
+      
+      <input id="fecha_desactivar_desde" class="fecha-inp"  placeholder="SELECCIONE FECHA"  type="text" required name="fecha_desactivar">
+      <label >Hasta: </label> 
+     <input id="fecha_desactivar_hasta" class="fecha-inp"  placeholder="SELECCIONE FECHA"  type="text" required name="fecha_desactivar">
+
+      <input type="submit" value="ACEPTAR" class="btnconsulta"  id="btnconsultar" >
+    
+    
+  </form>   
+    
+    <form class="formulario-dia"  method="post" id="formulario_dia" action="desactivar-tabla.php">
+     <h1>Seleccione un día :</h1> <br>
+      
+     
       <label >Fecha: </label> 
       
-      <input id="fecha_desactivar" class="fecha-inp"  placeholder="SELECCIONE FECHA"  type="text" required name="fecha_desactivar">
+      <input id="fecha_desactivar_" class="fecha-inp"  placeholder="SELECCIONE FECHA"  type="text" required name="fecha_desactivar">
       <input type="submit" value="VER" class="btnconsulta"  id="btnconsultar" >
      <script src="js/jquery-ui.min.js"></script>
        <script src="js/datepicker-es.js"></script>
-        <script>
-        $("#fecha_desactivar").datepicker( $.datepicker.regional[ "es" ]);
+       <script>
+        $("#fecha_desactivar_hasta").datepicker( $.datepicker.regional[ "es" ]);
+        $("#fecha_desactivar_desde").datepicker( $.datepicker.regional[ "es" ]);
+        $("#fecha_desactivar_").datepicker( $.datepicker.regional[ "es" ]);
     
     </script>
     
-  </form>    
+  </form>   
+   </div> 
     </div>
    </section> 
 

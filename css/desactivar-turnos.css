@@ -1,0 +1,40 @@
+*{
+    
+}
+
+.formulario-rango{
+    width: 40%;
+    padding: 20px;
+    border: 2px solid  cadetblue;
+    min-width: 200px;
+    height: 350px;
+    margin: auto;
+    
+    
+}
+.formulario-dia{
+    width: 40%;
+    padding: 20px;
+    border: 2px solid  cadetblue;
+    margin:auto;
+    height: 250px;
+     min-width: 200px;
+
+}
+.fecha-inp{
+    margin-top: 10px;
+}
+.btnconsulta{
+    
+}
+
+#titulo{
+height: 50px;
+    min-width: 100px;
+
+}
+#formulario{
+    
+    display: flex;
+    flex-wrap: nowrap;
+}

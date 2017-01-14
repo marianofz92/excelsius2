@@ -103,6 +103,8 @@ for($m = 0; $m < (count($arrayDias)); $m++) {
 
 $res = array_diff($arrayDias, array_diff(array_unique($arrayDias), array_diff_assoc($arrayDias, array_unique($arrayDias))));
  
+ $solapa = 0;
+
 foreach(array_unique($res) as $v) {
     
     echo "Duplicado $v en la posicion: " .  implode(', ', array_keys($res, $v)) . '<br>';  
@@ -113,9 +115,27 @@ foreach(array_unique($res) as $v) {
         
         echo "De:".$arrayDesde[$claves[$cont]] . "Hasta:" . $arrayHasta[$claves[$cont]] . "<br>";
         
-        if()
+        for($cont2 = 0; $cont2 < (count($claves)); $cont2++) {    
         
+            if(($arrayDesde[$claves[$cont]] <= $arrayDesde[$claves[$cont2]]) && ($arrayHasta[$claves[$cont]] > $arrayDesde[$claves[$cont2]]) && $cont != $cont2) {
+
+                $solapa = 1;
+
+            } 
+            
+            if(($arrayHasta[$claves[$cont]] >= $arrayHasta[$claves[$cont2]]) && ($arrayDesde[$claves[$cont]] < $arrayHasta[$claves[$cont2]]) && $cont != $cont2) {
+
+                $solapa = 1;
+
+            } 
+        }
     } 
+}
+
+if($solapa == 1){
+    echo 'Existen intervalos solapados';
+} else {
+    //meter toda la consulta aquí ------- soy un craaaaaaaaaaaaaaaaaaaaack!!!!
 }
 
 for ($i = 0; $i < (count($fila)); $i++) {

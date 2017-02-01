@@ -8,10 +8,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
     $usuario=$_SESSION['username']; 
     $enlace='panel-profesional.php';
     $privilegio=$_SESSION['privilegio'];
+    $fila2 = $_SESSION['fila2'];
     
     $consulta ="SELECT * FROM usuario WHERE nombre_usuario ='$usuario'";
     $resultado=$connect->query($consulta);
     $fila= mysqli_fetch_assoc($resultado);
+    
     
 } else {
     
@@ -82,7 +84,15 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
 
 <section class="principal"> 
     <div class="sidebar" >
-         <a href="panel-profesional.php"><h1><?php echo $usuario ?><img src="img/default_avatar.png" alt=""></h1></a>
+         <a href="panel-profesional.php"><h1><?php echo $usuario ?><img src="<?php 
+                if(isset($fila2['img'])){
+                    $foto = $fila2['img'];
+                    echo 'data:image/jpg;base64,'.base64_encode($foto);
+                }else{
+                    echo 'img/default_avatar.png';
+                }
+                
+                ?>" alt=""></h1></a>
          <ul>
              <li class="menu-paciente"><a href="editar-perfil-profesional.php">Editar Perfil</a></li>
              <li class="menu-paciente"><a href="">Nuevo Turno</a></li>
@@ -223,8 +233,8 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
              echo '<td>';echo $telefono;echo'</td>';
             echo '<td>';echo $obra_social ;echo'</td>';
             echo '<td>';echo $nombre_derivador ;echo'</td>';
-        echo  '<td><a class="sacar-color" href="profesional-cancelar-turno.php?id_turno=';echo $id_turno;echo '">CANCELAR   </a></td>';
-        echo  '<td><a class="asistio" href="asistencia-paciente.php?id_turno=';echo $id_turno;echo'&asistencia=si">SI  </a> <a class="no-asistio" href="asistencia-paciente.php?id_turno=';echo $id_turno;echo'&asistencia=no">NO</a> </td>';
+        echo  '<td><a class="sacar-color btn btn-danger" href="profesional-cancelar-turno.php?id_turno=';echo $id_turno;echo '">CANCELAR   </a></td>';
+        echo  '<td><a class="asistio btn btn-success" href="asistencia-paciente.php?id_turno=';echo $id_turno;echo'&asistencia=si">SI  </a> <a class="no-asistio btn btn-danger" href="asistencia-paciente.php?id_turno=';echo $id_turno;echo'&asistencia=no">NO</a> </td>';
         echo '</tr>';
     }
     else

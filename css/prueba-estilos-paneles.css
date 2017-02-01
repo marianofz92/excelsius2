@@ -3,18 +3,24 @@
     margin: 0;
 }
 
+
 .principal {
     display: flex;
+    background-color: #ecf0f1;
 }
 
 .sidebar {
     margin-top: 100px;
-    width: 250px;
-    height: 100%;
-    position: absolute;
-    background: rgba(24, 49, 82, 0.85);
+    width: 200px;
+    height:100%; /* hacer un calcula del 100% menos el height del footer */
+    position: fixed;
+    background: #35475e;
     color: #fff;
-    outline:  1px solid #183152;
+    outline:  1px solid #35475e;
+}
+
+footer {
+position: relative;
 }
 
 .sidebar ul a {
@@ -22,13 +28,20 @@
     color: #fff;
     display: block;
     padding: 10px;
+    
 }
 
 .sidebar li {
-    outline:  1px solid #183152;
+    outline:  1px solid #3c506a;
     transition: all 0.2s; 
-    font-size: 15px;
-    height: 39px;
+    font-size: 12px;  
+}
+
+.sidebar li span {
+    margin-right: 15px;
+    font-size: 20px;
+    color: #ABC8E2;
+    margin-left: 15px;
 }
 
 .sidebar a:hover {
@@ -41,9 +54,9 @@
 
 #contenido {
     width: 100%;
-    min-height: 400px;
-    height: 100vh;
-    margin-left: 280px;
+    min-height: 800px;
+    height: 100%;
+    margin-left: 220px;
     margin-top: 100px;
     flex-wrap: wrap;
     position: relative;
@@ -52,7 +65,7 @@
 
 #titulo {
     width: 100%;
-    padding-top: 11.5px;
+    padding-top: 11px;
     margin-top: 0px;
     margin-bottom: 20px;
     border-bottom: 1px solid cadetblue;
@@ -89,35 +102,33 @@
     border: solid 2px cadetblue
 }
 
-.datos-personales {
-    display: flex;
-    flex-wrap: wrap;
-}
 
-.datos-personales ul {
-    margin-left: 30px;
-    line-height: 30px
-}
-
-.sidebar h1 {
-    padding: 15px;
-    background-color: rgba(95, 158, 160, 1);
-    font-size: 20px;
-    margin: 0;
-}
-
-.sidebar h1 img {
-    width: 35px;
-    height: 35px;
+.sidebar img {
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
-    vertical-align:text-bottom;
-    margin-left: 10px;
+    border: solid 2px #fff;
+    border-style: solid;
+    margin: 0px;
+}
+
+#usuario-sidebar {
+    height: 110px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#nombre-sidebar {
+    padding-bottom: 20px;
+    text-align: center;
+    font-size: 17px;
 }
 
 .sidebar a {
     text-decoration: none;
-    color: #fff
+    color: #fff;
 }
+
 
 @media(max-width:1024px) {
     
@@ -170,7 +181,15 @@
     
 }
 
+header ul a:hover {
+    text-decoration: none;
+    color: #fff
+}
 
+header .etiqueta-ingresar:hover {
+    text-decoration: none;
+    color: #fff
+}
 
 footer a:hover {
     text-decoration: none;
@@ -183,22 +202,43 @@ footer a:hover {
     font-weight: 
 }
 
-.sidebar h1 {
-    font-weight: bold;
-}
-
 
 /*---------------------------------------------*/
 
+#mis-turnos {
+    font-size: 12px;
+}
 
 #mis-turnos td {
     text-align: center;
     vertical-align: middle;
-
 }
 
 #mis-turnos th {
     text-align: center;
+}
+
+#mis-turnos thead {
+    background-color: #d9edf7;
+}
+
+#panel-turnos {
+   box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    max-height: 500px;
+    overflow: auto;
+}
+
+
+#titulo-mis-turnos {
+    padding: 25px;
+    background: linear-gradient(to left, rgba(255,255,255,0), rgba(255,255,255,1)), url("../img/banner-mis-turnos2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+header {
+     box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 /*-------------------------------------------------*/
@@ -214,7 +254,51 @@ header .etiqueta-ingresar:hover {
     color: #fff
 }
 
-header  {
-    font-size: 12px
+header ul {
+    font-size: 13px;
 }
 
+#dropdownMenu1 {
+    background-color: #375D81;
+    height: 100%;
+    margin-left: 70px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-style: none;
+/*    border: solid 1px #fff;*/
+}
+
+#dropdownMenu1 .glyphicon-user {
+    margin-right: 5px;
+    font-size: 15px
+}
+
+#dropdownMenu2 {
+    width: 100%;
+    background-color: #375D81;
+    padding: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: none;
+}
+
+#dropdownMenu2 li a {
+    color: #fff;
+    font-size: 12px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#dropdownMenu2 li a span {
+    font-size: ;
+    margin-right: 8px;
+}
+
+#dropdownMenu2 li a:hover {
+    background-color: #ABC8E2;
+    color:
+}
+
+#dropdownMenu2 li a:before {
+    background: none;
+}

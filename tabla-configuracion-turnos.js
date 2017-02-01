@@ -22,7 +22,8 @@ function agregar() {
             //si todos los checkbox están seleccionados devuelve 1,2,3,4,5
      
      if (checkboxValues == '') {
-        alert('Debe seleccionar por lo menos un día');
+         
+        alertify.alert("¡Atención!", "Debe seleccionar por lo menos un día.");
          
         var nfilas = document.getElementById("turnos-config").rows.length;
     
@@ -54,7 +55,7 @@ function agregar() {
                  $('input:checkbox[name="orderbox[]"]').removeAttr('checked');
 
             } else {
-                alert("Debe seleccionar un rango de horario válido");
+                alertify.alert("¡Atención!", "Debe seleccionar un rango de horario válido.");
                 
                 var nfilas = document.getElementById("turnos-config").rows.length;
                 if(nfilas==2){

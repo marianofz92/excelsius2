@@ -58,11 +58,20 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
         <link rel="stylesheet" href="css/estilos.css">
         <link rel="stylesheet" href="css/configurar-turno.css">
         <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="alertify/css/alertify.css">
+        <link rel="stylesheet" href="alertify/css/themes/default.css">
+        <link rel="stylesheet" href="sweetalert/sweetalert.css">
        
       
-        
+        <script type="text/javascript" src="sweetalert/sweetalert.min.js"></script>
         <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
-         <script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
+        <script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
+        
+        <script type="text/javascript" src="alertify/alertify.min.js"></script>
+        <script type="text/javascript">
+        //override defaults
+        alertify.defaults.transition = "zoom";
+        </script>
        
         
         
@@ -263,7 +272,18 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
               <td><div class="form-direccion">
                       <select class="form-control" id="direccion">
                        <?php do {?> 
-                       <option value="<?php echo $fila2['id_domicilio'] ?>" ><?php echo $fila2['calle']." ".$fila2['numero']." - piso: ".$fila2['piso']." - depto: ".$fila2['dpto']." -  ".$fila2['localidad'].", ".$fila2['provincia'] ?></option>
+                       <option value="<?php echo $fila2['id_domicilio'] ?>" ><?php
+    
+                    if($fila2['tipo']=='departamento') {    
+    
+                     echo $fila2['calle']." ".$fila2['numero']." - piso: ".$fila2['piso']." - depto: ".$fila2['dpto']." -  ".$fila2['localidad'].", ".$fila2['provincia']; 
+                    } else {
+                        
+                        echo $fila2['calle']." ".$fila2['numero']." -  ".$fila2['localidad'].", ".$fila2['provincia']; 
+                        
+                    }
+                           
+                        ?></option>
                        
                         <?php } while ($fila2=mysqli_fetch_assoc($resultado2));?>
                         
@@ -347,8 +367,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
                         ids = id.substring(0, id.length-1);
                         });
                 
-                alert(filas);
-                alert(ids);
+                //alert(filas);
+                //alert(ids);
                 
                 $.ajax({
                                     type: 'get', 

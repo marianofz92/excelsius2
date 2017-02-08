@@ -302,19 +302,28 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
     {
        
        $origen='desactivar';
-        echo '<td class="danger ocupado">OCUPADO</td>';
+        echo '<td class="danger ocupado">'.$estado_turno.'</td>';
              echo '<td>';echo $domicilio_consulta;echo'</td>';
             echo '<td>';echo $paciente;echo'</td>';
              echo '<td>';echo $telefono;echo'</td>';
             echo '<td>';echo $obra_social ;echo'</td>';
             echo '<td>';echo $nombre_derivador ;echo'</td>';
+        if($estado_turno=='DESACTIVADO')
+        {
+            $boton="Revertir";
+            
+        }
+        else
+        {
+            $boton="Cancelar Turno";
+        }
         echo  '<td><button  type="button" data-toggle="modal" class="btn btn-danger btn-sm" data-target=".bs-example-modal-sm" onclick="
                                         
                                       alertify.confirm(\'¡Atención!\', \'¿Seguro que desea cancelar el turno?\', function(){
                                       window.location = \'cancelar-turno.php?idturno='.$id_turno.'&origen='.$origen.'\';
                                       }, function(){}).set(\'labels\', {ok:\'Si\', cancel:\'No\'});
     
-                                        ">Cancelar turno</button></td>';
+                                        ">'.$boton.'</button></td>';
         echo  '<td> <p> </p></td>';
         echo '</tr>';
     }
@@ -352,7 +361,7 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
 
 <script src="js/desactivar-turno.js"></script>
                
-             <button id="aceptar" type="button" class="btn btn-success " style="margin-top: 15px;" onclick="desactivarTurnos()">Desactivar selección</button>
+           <button id="aceptar" type="button" class="btn btn-success " style="margin-top: 15px;" onclick="desactivarTurnos(); recargar()">Desactivar selección</button>
                    <input type="text" value="<?php echo $fecha ?>" hidden="hidden" name="oculto">
  </div>
                 

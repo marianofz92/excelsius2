@@ -166,9 +166,9 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
         
          <ul>
              <li><a href="ver-turnos-profesional.php"><span class="glyphicon glyphicon-list-alt"></span>Ver turnos</a></li>
-             <li><a href="profesionales.php"><span class="glyphicon glyphicon-cog"></span>Configurar horarios</a></li>
-             <li><a href="editar-perfil-paciente.php"><span class="glyphicon glyphicon-paste"></span>Derivar turno</a></li>
-             <li><a href="editar-perfil-paciente.php"><span class="glyphicon glyphicon-remove"></span>Desactivar horarios</a></li>
+             <li><a href="configurar-turno.php"><span class="glyphicon glyphicon-cog"></span>Configurar horarios</a></li>
+             <li><a href="profesionales.php"><span class="glyphicon glyphicon-paste"></span>Derivar turno</a></li>
+             <li><a href="desactivar-horarios.php"><span class="glyphicon glyphicon-remove"></span>Desactivar horarios</a></li>
 <!--             <li><a href="editar-perfil-paciente.php"><span class="glyphicon glyphicon-edit"></span>Editar perfil</a></li>-->
              <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>Cerrar sesión</a></li>
          </ul>

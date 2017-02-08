@@ -160,5 +160,10 @@ $total=mysqli_num_rows($resultado);
                     <a class="icon-instagram" href="https://www.instagram.com/excelsiussalud/" target="_blank"></a>
                 </div>
             </div>
-        </footer>     
+        </footer>   
+        
+        <script src="bootstrap/js/jquery.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script> 
+        <script src="js/main.js"></script>  
+              
     </body>

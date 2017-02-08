@@ -26,7 +26,7 @@ $resultado=$connect->query($consulta);
 
 if($resultado>0)
 {
-    header('Location: http://localhost:8080/excelsius2/turno-exitoso.php');
+    header('Location: http://localhost/github/excelsius2/turno-exitoso.php');
 }
 
 }

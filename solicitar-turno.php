@@ -15,7 +15,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     
     $usuario='Ingresar';
     $enlace='login.php';
-    header('Location: http://localhost/excelsius2/inicie-sesion.html');
+    header('Location: http://localhost/github/excelsius2/inicie-sesion.html');
 
     exit;
 }//VALIDACIONES PARA QUE NO SE PUEDA INGRESAR SI NO SE SELECCIONO ALGUM MEDICO.<--------------EXACTO!!

@@ -12,7 +12,7 @@
     box-sizing: border-box;
 }
 
-body {
+* {
   font-family: 'Montserrat', sans-serif;     
 }
 
@@ -133,7 +133,7 @@ footer .contenedor {
 #equipo_m {
     padding-top: 100px;
     position: relative;
-    background-image: url(/img/equipo_m.jpg);
+    background-image: url(../img/equipo_m.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     height: 800px; 
@@ -145,7 +145,7 @@ footer .contenedor {
 
 #mapas {
     position: relative;
-    background-image: url(/img/MAPS.jpg);
+    background-image: url(../img/MAPS.jpg);
     height: 800px;
     background-size: cover;
     background-attachment: fixed;
@@ -179,7 +179,7 @@ footer .contenedor {
 #unete{
     position: relative;
     height: 800px;
-    background-image: url(/img/unete.jpg);
+    background-image: url(../img/unete.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -246,3 +246,171 @@ footer .contenedor {
     }
     
 }
+
+@media (max-width:768px) {
+    header .menu ul {
+        margin-top: 7px
+    }
+    
+    #submenu-usuario {
+        margin-top: 0;
+    }
+
+    header .menu ul ul li {
+        margin-top: 0px;
+        display: block;
+    }
+    
+    #dropdownMenu1 {
+        display: none
+    }
+    
+    #dropdownMenu2 {
+        display: none
+    }
+    
+    #item-buscar {
+        display: none
+    }
+}
+
+
+
+/*----------------------  Menu responsive - ultimas modificaciones menu de usuario  ---------------------------*/
+
+header {
+     box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+header ul a:hover {
+    text-decoration: none;
+    color: #fff
+}
+
+header .etiqueta-ingresar:hover {
+    text-decoration: none;
+    color: #fff
+}
+
+header ul {
+    font-size: 13px;
+}
+
+header ul a:hover {
+    text-decoration: none;
+    color: #fff
+}
+
+header .etiqueta-ingresar:hover {
+    text-decoration: none;
+    color: #fff
+}
+
+footer a:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+#dropdownMenu1 {
+    background-color: #375D81;
+    height: 100%;
+    margin-left: 70px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-style: none;
+/*    border: solid 1px #fff;*/
+}
+
+#dropdownMenu1 .glyphicon-user {
+    margin-right: 5px;
+    font-size: 15px
+}
+
+#dropdownMenu2 {
+    width: 100%;
+    background-color: #375D81;
+    padding: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: none;
+    transition: none;
+}
+
+#dropdownMenu2 li a {
+    color: #fff;
+    font-size: 12px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#dropdownMenu2 li a span {
+    font-size: ;
+    margin-right: 8px;
+}
+
+#dropdownMenu2 li a:hover {
+    background-color: #ABC8E2;
+    color:
+}
+
+#dropdownMenu2 li a:before {
+    background: none;
+}
+
+#submenu-usuario {
+    position: static;
+    display: none;
+    transition: all 0s;
+} 
+
+#item-ingresar a:focus {
+    text-decoration: none;
+    color: #fff;
+}
+
+#item-ingresar a{
+    background: #375D81;
+    height: 70px;
+    font-size: 17px;
+    
+}
+
+#item-ingresar a img {
+    border: solid 2px #fff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-left: 0;
+    margin-right: 10px
+}
+ 
+#item-ingresar ul li a {
+    height: 50px;
+    background-color: #A7ACAE;
+    padding-left: 50px;
+    font-size: 13px;
+    color: #fff; 
+}
+
+#item-ingresar span {
+    margin-left: 10px
+}
+
+#item-ingresar ul {
+    width: 100%;
+}
+
+#item-ingresar ul li a:hover {
+    background: #B8B8B8; 
+}
+
+#submenu-usuario a span {
+    margin-right: 10px;
+    font-size: 15px;
+}
+
+.menu ul {
+  
+}
+

@@ -89,9 +89,9 @@ header .contenedor{
 
 .menu ul ul{
     display: none;
-    position: relative;
+   /* position: relative;
     width: auto;
-    height: auto;
+    height: auto;*/
     
 }
 
@@ -179,12 +179,14 @@ header .contenedor{
   left: 0;
   right: 0;  
 } 
+/*
     .menu ul li:hover ul {
-    display: none;  
+    display: non;  
     }
+*/
     
-    
-    .menu ul ul {
+ 
+    #dropdownMenu2 {
     position: absolute;
     width: 75%;
     top: 100px;
@@ -243,19 +245,14 @@ header .contenedor{
 }
 
 @media (max-width:1024px) {
-   .menu ul li:hover ul {
-    display: none; 
-        
-    }
+   
     
+/*
     .menu ul li:last-child {
         display: none;
     }
-    
-    .menu .submenu {
-        display: none;
-    }
-    
+*/
+ 
     #barramenu .icon-search {
         margin-right: 0;
         text-decoration: none;

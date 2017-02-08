@@ -3,17 +3,21 @@ session_start();
 
 require_once('conn/connect.php');
 
-if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']==1) {
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']==1) { // es medico por lo tanto tiene asociada una cuenta y x ahi puedo sacar el id del medico.
 
     $usuario=$_SESSION['username']; 
     $enlace='panel-profesional.php';
     $privilegio=$_SESSION['privilegio'];
-    $fila2 = $_SESSION['fila2'];
-    
-    $consulta ="SELECT * FROM usuario WHERE nombre_usuario ='$usuario'";
+   $id_usuario= $_SESSION['id_usuario'];
+    $consulta ="SELECT * FROM profesionales2 WHERE usuario_idUsuario=$id_usuario";
     $resultado=$connect->query($consulta);
     $fila= mysqli_fetch_assoc($resultado);
+    $id_profesional_session=$fila['id_profesional'];
+    $_SESSION['id_profesional'] = $id_profesional_session;
     
+    $consulta3 = "SELECT img FROM profesionales2 WHERE usuario_idUsuario = $id_usuario";
+    $resultado3=$connect->query($consulta3);
+    $fila3= mysqli_fetch_assoc($resultado3);
     
 } else {
     
@@ -36,33 +40,44 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
     
     
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
         <title>Excelsius Salud</title>
         <link rel="shortcut icon" href="img/icono.ico">
-        <meta charset="utf-8">   
+        <meta charset="utf-8">
+        <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+        <script type="text/javascript" src="js/ajax.js"></script>
+        <link rel="stylesheet" href="css/estilo-buscador.css">
+        
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
         <link rel="stylesheet" href="css/fontello.css">        
         <link rel="stylesheet" href="css/estilos.css">
-        <link rel="stylesheet" href="css/panel-medico.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-          <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
-           <link rel="stylesheet" href="alertify/css/alertify.css">
-        <link rel="stylesheet" href="alertify/css/themes/semantic.css">
+        <link rel="stylesheet" href="css/listar-turnos-profesional.css">
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="alertify/css/alertify.css">
+        <link rel="stylesheet" href="alertify/css/themes/default.css">
+        <link rel="stylesheet" href="sweetalert/sweetalert.css">
+       
+      
+        <script type="text/javascript" src="sweetalert/sweetalert.min.js"></script>
         <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
         <script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
+        
         <script type="text/javascript" src="alertify/alertify.min.js"></script>
         <script type="text/javascript">
         //override defaults
         alertify.defaults.transition = "zoom";
-        alertify.defaults.theme.ok = "btn btn-success";
-        alertify.defaults.theme.cancel = "btn btn-danger";
         </script>
-         <link rel="stylesheet" href="css/listar-turnos-profesional.css">
-
+       
+        
+        
     </head>
     <body>
-        <header>
+    
+    <header>
+
 
 <div id="barramenu" class="contenedor">
 <a href="index.php"><img src="img/logoblancosolo.png" id="logo" ></a>
@@ -75,7 +90,23 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
 
 <ul> 
 
-<li id="item-ingresar"><a href="<?php echo $enlace ?>"><?php echo $usuario ?><img src="img/user.png" alt=""></a></li>
+<li id="item-ingresar"><a href="#"><img src="<?php 
+                if(isset($fila3['img'])){
+                    echo 'data:image/jpg;base64,'.base64_encode($fila3['img']);
+                }else{
+                    echo 'img/default_avatar.png';
+                }
+                
+                ?>" alt=""><?php echo $usuario ?><span class="caret"></span></a>
+<ul id="submenu-usuario">
+    <li><a href="ver-turnos-profesional.php"><span class="glyphicon glyphicon-list-alt"></span>Ver turnos</a></li>
+    <li><a href="configurar-turno.php"><span class="glyphicon glyphicon-cog"></span>Configurar horarios</a></li>
+    <li><a href="profesionales.php"><span class="glyphicon glyphicon-paste"></span>Derivar turno</a></li>
+    <li><a href="desactivar-horarios.php"><span class="glyphicon glyphicon-remove"></span>Desactivar horarios</a></li>
+<!--    <li><a href="editar-perfil-paciente.php"><span class="glyphicon glyphicon-edit"></span>Editar perfil</a></li>-->
+    <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>Cerrar sesión</a></li>
+</ul>
+</li>
 <li><a href="index.php">Inicio</a></li>
 <li><a href="nosotros.php">Nosotros</a></li>
 <li><a href="profesionales.php">Profesionales</a></li>
@@ -83,44 +114,69 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
 <li><a href="servicios.php">Servicios</a></li>
 <li><a href="noticias.php">Noticias</a></li>
 <li><a href="contacto.php">Contacto</a></li>
-<li class="submenu"><a href="index.php#equipo_m">Buscar<span class="icon-search"></span></a></li>
-</li>
-</nav> 
+<li class="submenu" id="item-buscar"><a href="index.php#equipo_m">Buscar<span class="icon-search"></span></a></li>
+<div class="dropdown">
+  <button class="dropdown-toggle"  id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+  <span class="glyphicon glyphicon-user"></span> <?php echo $usuario ?>
+    <span class="caret"></span>
+  </button>
+  <ul id="dropdownMenu2" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li><a href="panel-profesional.php"><span class="glyphicon glyphicon-user"></span>Mi cuenta</a></li>
+    <li><a href="#"><span class="glyphicon glyphicon-cog"></span>cambiar contraseña</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>Cerrar sesión</a></li>
+  </ul>
+</div>
+<!--<li><a href=""><span class="glyphicon glyphicon-user"></span>Ingresar</a></li>-->
+</ul>
+
+
+</nav>     
 </div>
 
-<a href="<?php echo $enlace ?>" class="etiqueta-ingresar"> <?php echo $usuario ?> <img src="img/user.png" alt=""> </a>
+<!--<a href="<?php echo $enlace ?>" class="etiqueta-ingresar"> <?php echo $usuario ?> <img src="img/user.png" alt=""> </a>-->
 
 </header>
 
 <section class="principal"> 
     <div class="sidebar" >
-         <a href="panel-profesional.php"><h1><?php echo $usuario ?><img src="<?php 
-                if(isset($fila2['img'])){
-                    $foto = $fila2['img'];
-                    echo 'data:image/jpg;base64,'.base64_encode($foto);
+        <div id="usuario-sidebar">
+         <img src="<?php 
+                if(isset($fila3['img'])){
+                    echo 'data:image/jpg;base64,'.base64_encode($fila3['img']);
                 }else{
                     echo 'img/default_avatar.png';
                 }
                 
-                ?>" alt=""></h1></a>
+                ?>" alt="">
+                
+        </div>
+        
+        <div id="nombre-sidebar">
+            
+            <h4><?php echo $usuario ?></h4>
+            
+        </div>
+        
+        
          <ul>
-             <li class="menu-paciente"><a href="editar-perfil-profesional.php">Editar Perfil</a></li>
-             <li class="menu-paciente"><a href="">Nuevo Turno</a></li>
-             <li class="menu-paciente"><a href="configurar-turno.php">Configuración de turnos</a></li>
-             <li class="menu-paciente"><a href="ver-turnos-profesional.php">Ver Turnos</a></li>
-             <li class="menu-paciente"><a href="">Modificar Turno</a></li>
-             <li class="menu-paciente"><a href="">Eliminar Turno</a></li>
-             <li class="menu-paciente"><a href="logout.php">Cerrar sesión</a></li>
-             
+             <li><a href="ver-turnos-profesional.php"><span class="glyphicon glyphicon-list-alt"></span>Ver turnos</a></li>
+             <li><a href="configurar-turno.php"><span class="glyphicon glyphicon-cog"></span>Configurar horarios</a></li>
+             <li><a href="profesionales.php"><span class="glyphicon glyphicon-paste"></span>Derivar turno</a></li>
+             <li><a href="desactivar-horarios.php"><span class="glyphicon glyphicon-remove"></span>Desactivar horarios</a></li>
+<!--             <li><a href="editar-perfil-profesional.php"><span class="glyphicon glyphicon-edit"></span>Editar perfil</a></li>-->
+             <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>Cerrar sesión</a></li>
          </ul>
     </div>
+    
     <div id="contenido">
-    <div class="contenido_tabla">
+    <div class="panel panel-default" id="panel-turnos">
+    <div class="panel-heading"><h4>Turnos del dia: <?php $fecha=$_POST['fecha_ver_turnos']; echo $fecha; ?></h4></div>
+    <div class="contenido_tabla panel-body">
        
   <?php
        
-$fecha=$_GET['fecha_ver_turnos']; 
-echo '<h3>TURNOS DEL DIA :'; echo $fecha; echo'</h3>'; 
+$fecha=$_POST['fecha_ver_turnos']; 
 list($dia, $mes, $anio)= explode ("/", $fecha);
 $fecha_consulta= $anio . '-' . $mes . '-' . $dia;
 $fechats=strtotime($fecha_consulta);
@@ -145,7 +201,7 @@ switch (date('w', $fechats))
     
      <div class="col-md-12">
 
-      <table class="table table-hover table-bordered">
+      <table class="table table-hover table-bordered table-responsive">
     <thead>
         <tr>
         <th class="col-md-1">HORA</th>
@@ -236,21 +292,15 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
     if($busca==1) //  cancelado: x medico o paciente.. manejar 4 estados: asignado, atendido.
     {
        
-       $origen='cancel-med';
-        echo '<td class="danger ocupado">'.$estado_turno.'</td>';
+       
+        echo '<td class="danger ocupado">OCUPADO</td>';
              echo '<td>';echo $domicilio_consulta;echo'</td>';
             echo '<td>';echo $paciente;echo'</td>';
              echo '<td>';echo $telefono;echo'</td>';
             echo '<td>';echo $obra_social ;echo'</td>';
             echo '<td>';echo $nombre_derivador ;echo'</td>';
-     echo  '<td><button  type="button" data-toggle="modal" class="btn btn-danger btn-sm" data-target=".bs-example-modal-sm" onclick="
-                                        
-                                      alertify.confirm(\'¡Atención!\', \'¿Seguro que desea cancelar el turno?\', function(){
-                                      window.location = \'cancelar-turno.php?idturno='.$id_turno.'&origen='.$origen.'\';
-                                      }, function(){}).set(\'labels\', {ok:\'Si\', cancel:\'No\'});
-    
-                                        ">Cancelar turno</button></td>';
-        echo  '<td><a class="asistio btn btn-success" href="asistencia-paciente.php?id_turno=';echo $id_turno;echo'&asistencia=si">SI  </a> <a class="no-asistio btn btn-danger" href="asistencia-paciente.php?id_turno=';echo $id_turno;echo'&asistencia=no">NO</a> </td>';
+        echo  '<td><a class="sacar-color btn btn-danger" href="profesional-cancelar-turno.php?id_turno=';echo $id_turno;echo '">Cancelar</a></td>';
+        echo  '<td><a class="asistio btn btn-success" href="asistencia-paciente.php?id_turno=';echo $id_turno;echo'&asistencia=si">Si</a>';
         echo '</tr>';
     }
     else
@@ -275,7 +325,7 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
   }//while de los rangos
   }//while de los registros encontrados.
 ?>
-<button onclick=""></button>
+<!--<button onclick=""></button>-->
 
  </tbody>
 </table>
@@ -283,7 +333,8 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
 </div> 
 
 </div>
- </div>
+</div>
+   </div>
     </div>
    </section> 
 
@@ -297,6 +348,12 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
                     <a class="icon-instagram" href="https://www.instagram.com/excelsiussalud/" target="_blank"></a>
                 </div>
             </div>
-        </footer>  
+        </footer> 
+        
+        <script src="bootstrap/js/jquery.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="js/jquery.js"></script>
+        <script src="js/main.js"></script> 
+           
     </body>
 </html>

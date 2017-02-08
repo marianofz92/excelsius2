@@ -128,7 +128,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
       <label >Hasta: </label> 
      <input id="fecha_desactivar_hasta" class="fecha-inp"  placeholder="SELECCIONE FECHA"  type="text" required name="hasta">
 
-      <input type="submit" value="ACEPTAR" class="btnconsulta"  id="btnconsultar" >
+    <input type="submit" value="ACEPTAR" class="btnconsulta"  id="btnconsultar" >
     
     
   </form>   

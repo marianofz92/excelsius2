@@ -130,9 +130,11 @@ $update= $connect->query($insert) or die ("No se ha podido actualizar la pagina"
          {
              echo $fila_dom['calle']; echo ' '; echo $fila_dom['numero']; echo ' Piso: ' ;echo $fila_dom['piso']; echo ' Departamento: '; echo $fila_dom['dpto'];echo '.';
              echo'<br>';
+            
                 
          }
-        
+      $maps_dom=$fila_dom['maps'] ;
+      $street_dom=$fila_dom['street'];  
      } 
             echo'</li>';
     ?>
@@ -145,7 +147,8 @@ $update= $connect->query($insert) or die ("No se ha podido actualizar la pagina"
         </ul>
         
         <a  class="solicitar-turno"href="solicitar-turno.php">SOLICITAR TURNO</a>
-        <?php ?>
+        
+       
         </div>
   
                        
@@ -154,10 +157,12 @@ $update= $connect->query($insert) or die ("No se ha podido actualizar la pagina"
            
            <section  id="mapa-street">
 
-               <h4>Ubicación</h4>
-               <iframe src="<?php echo $fila_dom['maps']?>" allowfullscreen></iframe>
-               <iframe src="<?php echo  $fila_dom['street']?>" allowfullscreen></iframe>
+               <h4>Ubicación </h4> 
+               
+               <iframe src="<?php echo $maps_dom?>" allowfullscreen></iframe>
+               <iframe src="<?php echo  $street_dom?>" allowfullscreen></iframe>
            </section>
+        
 
   
     </div>

@@ -105,7 +105,8 @@ switch (date('w', $fechats))
  $resultado1=$connect->query($consulta1);
    
     
-?> <div  class="table-responsive"id="tabla">
+?> <p id="turnos-dia">TURNOS DEL DÍA <?php echo $fecha;?></p>
+   <div  class="table-responsive"id="tabla">
     
      <div class="col-md-12">
 

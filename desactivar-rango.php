@@ -45,9 +45,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
         <link rel="stylesheet" href="css/fontello.css">        
         <link rel="stylesheet" href="css/estilos.css">
         <link rel="stylesheet" href="css/panel-medico.css">
+        
         <link rel="stylesheet" href="css/jquery-ui.min.css">
         <script src="js/jquery.js"></script>
         <link rel="stylesheet" href="css/desactivar-turnos.css">
+        <link rel="stylesheet" href="css/desactivar-rango.css">
 
     </head>
     <body>
@@ -106,16 +108,46 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
     
     <div class="contenido" id="contenido">
      <div id="titulo">
-    <h1>Desactivar horarios</h1>
+    <h1>Desactivar horarios: Rango de días.</h1>
      </div>
-     <div id="descripcion">
-         Se podrá desactivar los días no laborales del profesional de dos maneras: seleccionando un rango de días, o seleccionando un día especifico.
+     <div class="aclaracion">
+        <p>Aviso:</p>
+         <p>Una vez desactivado los días, los pacientes no podrán acceder a los turnos de los mismos.</p>
      </div>
-     <div class="opciones"> <a href="desactivar-rango.php">DESACTIVAR POR RANGO</a> o <a href="desactivar-dia.php">DESACTIVAR DÍA</a></div>
-     
   
+       <div id="formulario"> 
       
-    </div>
+       <form class="formulario-rango"  method="post" id="formulario_dia" action="rango-desactivado.php">
+        
+     <h1>Seleccione un rango:</h1> <br>
+      
+    
+      <label >Desde: </label> 
+      
+      <input id="fecha_desactivar_desde" class="fecha-inp"  placeholder="SELECCIONE FECHA"  type="text" required name="desde">
+      <label >Hasta: </label> 
+     <input id="fecha_desactivar_hasta" class="fecha-inp"  placeholder="SELECCIONE FECHA"  type="text" required name="hasta">
+
+      <input type="submit" value="ACEPTAR" class="btnconsulta"  id="btnconsultar" >
+    
+    
+  </form>   
+    
+   
+     
+     <script src="js/jquery-ui.min.js"></script>
+       <script src="js/datepicker-es.js"></script>
+       <script>
+        $("#fecha_desactivar_hasta").datepicker( $.datepicker.regional[ "es" ]);
+        $("#fecha_desactivar_desde").datepicker( $.datepicker.regional[ "es" ]);
+    
+    
+    </script>
+    
+       
+   </div> 
+
+        </div>
    </section> 
 
 

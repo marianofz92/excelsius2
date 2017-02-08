@@ -106,15 +106,30 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
     
     <div class="contenido" id="contenido">
      <div id="titulo">
-    <h1>Desactivar horarios</h1>
+    <h1>Desactivar horarios: Por día.</h1>
      </div>
-     <div id="descripcion">
-         Se podrá desactivar los días no laborales del profesional de dos maneras: seleccionando un rango de días, o seleccionando un día especifico.
-     </div>
-     <div class="opciones"> <a href="desactivar-rango.php">DESACTIVAR POR RANGO</a> o <a href="desactivar-dia.php">DESACTIVAR DÍA</a></div>
      
-  
+    
+    <form class="formulario-dia"  method="get" id="formulario_dia" action="desactivar-tabla.php">
+     <h1>Seleccione un día :</h1> <br>
       
+     
+      <label >Fecha: </label> 
+      
+      <input id="fecha_desactivar_" class="fecha-inp"  placeholder="SELECCIONE FECHA"  type="text" required name="fecha_desactivar" readonly="readonly">
+      <input type="submit" value="VER" class="btnconsulta"  id="btnconsultar" >
+     
+     <script src="js/jquery-ui.min.js"></script>
+       <script src="js/datepicker-es.js"></script>
+       <script>
+   
+        $("#fecha_desactivar_").datepicker( $.datepicker.regional[ "es" ]);
+    
+    </script>
+    
+    
+  </form>   
+   </div> 
     </div>
    </section> 
 

@@ -170,7 +170,7 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
      }
     if($busca==1)
     {
-        echo '<td class="danger ocupado">OCUPADO</td>
+        echo '<td class="danger ocupado">NO DISPONIBLE</td>
              <td></td>
                <td></td>
         </tr>';

@@ -168,6 +168,13 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
       <a href="noticias/guias-prevencion-cardiovascular.html" class="leer_mas">Leer más..</a>
      </article>
      
+     <article id="noticia15">
+      <img src="img/fotos/paz.jpg" alt=""> 
+         <h4> <a  class="titulo_link" href="noticias/dieta.html"><p class="fecha"> 9/1/2017</p>D.I.E.T.A.</a></h4>
+      <p>“No recuperar el peso perdido requiere el mismo esfuerzo y compromiso, que perderlo”. Es la afirmación que cada vez más hacemos los profesionales de la salud y se escucha de las personas que hicieron tratamiento...</p>
+      <a href="noticias/dieta.html" class="leer_mas">Leer más..</a>
+     </article>
+     
      </div>
     </section>   
  

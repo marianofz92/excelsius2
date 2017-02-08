@@ -44,9 +44,24 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
         <link rel="stylesheet" href="css/estilos.css">
         <link rel="stylesheet" href="css/panel-medico.css">
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-       <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-       <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
+     
          <link rel="stylesheet" href="css/listar-turnos-profesional.css">
+         <link rel="stylesheet" href="css/desactivar-tabla.css">
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="alertify/css/alertify.css">
+    
+        <link rel="stylesheet" href="alertify/css/themes/semantic.css">
+        <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+        <script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
+        <script type="text/javascript" src="alertify/alertify.min.js"></script>
+        <script src="js/jquery-3.1.0.min.js"></script>
+        <script src="js/ajax.js"></script>
+        <script type="text/javascript">
+        //override defaults
+        alertify.defaults.transition = "zoom";
+        alertify.defaults.theme.ok = "btn btn-success";
+        alertify.defaults.theme.cancel = "btn btn-danger";
+        </script>
 
     </head>
     <body>
@@ -99,7 +114,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
        
   <?php
        
-$fecha=$_POST['fecha_desactivar']; 
+$fecha=$_GET['fecha_desactivar']; 
 echo '<h3>TURNOS DEL DIA :'; echo $fecha; echo'</h3>'; 
 list($dia, $mes, $anio)= explode ("/", $fecha);
 $fecha_consulta= $anio . '-' . $mes . '-' . $dia;
@@ -116,12 +131,15 @@ switch (date('w', $fechats))
    
 }  
  $id_profesional=$_SESSION['id_profesional_sesion'];  
- $consulta1="SELECT * FROM config_horario WHERE dia ='$dia_c' AND profesional_idProfesional=$id_profesional  ORDER BY  'desde' ASC";
+ $consulta1="SELECT * FROM config_horario INNER JOIN domicilio ON dia ='$dia_c' AND profesional_idProfesional=$id_profesional  AND Domicilio_idDomicilio=id_domicilio  ORDER BY  'desde' ASC";
 //$consulta="SELECT * FROM config_horario INNER JOIN profesionales2 ON profesional_idProfesional =id_profesional AND profesional_idProfesional=$id_profesional AND dia =$dia_c"; ES NECESARIO EL JOIN????--------NO!
  $resultado1=$connect->query($consulta1);
    
     
-?> <div  class="table-responsive"id="tabla">
+?> <div class="aclaracion"><p>
+    Recuerde cancelar los turnos antes de desactivar los horarios.
+</p></div>
+   <div  class="table-responsive"id="tabla">
     
      <div class="col-md-12">
 
@@ -129,11 +147,14 @@ switch (date('w', $fechats))
     <thead>
         <tr>
         <th class="col-md-1">HORA</th>
-        <th class="col-md-2" >ESTADO</th>
-        <th class="col-md-2">CONSULTORIO</th>
-         <th class="col-md-3">PACIENTE</th>
+        <th class="col-md-1" >ESTADO</th>
+        <th class="col-md-1">CONSULTORIO</th>
+         <th class="col-md-2">PACIENTE</th>
+          <th class="col-md-1">TELÉFONO</th>
          <th class="col-md-2">O.SOCIAL</th>
+         <th class="col-md-1">DERIVADO POR:</th>
          <th class="col-md-2"></th>
+         <th class="col-md-1"> DESACTIVAR</th>
          
         </tr>
     </thead>
@@ -144,18 +165,18 @@ switch (date('w', $fechats))
   { 
    $desde=$fila1['desde']; 
    $hasta=$fila1['hasta'];
-  $domicilio_rango=$fila1['Domicilio_idDomicilio'];
-  $consulta4="SELECT * FROM domicilio WHERE id_domicilio =$domicilio_rango";
-  $resultado4=$connect->query($consulta4);
-  $fila4=mysqli_fetch_assoc($resultado4);
-  if($fila4['tipo']=='departamento')
+  //$domicilio_rango=$fila1['Domicilio_idDomicilio'];
+//  $consulta4="SELECT * FROM domicilio WHERE id_domicilio =$domicilio_rango";
+  //$resultado4=$connect->query($consulta4);
+  //$fila4=mysqli_fetch_assoc($resultado4);
+  if($fila1['tipo']=='departamento')
   {
-      $domicilio_consulta="{$fila4['calle']} {$fila4['numero']} Piso:{$fila4['piso']} Dpto: {$fila4['dpto']} ";
+      $domicilio_consulta="{$fila1['calle']} {$fila1['numero']} Piso:{$fila1['piso']} Dpto: {$fila1['dpto']} ";
       
   }
       else
       {
-          $domicilio_consulta="{$fila4['calle']} {$fila4['numero']}";
+          $domicilio_consulta="{$fila1['calle']} {$fila1['numero']}";
       }
       
    
@@ -169,7 +190,8 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
      $nuevaHora=date("H:i:s",$segundos_horaInicial);
       
           $consulta2="SELECT * FROM turno INNER JOIN usuario ON id_usuario=usuario_idUsuario AND profesional_idProfesional=$id_profesional AND fecha='$fecha_consulta'";
-          $resultado2=$connect->query($consulta2);                                      
+          $resultado2=$connect->query($consulta2); 
+        
 
 ?>
   <tr> <td><?php echo $nuevaHora ?></td>
@@ -185,22 +207,48 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
      {
          $busca=1;
          $obra_social=$fila2['obra_social'];
-         $paciente="{$fila2['nombres']} {$fila2['apellidos']} ";
+        
          $id_turno=$fila2['id_turno'];
-            
+         $derivado=$fila2['id_profesionalDerivador'];
+         $estado_turno=$fila2['estado'];
+         $consulta_der="SELECT nombre1, nombre2, apellido1, apellido2 FROM profesionales2 WHERE id_profesional=$derivado";
+         $resultado_der=$connect->query($consulta_der);
+         $fila_der=mysqli_fetch_assoc($resultado_der);
+         
+         if($derivado!=34) // algun medico q no es el generico lo derivo a otro profesional.; medico se saca turno para el mismo.
+         {
+             $paciente="{$fila2['nombres_paciente']} {$fila2['apellidos_paciente']} ";
+             $nombre_derivador="{$fila_der['nombre1']} {$fila_der['nombre2']} {$fila_der['apellido1']} {$fila_der['apellido2']} ";
+              $telefono=$fila2['tel_paciente'];
+         }
+         else // el paciente se saca turno
+         {
+               $paciente="{$fila2['nombres']} {$fila2['apellidos']} ";
+              $nombre_derivador='Paciente';
+              $telefono=$fila2['telefono_usuario'];
+              
+         }
      }
     
      }
-    if($busca==1)
+    if($busca==1) //  cancelado: x medico o paciente.. manejar 4 estados: asignado, atendido.
     {
        
-       
+       $origen='desactivar';
         echo '<td class="danger ocupado">OCUPADO</td>';
              echo '<td>';echo $domicilio_consulta;echo'</td>';
             echo '<td>';echo $paciente;echo'</td>';
+             echo '<td>';echo $telefono;echo'</td>';
             echo '<td>';echo $obra_social ;echo'</td>';
-        echo  '<td><a class="sacar-color" href="profesional-cancelar-turno.php?id_turno=';echo $id_turno;echo '">CANCELAR   </a></td>';
-      
+            echo '<td>';echo $nombre_derivador ;echo'</td>';
+        echo  '<td><button  type="button" data-toggle="modal" class="btn btn-danger btn-sm" data-target=".bs-example-modal-sm" onclick="
+                                        
+                                      alertify.confirm(\'¡Atención!\', \'¿Seguro que desea cancelar el turno?\', function(){
+                                      window.location = \'cancelar-turno.php?idturno='.$id_turno.'&origen='.$origen.'\';
+                                      }, function(){}).set(\'labels\', {ok:\'Si\', cancel:\'No\'});
+    
+                                        ">Cancelar turno</button></td>';
+        echo  '<td> <p> </p></td>';
         echo '</tr>';
     }
     else
@@ -211,7 +259,10 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
         //</tr>';
        echo '<td> </td>';
       echo '<td>';echo '';echo'</td>';
-        echo '<td> </td>';
+        echo '<td>';echo '' ;echo'</td>';
+        echo '<td> <a href="confirmar-turno-profesional.php?fecha=';echo $fecha_consulta;echo'&hora=';echo $nuevaHora;echo'&domicilio=';echo $domicilio_consulta;echo'"></a></td>';
+        echo '<td>';echo '' ;echo'</td>';
+         echo  '<td> <input type="checkbox" name="nombre2[]" value="'.$nuevaHora.'"></td>';
         echo '</tr>';
        
         
@@ -222,6 +273,7 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
   }//while de los rangos
   }//while de los registros encontrados.
 ?>
+
 <button onclick=""></button>
 
  </tbody>
@@ -231,6 +283,12 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
 
 </div>
  </div>
+                <script src="js/desactivar-turno.js"></script>
+               
+             <button type="button" class="btn btn-success " style="margin-top: 15px;" onclick="desactivarTurnos()">ACEPTAR</button>
+                   <input type="text" value="<?php echo $fecha ?>" hidden="hidden" name="oculto">
+                    
+        <div id="response"> </div>
     </div>
    </section> 
 
@@ -246,4 +304,5 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
             </div>
         </footer>  
     </body>
+
 </html>

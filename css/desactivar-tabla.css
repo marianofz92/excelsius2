@@ -1,0 +1,10 @@
+.aclaracion{
+width: 50%;
+    margin: auto;
+    text-align: center;
+    padding: 10px;
+    color: red;
+    border: 2px solid red;
+    margin-top: 25px;
+    background-color: #F78181;
+}

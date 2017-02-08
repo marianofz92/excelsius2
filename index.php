@@ -12,7 +12,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     $privilegio=$fila['privilegio'];
     if($privilegio ==1)//MEDICO TIENE PRIVILEGIO 1
     {
-        $enlace='panel-paciente.php';
+        $enlace='#';
     }
     else{//ES PACIENTE (por ahora, luego se implementaran secretarias.)
         $enlace='#';
@@ -89,7 +89,14 @@ else {
     
     if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']==1) {
        
-       // Aqui colocar el menu de usuario profesional.
+        echo '<ul id="submenu-usuario">
+                <li><a href="ver-turnos-profesional.php"><span class="glyphicon glyphicon-list-alt"></span>Ver turnos</a></li>
+                <li><a href="configurar-turno.php"><span class="glyphicon glyphicon-cog"></span>Configurar horarios</a></li>
+                <li><a href="profesionales.php"><span class="glyphicon glyphicon-paste"></span>Derivar turno</a></li>
+                <li><a href="desactivar-horarios.php"><span class="glyphicon glyphicon-remove"></span>Desactivar horarios</a></li>
+            <!--    <li><a href="editar-perfil-paciente.php"><span class="glyphicon glyphicon-edit"></span>Editar perfil</a></li>-->
+                <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>Cerrar sesión</a></li>
+            </ul>';
             
     } else{
         echo '<style type="text/css"> #item-ingresar span { display: none} </style>';
@@ -137,7 +144,7 @@ else {
                 </style>
               </button>
               <ul id="dropdownMenu2" class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><a href="panel-profesional.php"><span class="glyphicon glyphicon-user"></span>Mi cuenta</a></li>
+                <li><a href="ver-turnos-profesional.php"><span class="glyphicon glyphicon-user"></span>Mi cuenta</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-cog"></span>cambiar contraseña</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>Cerrar sesión</a></li>

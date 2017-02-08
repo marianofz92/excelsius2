@@ -46,7 +46,7 @@ $consulta="INSERT INTO turno(fecha,hora,estado,usuario_idUsuario,profesional_idP
 $resultado=$connect->query($consulta);
 if($resultado>0)
 {
-    header('Location: http://localhost:8080/excelsius2/turno-exitoso.php');
+    header('Location: http://localhost:8080/excelsius2/turno-sacado-exitoso.php');
 }
 
 }

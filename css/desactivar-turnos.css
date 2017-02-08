@@ -3,6 +3,7 @@
 }
 
 .formulario-rango{
+    color: #183152; 
     width: 40%;
     padding: 20px;
     border: 2px solid  cadetblue;
@@ -13,10 +14,12 @@
     
 }
 .formulario-dia{
-    width: 40%;
+    color: #183152;
+    width: 40%; 
+    
     padding: 20px;
-    border: 2px solid  cadetblue;
-    margin:auto;
+    border: 2px solid cadetblue;
+    margin: 20px auto;
     height: 250px;
      min-width: 200px;
 
@@ -24,17 +27,36 @@
 .fecha-inp{
     margin-top: 10px;
 }
-.btnconsulta{
-    
-}
+
 
 #titulo{
 height: 50px;
     min-width: 100px;
 
 }
-#formulario{
+#contenido{
     
-    display: flex;
-    flex-wrap: nowrap;
+    
 }
+#descripcion{
+    width: 80%;
+    margin: 50px auto;
+    padding: 10px;
+    border:solid 2px cadetblue;
+    color:cadetblue;
+    margin-bottom: 20px;
+
+}
+
+.opciones a{
+    text-decoration: none;
+    color: #183152;
+    text-decoration: underline;
+
+}
+.opciones{
+    width: 38%;
+    margin: auto; 
+    
+}
+ 

@@ -44,9 +44,24 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
         <link rel="stylesheet" href="css/estilos.css">
         <link rel="stylesheet" href="css/panel-medico.css">
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-       <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-       <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
+     
          <link rel="stylesheet" href="css/listar-turnos-profesional.css">
+         <link rel="stylesheet" href="css/desactivar-tabla.css">
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="alertify/css/alertify.css">
+    
+        <link rel="stylesheet" href="alertify/css/themes/semantic.css">
+        <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+        <script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
+        <script type="text/javascript" src="alertify/alertify.min.js"></script>
+        <script src="js/jquery-3.1.0.min.js"></script>
+        <script src="js/ajax.js"></script>
+        <script type="text/javascript">
+        //override defaults
+        alertify.defaults.transition = "zoom";
+        alertify.defaults.theme.ok = "btn btn-success";
+        alertify.defaults.theme.cancel = "btn btn-danger";
+        </script>
 
     </head>
     <body>
@@ -99,7 +114,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
        
   <?php
        
-$fecha=$_POST['fecha_desactivar']; 
+$fecha=$_GET['fecha_desactivar']; 
 echo '<h3>TURNOS DEL DIA :'; echo $fecha; echo'</h3>'; 
 list($dia, $mes, $anio)= explode ("/", $fecha);
 $fecha_consulta= $anio . '-' . $mes . '-' . $dia;
@@ -121,7 +136,10 @@ switch (date('w', $fechats))
  $resultado1=$connect->query($consulta1);
    
     
-?> <div  class="table-responsive"id="tabla">
+?> <div class="aclaracion"><p>
+    Recuerde cancelar los turnos antes de desactivar los horarios.
+</p></div>
+   <div  class="table-responsive"id="tabla">
     
      <div class="col-md-12">
 
@@ -136,7 +154,7 @@ switch (date('w', $fechats))
          <th class="col-md-2">O.SOCIAL</th>
          <th class="col-md-1">DERIVADO POR:</th>
          <th class="col-md-2"></th>
-         <th class="col-md-1"> </th>
+         <th class="col-md-1"> DESACTIVAR</th>
          
         </tr>
     </thead>
@@ -216,15 +234,21 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
     if($busca==1) //  cancelado: x medico o paciente.. manejar 4 estados: asignado, atendido.
     {
        
-       
+       $origen='desactivar';
         echo '<td class="danger ocupado">OCUPADO</td>';
              echo '<td>';echo $domicilio_consulta;echo'</td>';
             echo '<td>';echo $paciente;echo'</td>';
              echo '<td>';echo $telefono;echo'</td>';
             echo '<td>';echo $obra_social ;echo'</td>';
             echo '<td>';echo $nombre_derivador ;echo'</td>';
-        echo  '<td><a class="sacar-color" href="profesional-cancelar-turno.php?id_turno=';echo $id_turno;echo '">CANCELAR   </a></td>';
-        echo  '<td> <a href="desactivar-horario-tabla.php">DESACTIVAR</a></td>';
+        echo  '<td><button  type="button" data-toggle="modal" class="btn btn-danger btn-sm" data-target=".bs-example-modal-sm" onclick="
+                                        
+                                      alertify.confirm(\'¡Atención!\', \'¿Seguro que desea cancelar el turno?\', function(){
+                                      window.location = \'cancelar-turno.php?idturno='.$id_turno.'&origen='.$origen.'\';
+                                      }, function(){}).set(\'labels\', {ok:\'Si\', cancel:\'No\'});
+    
+                                        ">Cancelar turno</button></td>';
+        echo  '<td> <p> </p></td>';
         echo '</tr>';
     }
     else
@@ -238,7 +262,7 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
         echo '<td>';echo '' ;echo'</td>';
         echo '<td> <a href="confirmar-turno-profesional.php?fecha=';echo $fecha_consulta;echo'&hora=';echo $nuevaHora;echo'&domicilio=';echo $domicilio_consulta;echo'"></a></td>';
         echo '<td>';echo '' ;echo'</td>';
-         echo  '<td> <a href="desactivar-horario-tabla.php?fecha=';echo $fecha_consulta;echo'&hora=';echo $nuevaHora;echo'&domicilio=';echo $domicilio_consulta;echo'" >DESACTIVAR</a></td>';
+         echo  '<td> <input type="checkbox" name="nombre2[]" value="'.$nuevaHora.'"></td>';
         echo '</tr>';
        
         
@@ -249,6 +273,7 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
   }//while de los rangos
   }//while de los registros encontrados.
 ?>
+
 <button onclick=""></button>
 
  </tbody>
@@ -258,6 +283,12 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
 
 </div>
  </div>
+                <script src="js/desactivar-turno.js"></script>
+               
+             <button type="button" class="btn btn-success " style="margin-top: 15px;" onclick="desactivarTurnos()">ACEPTAR</button>
+                   <input type="text" value="<?php echo $fecha ?>" hidden="hidden" name="oculto">
+                    
+        <div id="response"> </div>
     </div>
    </section> 
 
@@ -273,4 +304,5 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
             </div>
         </footer>  
     </body>
+
 </html>

@@ -111,7 +111,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
       <p>SELECCIONE LA FECHA PARA CONSULTAR SUS TURNOS:</p>
      
     </div> 
-    <form class="formulario"  method="post" id="formulario" action="listar-turnos-profesional.php">
+    <form class="formulario"  method="get" id="formulario" action="listar-turnos-profesional.php">
       
       <label >Fecha: </label> 
       

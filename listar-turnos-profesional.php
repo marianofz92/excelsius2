@@ -46,8 +46,18 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
         <link rel="stylesheet" href="css/estilos.css">
         <link rel="stylesheet" href="css/panel-medico.css">
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-       <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-       <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
+          <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+           <link rel="stylesheet" href="alertify/css/alertify.css">
+        <link rel="stylesheet" href="alertify/css/themes/semantic.css">
+        <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+        <script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
+        <script type="text/javascript" src="alertify/alertify.min.js"></script>
+        <script type="text/javascript">
+        //override defaults
+        alertify.defaults.transition = "zoom";
+        alertify.defaults.theme.ok = "btn btn-success";
+        alertify.defaults.theme.cancel = "btn btn-danger";
+        </script>
          <link rel="stylesheet" href="css/listar-turnos-profesional.css">
 
     </head>
@@ -109,7 +119,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
        
   <?php
        
-$fecha=$_POST['fecha_ver_turnos']; 
+$fecha=$_GET['fecha_ver_turnos']; 
 echo '<h3>TURNOS DEL DIA :'; echo $fecha; echo'</h3>'; 
 list($dia, $mes, $anio)= explode ("/", $fecha);
 $fecha_consulta= $anio . '-' . $mes . '-' . $dia;
@@ -226,14 +236,20 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
     if($busca==1) //  cancelado: x medico o paciente.. manejar 4 estados: asignado, atendido.
     {
        
-       
+       $origen='cancel-med';
         echo '<td class="danger ocupado">OCUPADO</td>';
              echo '<td>';echo $domicilio_consulta;echo'</td>';
             echo '<td>';echo $paciente;echo'</td>';
              echo '<td>';echo $telefono;echo'</td>';
             echo '<td>';echo $obra_social ;echo'</td>';
             echo '<td>';echo $nombre_derivador ;echo'</td>';
-        echo  '<td><a class="sacar-color btn btn-danger" href="profesional-cancelar-turno.php?id_turno=';echo $id_turno;echo '">CANCELAR   </a></td>';
+     echo  '<td><button  type="button" data-toggle="modal" class="btn btn-danger btn-sm" data-target=".bs-example-modal-sm" onclick="
+                                        
+                                      alertify.confirm(\'¡Atención!\', \'¿Seguro que desea cancelar el turno?\', function(){
+                                      window.location = \'cancelar-turno.php?idturno='.$id_turno.'&origen='.$origen.'\';
+                                      }, function(){}).set(\'labels\', {ok:\'Si\', cancel:\'No\'});
+    
+                                        ">Cancelar turno</button></td>';
         echo  '<td><a class="asistio btn btn-success" href="asistencia-paciente.php?id_turno=';echo $id_turno;echo'&asistencia=si">SI  </a> <a class="no-asistio btn btn-danger" href="asistencia-paciente.php?id_turno=';echo $id_turno;echo'&asistencia=no">NO</a> </td>';
         echo '</tr>';
     }

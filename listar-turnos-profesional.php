@@ -237,7 +237,7 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
     {
        
        $origen='cancel-med';
-        echo '<td class="danger ocupado">OCUPADO</td>';
+        echo '<td class="danger ocupado">'.$estado_turno.'</td>';
              echo '<td>';echo $domicilio_consulta;echo'</td>';
             echo '<td>';echo $paciente;echo'</td>';
              echo '<td>';echo $telefono;echo'</td>';

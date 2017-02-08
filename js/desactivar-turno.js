@@ -1,7 +1,4 @@
 function desactivarTurnos(){
-     alertify.confirm('¡Atención!', '¿Seguro que desea cancelar el turno?', function(){
-                                      window.location = 'cancelar-turno.php?idturno='.$id_turno.'&origen='.$origen.';
-                                      }, function(){}).set('labels', {ok:'Si', cancel:'No'});
      var checkboxValues = "";
  
             $('input[name="nombre2[]"]:checked').each(function() {

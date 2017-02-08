@@ -235,7 +235,7 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
     {
        
        $origen='desactivar';
-        echo '<td class="danger ocupado">OCUPADO</td>';
+        echo '<td class="danger ocupado">'.$estado_turno.'</td>';
              echo '<td>';echo $domicilio_consulta;echo'</td>';
             echo '<td>';echo $paciente;echo'</td>';
              echo '<td>';echo $telefono;echo'</td>';
@@ -285,7 +285,10 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
  </div>
                 <script src="js/desactivar-turno.js"></script>
                
-             <button type="button" class="btn btn-success " style="margin-top: 15px;" onclick="desactivarTurnos()">ACEPTAR</button>
+     <?php        echo'<button type="button" class="btn btn-success " style="margin-top: 15px;" onclick="alertify.confirm(\'¡Atención!\', \'¿Seguro que desea desactivar el/los horario/s ?\', function(){}
+                                     
+                                      , function(){}).set(\'labels\', {ok:\'Si\', cancel:\'No\'});
+    ">ACEPTAR</button>' ?>
                    <input type="text" value="<?php echo $fecha ?>" hidden="hidden" name="oculto">
                     
         <div id="response"> </div>

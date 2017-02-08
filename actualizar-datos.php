@@ -74,7 +74,7 @@ $resultado=$connect->query($consulta) or die ("ERROR");
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['privilegio']==0) {
 
    
-header('Location: http://localhost/github/excelsius2/panel-paciente.php');
+header('Location: http://localhost/github/excelsius2/editar-perfil-paciente.php');
     
 } else {
     
@@ -82,7 +82,7 @@ header('Location: http://localhost/github/excelsius2/panel-paciente.php');
                 
             
     
-                header('Location: http://localhost/github/excelsius2/panel-profesional.php');
+                header('Location: http://localhost/github/excelsius2/editar-perfil-paciente.php');
                 exit;
                 
             } else {

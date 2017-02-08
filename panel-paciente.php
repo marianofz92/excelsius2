@@ -100,7 +100,21 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
 
 <ul> 
 
-<li id="item-ingresar"><a href="<?php echo $enlace ?>"><?php echo $usuario ?><img src="img/user.png" alt=""></a></li>
+<li id="item-ingresar"><a href="#"><img src="<?php 
+                if(isset($fila['img_paciente'])){
+                    echo 'data:image/jpg;base64,'.base64_encode($fila['img_paciente']);
+                }else{
+                    echo 'img/default_avatar.png';
+                }
+                
+                ?>" alt=""><?php echo $usuario ?><span class="caret"></span></a>
+<ul id="submenu-usuario">
+    <li><a href="panel-paciente.php"><span class="glyphicon glyphicon-list-alt"></span>Mis turnos</a></li>
+    <li><a href="profesionales.php"><span class="glyphicon glyphicon-paste"></span>Solicitar turno</a></li>
+    <li><a href="editar-perfil-paciente.php"><span class="glyphicon glyphicon-edit"></span>Editar perfil</a></li>
+    <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>Cerrar sesión</a></li>
+</ul>
+</li>
 <li><a href="index.php">Inicio</a></li>
 <li><a href="nosotros.php">Nosotros</a></li>
 <li><a href="profesionales.php">Profesionales</a></li>
@@ -108,9 +122,9 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
 <li><a href="servicios.php">Servicios</a></li>
 <li><a href="noticias.php">Noticias</a></li>
 <li><a href="contacto.php">Contacto</a></li>
-<li class="submenu"><a href="index.php#equipo_m">Buscar<span class="icon-search"></span></a></li>
+<li class="submenu" id="item-buscar"><a href="index.php#equipo_m">Buscar<span class="icon-search"></span></a></li>
 <div class="dropdown">
-  <button class=" dropdown-toggle"  id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+  <button class="dropdown-toggle"  id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
   <span class="glyphicon glyphicon-user"></span> <?php echo $usuario ?>
     <span class="caret"></span>
   </button>
@@ -151,7 +165,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
         
         <div id="nombre-sidebar">
             
-            <a href="panel-paciente.php"><?php echo $usuario ?></a>
+            <h4><?php echo $usuario ?></h4>
             
         </div>
         
@@ -272,6 +286,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
         
         <script src="bootstrap/js/jquery.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script> 
+        <script src="js/main.js"></script>
         
     </body>
 </html>

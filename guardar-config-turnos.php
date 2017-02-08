@@ -98,7 +98,7 @@ foreach(array_unique($res) as $v) {
 
 if($solapa == 1){
     //echo 'Existen intervalos solapados';
-    echo '<script>alertify.alert("¡Atención!", "Existen intervalos de horarios solapados. <br> Por favor revise su configuración y vuelva a intentarlo.");</script>';
+    echo '<script>alertify.alert("¡Atención!", "Existen intervalos de horarios superpuestos. <br> Por favor revise su configuración y vuelva a intentarlo.");</script>';
     
     
 } else {

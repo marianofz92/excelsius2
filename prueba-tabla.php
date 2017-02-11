@@ -1,44 +1,57 @@
 <?php
-require_once('conn/connect.php');
 session_start();
-
+require_once('conn/connect.php');
 ?>
 <?php
 
-
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-
     $usuario=$_SESSION['username']; 
-    $enlace='panel-paciente.php';
+    $consulta="SELECT * FROM usuario WHERE nombre_usuario ='$usuario'";
+    $resultado=$connect->query($consulta);
+    $fila=mysqli_fetch_assoc($resultado);
+    $privilegio=$fila['privilegio'];
+    if($privilegio ==1)//MEDICO TIENE PRIVILEGIO 1
+    {
+        $enlace='#';
+    }
+    else{//ES PACIENTE (por ahora, luego se implementaran secretarias.)
+        $enlace='#';
+    }
     
-} else {
+    
+}
+else {
     
     $usuario='Ingresar';
     $enlace='login.php';
-    header('Location: http://localhost/excelsius2/inicie-sesion.html');
-
-    exit;
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="utf-8">
-	<title>Excelsius Salud - Nuestros Servicios</title>
-	<link rel="shortcut icon" href="img/icono.ico">
-	<link rel="stylesheet" href="css/solicitar-turno2.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-       <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-       <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="css/fontello.css">
+    <head>
+        <title>Excelsius Salud</title>
+        <link rel="shortcut icon" href="img/icono.ico">
+        <meta charset="utf-8">
+        <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+        <script type="text/javascript" src="js/ajax.js"></script>
+        <link rel="stylesheet" href="css/estilo-buscador.css">
+        
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
+        <link rel="stylesheet" href="css/fontello.css">        
         <link rel="stylesheet" href="css/estilos.css">
         <link rel="stylesheet" href="css/solicitar-turno2.css">
-    
-</head>
-<body>
-</head>
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+      
+        
+        <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+         <script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
+       
+        
+        
+    </head>
     <body>
+         
 <header>
 
 <div id="barramenu" class="contenedor">
@@ -47,10 +60,53 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 <input type="checkbox" id="menu-bar">
 <label class="icon-menu" for="menu-bar"></label>
 <a href="index.php#equipo_m"><label class="icon-search" for=""></label></a>
+
 <nav class="menu">
 
 <ul> 
 
+<li id="item-ingresar"><a href="<?php echo $enlace ?>"><img src="<?php 
+                if(isset($fila['img_paciente'])){
+                    echo 'data:image/jpg;base64,'.base64_encode($fila['img_paciente']);
+                }else{
+                    echo 'img/default_avatar.png';
+                }
+                
+                ?>" alt=""><?php echo $usuario ?><span class="caret"></span></a>
+   
+    
+                                          
+<?php  if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']==0) {
+                
+   echo '<ul id="submenu-usuario">
+            <li><a href="panel-paciente.php"><span class="glyphicon glyphicon-list-alt"></span>Mis turnos</a></li>
+            <li><a href="profesionales.php"><span class="glyphicon glyphicon-paste"></span>Solicitar turno</a></li>
+            <li><a href="editar-perfil-paciente.php"><span class="glyphicon glyphicon-edit"></span>Editar perfil</a></li>
+            <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>Cerrar sesión</a></li>
+        </ul>';
+} else {
+    
+    
+    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']==1) {
+       
+        echo '<ul id="submenu-usuario">
+                <li><a href="ver-turnos-profesional.php"><span class="glyphicon glyphicon-list-alt"></span>Ver turnos</a></li>
+                <li><a href="configurar-turno.php"><span class="glyphicon glyphicon-cog"></span>Configurar horarios</a></li>
+                <li><a href="profesionales.php"><span class="glyphicon glyphicon-paste"></span>Derivar turno</a></li>
+                <li><a href="desactivar-horarios.php"><span class="glyphicon glyphicon-remove"></span>Desactivar horarios</a></li>
+            <!--    <li><a href="editar-perfil-paciente.php"><span class="glyphicon glyphicon-edit"></span>Editar perfil</a></li>-->
+                <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>Cerrar sesión</a></li>
+            </ul>';
+            
+    } else{
+        echo '<style type="text/css"> #item-ingresar span { display: none} </style>';
+    }
+}
+    
+    
+?>    
+      
+</li>
 <li><a href="index.php">Inicio</a></li>
 <li><a href="nosotros.php">Nosotros</a></li>
 <li><a href="profesionales.php">Profesionales</a></li>
@@ -58,29 +114,68 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 <li><a href="servicios.php">Servicios</a></li>
 <li><a href="noticias.php">Noticias</a></li>
 <li><a href="contacto.php">Contacto</a></li>
-<li class="submenu"><a href="index.php#equipo_m">Buscar<span class="icon-search"></span></a></li>
-<ul>
-<li>Especialidad<select name="" id="">
-<option value="">Cardiología</option>
-<option value="">Odontología</option>
-</select>
-</li>
-<li id="nombre-buscador">Nombre<input type="text"><input type="submit" value="Buscar" id="buscar-menu"></li>
+<li class="submenu" id="item-buscar"><a href="index.php#equipo_m">Buscar<span class="icon-search"></span></a></li>
+    
+    <?php  if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['privilegio']==0) {
+    
+        echo  '<div class="dropdown">
+              <button class="dropdown-toggle"  id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <span class="glyphicon glyphicon-user"></span>'.$usuario.'
+                <span class="caret"></span>
+                <style type="text/css"> #dropdownMenu1 .glyphicon-user { margin-right: 8.5px;}
+                </style>
+              </button>
+              <ul id="dropdownMenu2" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="panel-paciente.php"><span class="glyphicon glyphicon-user"></span>Mi cuenta</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-cog"></span>cambiar contraseña</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>Cerrar sesión</a></li>
+              </ul>
+            </div>';
+    } else {
+            
+            if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['privilegio']==1){
+                
+               echo  '<div class="dropdown">
+              <button class="dropdown-toggle"  id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <span class="glyphicon glyphicon-user"></span>'.$usuario.'
+                <span class="caret"></span>
+                <style type="text/css"> #dropdownMenu1 .glyphicon-user { margin-right: 8.6px;}
+                </style>
+              </button>
+              <ul id="dropdownMenu2" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="ver-turnos-profesional.php"><span class="glyphicon glyphicon-user"></span>Mi cuenta</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-cog"></span>cambiar contraseña</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>Cerrar sesión</a></li>
+              </ul>
+            </div>';  
+                
+            } else {
+            echo '<a  id="dropdownMenu1" href="login.php">
+              <span class="glyphicon glyphicon-user"></span>Ingresar
+              </a> 
+              <style type="text/css"> #dropdownMenu1:before { background: none}
+              
+              </style>';
+            }
+        }
+    ?>
+  
+</ul>
 
-</ul> 
-</li>
 
-</ul> 
-</nav> 
+
+</nav>     
 </div>
 
-<a href="<?php echo $enlace ?>" class="etiqueta-ingresar"> <?php echo $usuario ?> <img src="img/user.png" alt=""> </a>
+<!--<a href="<?php echo $enlace ?>" class="etiqueta-ingresar"> <?php echo $usuario ?> <img src="img/user.png" alt=""> </a>-->
 
 </header>
 
 
 <section id="contenedor_s">
- <div id="contenido"> 
+ <div id="contenido" class="container-fluid"> 
 <?php
        
  $fecha=$_POST['lblfecha']; 
@@ -100,22 +195,24 @@ switch (date('w', $fechats))
    
 }  
  $id_profesional=$_SESSION['idprofesional'];  
- $consulta1="SELECT * FROM config_horario WHERE dia ='$dia_c' AND profesional_idProfesional=$id_profesional  ORDER BY  'desde' ASC";
+ $consulta1="SELECT * FROM config_horario WHERE dia =' $dia_c' AND profesional_idProfesional=$id_profesional  ORDER BY  desde ASC";
 //$consulta="SELECT * FROM config_horario INNER JOIN profesionales2 ON profesional_idProfesional =id_profesional AND profesional_idProfesional=$id_profesional AND dia =$dia_c"; ES NECESARIO EL JOIN????--------NO!
  $resultado1=$connect->query($consulta1);
    
     
-?> <p id="turnos-dia">TURNOS DEL DÍA <?php echo $fecha;?></p>
-   <div  class="table-responsive"id="tabla">
+?> 
+   <div  class=" col-md-12 " id="tabla">
     
-     <div class="col-md-12">
+     <div class=" panel panel-default" id="panel-disp">
+      <div class="panel-heading"><h4>Turnos del día <?php echo $fecha;?></h4></div>
+      <div class="panel-body">
 
-      <table class="table table-hover table-bordered">
+      <table class="table table-hover table-bordered table-striped">
     <thead>
         <tr>
-        <th class="col-md-3">HORA</th>
-        <th class="col-md-3" >ESTADO</th>
-        <th class="col-md-3">CONSULTORIO</th>
+        <th class="col-md-3">Hora</th>
+        <th class="col-md-3" >Estado</th>
+        <th class="col-md-3">Consultorio</th>
         <th class="col-md-3"></th>
         </tr>
     </thead>
@@ -180,7 +277,7 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
     { //TURNO LIBRE. TENGO TODO LO Q NECESITO PARA SACAR EL TURNO (DOMICILIO, HORA)
         echo '<td class="success disponible">DISPONIBLE</td>';
         echo '<td>';echo $domicilio_consulta;echo'</td>';
-        echo '<td><a class="solic-turno"href="confirmar-turno.php?hora=';echo $nuevaHora;echo'&domicilio=';echo $domicilio_consulta;echo'">SOLICITAR TURNO</a> </td>
+        echo '<td><a class="btn btn-primary" id="btn-solicitar" href="confirmar-turno.php?hora=';echo $nuevaHora;echo'&domicilio=';echo $domicilio_consulta;echo'">Solicitar turno</a> </td>
         </tr>';
       
         
@@ -196,6 +293,8 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
 </table>
 </div> 
 
+</div>
+</div>
 </div>
 
 
@@ -215,7 +314,8 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
                 </div>
             </div>
         </footer>  
-        <script src="bootstrap/js/bootstrap.min.js"></script>
-        <script src="bootstrap/js/npm.js"></script>
+          <script src="bootstrap/js/jquery.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script> 
+        <script src="js/main.js"></script>
 </body>
 </html>

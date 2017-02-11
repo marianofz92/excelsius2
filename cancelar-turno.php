@@ -23,7 +23,7 @@ history.back();
         
         else
         {
-        header('Location: http://localhost:8080/excelsius2/panel-paciente.php');
+        header('Location: http://localhost/github/excelsius2/panel-paciente.php');
         }
 }
 

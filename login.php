@@ -81,9 +81,9 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     <input name="password" type="password" id="password" required class="box-contra">
     <br><br>
     <input type="submit" class="btn-enviar" name="Submit" value="Ingresar"> <br> <br>
-<a class="crear-cuenta" href="registro-formulario.php">¿No tiene cuenta? Haga clic aqui para crear una</a>
+<a class="crear-cuenta" href="registro-formulario.php">¿No tiene cuenta? Haga click aqui para crear una</a>
 <br>
-<a class="crear-cuenta" href="registro-formulario.php">¿Olvidó su contraseña?</a>
+<a class="crear-cuenta" href="recuperar-contra.php">¿Olvidó su contraseña?</a>
 </form>
 </div>
    

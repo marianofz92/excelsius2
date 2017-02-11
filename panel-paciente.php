@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once('conn/connect.php');
 
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['privilegio']==0) {
 
@@ -8,17 +9,17 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
     $privilegio=$_SESSION['privilegio'];
     $id_usuario=$_SESSION['id_usuario'];
     
-    require_once('conn/connect.php');
+    
 
     $consulta ="SELECT * FROM usuario WHERE nombre_usuario ='$usuario'";
     $resultado=$connect->query($consulta);
     $fila= mysqli_fetch_assoc($resultado);
-    
-    $consulta2 = "SELECT * FROM turno WHERE usuario_idUsuario = $id_usuario ORDER BY 'hora' ASC";
+     
+    $consulta2 = "SELECT * FROM turno WHERE usuario_idUsuario = $id_usuario ORDER BY fecha DESC";
     $resultado2=$connect->query($consulta2);
-    $fila2= mysqli_fetch_assoc($resultado2);
     
-    if(empty($fila2)){
+    
+    if(mysqli_num_rows($resultado)>0){
         $vacio = 1;
     }
     else { $vacio = 0;}
@@ -224,20 +225,27 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
                        <td><?php echo $fila2['domicilio'] ?></td>
                           <?php
                                 $c = 0;
-                                if( date("Y-m-d") <= $fila2['fecha'] and $fila2['estado'] != 'cancelado')
-                                 {
-                                     echo '<td class = "warning"> Por atender </td>';
+                                if( date("Y-m-d") <= $fila2['fecha'])
+                                 {  $c = 0;
+                                     echo '<td class = "info"> Asignado </td>';
                                  }
                                     else { 
                                         
-                                        if($fila2['estado'] == 'cancelado'){
-                                            echo '<td class = "danger"> Cancelado </td>';
-                                            $c = 1;
+                                        $c = 1;
+                                        if($fila2['estado'] == 'asistio'){
+                                            echo '<td class = "success"> Asistió </td>';
+                                            
                                         }
                                             else {
-                                                echo '<td class = "success"> Atendido </td>';
-                                                $c = 1;
-                                            }    
+                                                
+                                                if($fila2['estado'] == 'no_asistio'){
+                                                echo '<td class = "danger"> No asistió </td>';
+                                                
+                                               }  else {
+                                                    echo '<td class = "info"> Asignado </td>';
+                                                }
+                                            
+                                            }  
                                     }
                            ?>
                        <td>
@@ -263,7 +271,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['
            </table>
        </div>
             <div class="alert alert-danger" id="recordatorio">Recuerde que puede cancelar sus turnos hasta 24hs. antes del mismo. </div>
-            <?php if($vacio == 1){ echo '<div class="alert alert-info">Aún no solicitado ningun turno. Puedes hacerlo desde aquí:        <a class="btn btn-primary" href="profesionales.php">Solicitar turno</a></div>'; 
+          <?php 
+        if($vacio == 1){ echo '<div class="alert alert-info">Aún no solicitado ningun turno. Puedes hacerlo desde aquí:        <a class="btn btn-primary" href="profesionales.php">Solicitar turno</a></div>'; 
             echo '<script>
       $(function () {
       var div = document.getElementById(\'panel-turnos\').style.display = \'none\'; 

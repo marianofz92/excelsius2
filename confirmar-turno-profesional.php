@@ -1,44 +1,88 @@
-    <?php
+   <?php
 session_start();
-require_once('conn/connect.php');
-?>
-<?php
 
-if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+require_once('conn/connect.php');
+
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']==1) { // es medico por lo tanto tiene asociada una cuenta y x ahi puedo sacar el id del medico.
+
     $usuario=$_SESSION['username']; 
-    $consulta="SELECT * FROM usuario WHERE nombre_usuario ='$usuario'";
+    $enlace='panel-profesional.php';
+    $privilegio=$_SESSION['privilegio'];
+   $id_usuario= $_SESSION['id_usuario'];
+    $consulta ="SELECT * FROM profesionales2 WHERE usuario_idUsuario=$id_usuario";
     $resultado=$connect->query($consulta);
-    $fila=mysqli_fetch_assoc($resultado);
-    $privilegio=$fila['privilegio'];
-    if($privilegio ==1)//MEDICO TIENE PRIVILEGIO 1
-    {
-        $enlace='panel-profesional.php';
-    }
-    else{//ES PACIENTE (por ahora, luego se implementaran secretarias.)
-        $enlace='panel-paciente.php';
-    }
+    $fila= mysqli_fetch_assoc($resultado);
+    $id_profesional_session=$fila['id_profesional'];
+    $_SESSION['id_profesional'] = $id_profesional_session;
+    
+    $consulta2 = "SELECT * FROM profesional_domicilio INNER JOIN domicilio ON domicilio_idDomicilio=id_domicilio AND profesional_idProfesional=$id_profesional_session";
+    $resultado2=$connect->query($consulta2);
+    $fila2= mysqli_fetch_assoc($resultado2);
+//  $domicilios=$fila2['calle'];
+      
+    $consulta3 = "SELECT img FROM profesionales2 WHERE usuario_idUsuario = $id_usuario";
+    $resultado3=$connect->query($consulta3);
+    $fila3= mysqli_fetch_assoc($resultado3);
+    
+} else {
+    
+            if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']!=1) {
+                
+            
+    
+                echo 'Usted no tiene persimo para acceder a esta página.';
+                exit;
+                
+            } else {
+                 $usuario='Ingresar';
+                 $enlace='login.php';
+                 header('Location: http://localhost/github/excelsius2/inicie-sesion.html');
     
     
-}
-else {
+            
+            }
+        }
     
-    $usuario='Ingresar';
-    $enlace='login.php';
-}// HACER VALIDACIONES SI EXISTE EL ID DEL PROFESIONAL EN LA SESSION, LA FECHA ETC.PARA Q NO SE MANDEN LOS PARAMETROS X GET.
+    
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
         <title>Excelsius Salud</title>
         <link rel="shortcut icon" href="img/icono.ico">
-        <meta charset="utf-8">       
+        <meta charset="utf-8">
+        <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+        <script type="text/javascript" src="js/ajax.js"></script>
+        <link rel="stylesheet" href="css/estilo-buscador.css">
+        
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
         <link rel="stylesheet" href="css/fontello.css">        
         <link rel="stylesheet" href="css/estilos.css">
         <link rel="stylesheet" href="css/confirmar-turno-prof.css">
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="alertify/css/alertify.css">
+        <link rel="stylesheet" href="alertify/css/themes/default.css">
+        <link rel="stylesheet" href="sweetalert/sweetalert.css">
+       
+        <script src="js/validar-form-turno.js"></script>
+        <script type="text/javascript" src="sweetalert/sweetalert.min.js"></script>
+        <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+        <script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
+        
+        <script type="text/javascript" src="alertify/alertify.min.js"></script>
+        <script type="text/javascript">
+        //override defaults
+        alertify.defaults.transition = "zoom";
+        </script>
+       
+        
+        
     </head>
     <body>
-        <header>
+    
+    <header>
+
 
 <div id="barramenu" class="contenedor">
 <a href="index.php"><img src="img/logoblancosolo.png" id="logo" ></a>
@@ -51,7 +95,23 @@ else {
 
 <ul> 
 
-<li id="item-ingresar"><a href="<?php echo $enlace ?>"><?php echo $usuario ?><img src="img/user.png" alt=""></a></li>
+<li id="item-ingresar"><a href="#"><img src="<?php 
+                if(isset($fila3['img'])){
+                    echo 'data:image/jpg;base64,'.base64_encode($fila3['img']);
+                }else{
+                    echo 'img/default_avatar.png';
+                }
+                
+                ?>" alt=""><?php echo $usuario ?><span class="caret"></span></a>
+<ul id="submenu-usuario">
+    <li><a href="ver-turnos-profesional.php"><span class="glyphicon glyphicon-list-alt"></span>Ver turnos</a></li>
+    <li><a href="configurar-turno.php"><span class="glyphicon glyphicon-cog"></span>Configurar horarios</a></li>
+    <li><a href="profesionales.php"><span class="glyphicon glyphicon-paste"></span>Derivar turno</a></li>
+    <li><a href="desactivar-horarios.php"><span class="glyphicon glyphicon-remove"></span>Desactivar horarios</a></li>
+<!--    <li><a href="editar-perfil-paciente.php"><span class="glyphicon glyphicon-edit"></span>Editar perfil</a></li>-->
+    <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>Cerrar sesión</a></li>
+</ul>
+</li>
 <li><a href="index.php">Inicio</a></li>
 <li><a href="nosotros.php">Nosotros</a></li>
 <li><a href="profesionales.php">Profesionales</a></li>
@@ -59,12 +119,27 @@ else {
 <li><a href="servicios.php">Servicios</a></li>
 <li><a href="noticias.php">Noticias</a></li>
 <li><a href="contacto.php">Contacto</a></li>
-<li class="submenu"><a href="javascript:$.scrollTo('#equipo_m',700); ">Buscar<span class="icon-search"></span></a></li>
-</li>
-</nav> 
+<li class="submenu" id="item-buscar"><a href="index.php#equipo_m">Buscar<span class="icon-search"></span></a></li>
+<div class="dropdown">
+  <button class="dropdown-toggle"  id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+  <span class="glyphicon glyphicon-user"></span> <?php echo $usuario ?>
+    <span class="caret"></span>
+  </button>
+  <ul id="dropdownMenu2" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li><a href="ver-turnos-profesional.php"><span class="glyphicon glyphicon-user"></span>Mi cuenta</a></li>
+    <li><a href="#"><span class="glyphicon glyphicon-cog"></span>cambiar contraseña</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span>Cerrar sesión</a></li>
+  </ul>
+</div>
+<!--<li><a href=""><span class="glyphicon glyphicon-user"></span>Ingresar</a></li>-->
+</ul>
+
+
+</nav>     
 </div>
 
-<a href="<?php echo $enlace ?>" class="etiqueta-ingresar"> <?php echo $usuario ?> <img src="img/user.png" alt=""> </a>
+<!--<a href="<?php echo $enlace ?>" class="etiqueta-ingresar"> <?php echo $usuario ?> <img src="img/user.png" alt=""> </a>-->
 
 </header>
         
@@ -80,28 +155,27 @@ else {
             
                     ?>
                     <div id="formulario">
-                   <form action="turno-profesional-confirmado.php" method="post" class="form-confirmacion">
-                      <h1 class="cabecera">CONFIRME EL TURNO</h1>
+                   <form action="turno-profesional-confirmado.php" method="post" class="form-confirmacion" onsubmit="return validar();">
+                      <h1 class="cabecera">Confirme el turno</h1>
                      <div class="contenedor-inputs">
-
-                      <p>Por favor verifique los datos de su turno:</p>
-                      <label>FECHA:<?php echo $fecha ?></label><br>
-                      <label>HORA:<?php echo $hora ?></label><br>
+                      <div class="alert alert-info">Por favor verifique los datos de su turno:</div>
+                      <label>FECHA: </label><?php echo ' '.$fecha ?><br>
+                      <label>HORA: </label><?php echo ' '.$hora ?><br>
                       <label>NOMBRES :</label><input  name="nombres_p"required type="text" class="datos"><br>
                       <label>APELLIDOS:</label><input   name="apellidos_p"required type="text" class="datos"   > <br>
-                      <label>TELÉFONO: <input  name="tel_p" type="text" class="datos"  required></label><br> 
+                      <label>TELÉFONO: <input  name="tel_p" type="text" class="datos"  required id="telefono"></label><br> 
                       <input type="hidden" name="fecha_p" id="fecha_p" value="<?php echo $fecha ?>">   
                       <input type="hidden" name="hora_p" id="hora_p" value="<?php echo $hora?>">
                          <input type="hidden" name="domicilio_p" value="<?php echo $domicilio?>">
                          
                        <label>OBRA SOCIAL:</label><input type="text" class="datos" name="obrasocial" id="obrasocial" required placeholder="Ingrese  obra social" > <br>
-                       <label>DNI PACIENTE:</label><input type="text" class="datos" name="dni_p" required > <br>
-                       <label>DOMICILIO CONSULTA:<?php echo utf8_encode($domicilio)?></label><br>
-                      <label>USUARIO:<?php echo $usuario; ?></label><br>
+                       <label>DNI PACIENTE:</label><input type="text" class="datos" name="dni_p" required id="dni"> <br>
+                       <label>DOMICILIO CONSULTA: </label><?php echo ' '.utf8_encode($domicilio)?><br>
+                      <label>USUARIO: </label><?php echo ' '.$usuario; ?><br>
                       <input type="hidden" name="derivado" value="<?php echo $derivado?>">
                    
                     <input type="submit" value="CONFIRMAR" class="btn-confirmar"> 
-                    <div class="link-form">¿Desea modificar su consulta? <a href="ver-turnos-profesional.php">Clic aquí.</a></div>
+                    <div class="link-form">¿Desea modificar su consulta? <a href="ver-turnos-profesional.php">Click aquí.</a></div>
                    </form>
                   </div>
                     </div>
@@ -119,6 +193,9 @@ else {
                     <a class="icon-instagram" href="https://www.instagram.com/excelsiussalud/" target="_blank"></a>
                 </div>
             </div>
-        </footer>  
+        </footer> 
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="js/jquery.js"></script>
+        <script src="js/main.js"></script> 
     </body>
 </html>

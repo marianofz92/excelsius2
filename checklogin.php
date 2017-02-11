@@ -55,11 +55,17 @@ if ($password == $row['clave']) {
        
     }
 
-   header('Location: http://localhost:8080/excelsius2/index.php');
+   header('Location: http://localhost/github/excelsius2/index.php');
 
 } else {
-    echo "Username o Password estan incorrectos.";
+    //echo "Username o Password estan incorrectos.";
 
-    echo "<br><a href='login.php'>Volver a Intentarlo</a>";
+    //echo "<br><a href='login.php'>Volver a Intentarlo</a>";
+    echo '<script>
+    
+     window.location.href="error-logueo.html";
+    
+    </script>';
+    
 }
 mysqli_close($conexion);

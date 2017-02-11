@@ -6,25 +6,24 @@ $id_turno=$_GET['id_turno'];
 
 if($asistencia=='si')
 {
-$consulta="UPDATE turno SET estado='atendido' WHERE id_turno=$id_turno";
+$consulta="UPDATE turno SET estado='asistio' WHERE id_turno=$id_turno";
     $resultado=$connect->query($consulta);
         echo '
     
     <script>
-    alert("Paciente ATENDIDO.")
+    window.history.back();
     
     </script>';
 
 }
 else
 {
-    $consulta="UPDATE turno SET estado='ausente' WHERE id_turno=$id_turno";
+    $consulta="UPDATE turno SET estado='no_asistio' WHERE id_turno=$id_turno";
     $resultado=$connect->query($consulta);
         echo '
     
     <script>
-    alert("Paciente AUSENTE.")
-    
+     window.history.back();
     </script>';
 
 }

@@ -78,14 +78,16 @@ else {
     
                 if(isset($fila['img_paciente'])){
                     echo 'data:image/jpg;base64,'.base64_encode($fila['img_paciente']);
-                }else{
-                    echo 'img/default_avatar.png';
-                }
-                } else {
-        
-                        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']==1){
+                } else{
+                    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']==1){
                              echo 'data:image/jpg;base64,'.base64_encode($fila3['img']);
                         }
+                    
+                }
+        
+                } else {
+        
+                        echo 'img/default_avatar.png';
         
                       }
                 ?>" alt=""><?php echo $usuario ?><span class="caret"></span></a>

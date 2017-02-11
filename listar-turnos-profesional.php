@@ -171,12 +171,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
     
     <div id="contenido">
     <div class="panel panel-default" id="panel-turnos">
-    <div class="panel-heading"><h4>Turnos del dia: <?php $fecha=$_POST['fecha_ver_turnos']; echo $fecha; ?></h4></div>
+    <div class="panel-heading"><h4>Turnos del dia: <?php $fecha=$_GET['fecha_ver_turnos']; echo $fecha; ?></h4></div>
     <div class="contenido_tabla panel-body">
        
   <?php
        
-$fecha=$_POST['fecha_ver_turnos']; 
+$fecha=$_GET['fecha_ver_turnos']; 
 list($dia, $mes, $anio)= explode ("/", $fecha);
 $fecha_consulta= $anio . '-' . $mes . '-' . $dia;
 $fechats=strtotime($fecha_consulta);
@@ -192,7 +192,7 @@ switch (date('w', $fechats))
    
 }  
  $id_profesional=$_SESSION['id_profesional_sesion'];  
- $consulta1="SELECT * FROM config_horario INNER JOIN domicilio ON dia ='$dia_c' AND profesional_idProfesional=$id_profesional  AND Domicilio_idDomicilio=id_domicilio  ORDER BY  'desde' ASC";
+ $consulta1="SELECT * FROM config_horario INNER JOIN domicilio ON dia =' $dia_c' AND profesional_idProfesional=$id_profesional  AND Domicilio_idDomicilio=id_domicilio  ORDER BY  desde ASC";
 //$consulta="SELECT * FROM config_horario INNER JOIN profesionales2 ON profesional_idProfesional =id_profesional AND profesional_idProfesional=$id_profesional AND dia =$dia_c"; ES NECESARIO EL JOIN????--------NO!
  $resultado1=$connect->query($consulta1);
    
@@ -201,18 +201,18 @@ switch (date('w', $fechats))
     
      <div class="col-md-12">
 
-      <table class="table table-hover table-bordered table-responsive">
+      <table class="table table-hover table-bordered table-responsive table-striped">
     <thead>
         <tr>
-        <th class="col-md-1">HORA</th>
-        <th class="col-md-1" >ESTADO</th>
-        <th class="col-md-1">CONSULTORIO</th>
-         <th class="col-md-2">PACIENTE</th>
-          <th class="col-md-1">TELÉFONO</th>
-         <th class="col-md-2">O.SOCIAL</th>
-         <th class="col-md-1">DERIVADO POR:</th>
-         <th class="col-md-2"></th>
-         <th class="col-md-1">¿ASISTÍO?</th>
+        <th class="col-md-1">Hora</th>
+        <th class="col-md-1" >Estado</th>
+        <th class="col-md-1">Consultorio</th>
+         <th class="col-md-2">Paciente</th>
+          <th class="col-md-1">Teléfono</th>
+         <th class="col-md-2">O.Social</th>
+         <th class="col-md-1">Derivado por:</th>
+         <th class="col-md-2">Acción</th>
+         <th class="col-md-1">¿Asistió?</th>
          
         </tr>
     </thead>
@@ -292,15 +292,41 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
     if($busca==1) //  cancelado: x medico o paciente.. manejar 4 estados: asignado, atendido.
     {
        
-       
-        echo '<td class="danger ocupado">OCUPADO</td>';
+        $origen='cancel-med';
+        echo '<td class="danger ocupado">'.$estado_turno.'</td>';
              echo '<td>';echo $domicilio_consulta;echo'</td>';
             echo '<td>';echo $paciente;echo'</td>';
              echo '<td>';echo $telefono;echo'</td>';
             echo '<td>';echo $obra_social ;echo'</td>';
             echo '<td>';echo $nombre_derivador ;echo'</td>';
-        echo  '<td><a class="sacar-color btn btn-danger" href="profesional-cancelar-turno.php?id_turno=';echo $id_turno;echo '">Cancelar</a></td>';
-        echo  '<td><a class="asistio btn btn-success" href="asistencia-paciente.php?id_turno=';echo $id_turno;echo'&asistencia=si">Si</a>';
+        if($estado_turno=='DESACTIVADO')
+        {
+            $boton="Revertir";
+            
+        }
+        else
+        {
+            $boton="Cancelar Turno";
+        }
+       echo  '<td><button  type="button" data-toggle="modal" class="btn btn-danger btn-sm" data-target=".bs-example-modal-sm" onclick="
+                                        
+                                      alertify.confirm(\'¡Atención!\', \'¿Seguro que desea cancelar el turno?\', function(){
+                                      window.location = \'cancelar-turno.php?idturno='.$id_turno.'&origen='.$origen.'\';
+                                      }, function(){}).set(\'labels\', {ok:\'Si\', cancel:\'No\'});
+    
+                                        ">'.$boton.'</button></td>';
+         echo  '<td><button  type="button" data-toggle="modal" class="btn btn-success btn-sm" data-target=".bs-example-modal-sm" onclick="
+                                        
+                                      alertify.confirm(\'Asistencia\', \'Seleccione su respuesta\', function(){
+                                      window.location = \'asistencia-paciente.php?id_turno='.$id_turno.'&asistencia=si\';alertify.success(\'Asistió\');
+                                      }, function(){
+                                      window.location = \'asistencia-paciente.php?id_turno='.$id_turno.'&asistencia=no\'
+                                      
+                                      
+                                      ;alertify.error(\'No asistio\')}).set(\'labels\', {ok:\'Si\', cancel:\'No\'});
+    
+                                        ">¿Asistió?</button></td>';
+        //echo  '<td><a class="asistio btn btn-success" href="asistencia-paciente.php?id_turno=';echo $id_turno;echo'&asistencia=si">Si</a>';
         echo '</tr>';
     }
     else
@@ -312,9 +338,10 @@ while($segundos_horaInicial<=$segundos_horaFinal) //con < si quieren salir a su 
        echo '<td> </td>';
       echo '<td>';echo '';echo'</td>';
         echo '<td>';echo '' ;echo'</td>';
-        echo '<td> <a href="confirmar-turno-profesional.php?fecha=';echo $fecha_consulta;echo'&hora=';echo $nuevaHora;echo'&domicilio=';echo $domicilio_consulta;echo'">NUEVO TURNO</a></td>';
         echo '<td>';echo '' ;echo'</td>';
+        echo '<td> <a class="btn btn-primary" href="confirmar-turno-profesional.php?fecha=';echo $fecha_consulta;echo'&hora=';echo $nuevaHora;echo'&domicilio=';echo $domicilio_consulta;echo'">Nuevo turno</a></td>';
         echo '<td>';echo '' ;echo'</td>';
+       
         echo '</tr>';
        
         

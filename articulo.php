@@ -242,6 +242,8 @@ else {
              echo'<br>';
                 
          }
+         $maps_=$fila_dom['maps'];
+         $street_=$fila_dom['street'];
         
      } 
             echo'</li>';
@@ -266,8 +268,8 @@ else {
            <section  id="mapa-street">
 
                <h4>Ubicación</h4>
-               <iframe src="<?php echo $fila_dom['maps']?>" allowfullscreen></iframe>
-               <iframe src="<?php echo  $fila_dom['street']?>" allowfullscreen></iframe>
+               <iframe src="<?php echo $maps_?>" allowfullscreen></iframe>
+               <iframe src="<?php echo  $street_?>" allowfullscreen></iframe>
            </section>
 
   

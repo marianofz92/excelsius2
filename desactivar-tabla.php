@@ -73,7 +73,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
         alertify.defaults.transition = "zoom";
         </script>
        
-        
+        <script type="text/javascript">
+            function recargar(){
+//location.href='index.php';
+                location.reload();
+            }
+</script>;
         
     </head>
     <body>
@@ -200,7 +205,7 @@ switch (date('w', $fechats))
    
 }  
  $id_profesional=$_SESSION['id_profesional_sesion'];  
- $consulta1="SELECT * FROM config_horario INNER JOIN domicilio ON dia ='$dia_c' AND profesional_idProfesional=$id_profesional  AND Domicilio_idDomicilio=id_domicilio  ORDER BY  'desde' ASC";
+ $consulta1="SELECT * FROM config_horario INNER JOIN domicilio ON dia =' $dia_c' AND profesional_idProfesional=$id_profesional  AND Domicilio_idDomicilio=id_domicilio ORDER BY desde  ASC";
 //$consulta="SELECT * FROM config_horario INNER JOIN profesionales2 ON profesional_idProfesional =id_profesional AND profesional_idProfesional=$id_profesional AND dia =$dia_c"; ES NECESARIO EL JOIN????--------NO!
  $resultado1=$connect->query($consulta1);
    

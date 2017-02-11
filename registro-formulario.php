@@ -23,6 +23,21 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         <link rel="stylesheet" href="css/fontello.css">        
         <link rel="stylesheet" href="css/estilos.css">
         <link rel="stylesheet" href="css/registro.css">
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="alertify/css/alertify.css">
+        <link rel="stylesheet" href="alertify/css/themes/default.css">
+        <link rel="stylesheet" href="sweetalert/sweetalert.css">
+      
+        <script src="js/validar.js"></script>
+        <script type="text/javascript" src="sweetalert/sweetalert.min.js"></script>
+        <script type="text/javascript" src="alertify/alertify.min.js"></script>
+        <script type="text/javascript">
+        //override defaults
+        alertify.defaults.transition = "zoom";
+        </script>
+        
+        
      
     </head>
     <body>
@@ -39,7 +54,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
 <ul> 
 
-<li id="item-ingresar"><a href="<?php echo $enlace ?>"><?php echo $usuario ?><img src="img/user.png" alt=""></a></li>
+
 <li><a href="index.php">Inicio</a></li>
 <li><a href="nosotros.html">Nosotros</a></li>
 <li><a href="profesionales.php">Profesionales</a></li>
@@ -52,24 +67,31 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 </nav> 
 </div>
 
-<a href="<?php echo $enlace ?>" class="etiqueta-ingresar"> <?php echo $usuario ?> <img src="img/user.png" alt=""> </a>
+
 
 </header>
 <main>
    <div id="contenedor_registro">
       <h1>Registrate en nuestro sistema</h1>
-<form action="registrar.php" method="post" class="form-register">
+<form action="registrar.php" method="post" class="form-register" onsubmit="return validar();">
 <h2 class="form-titulo">CREA UNA CUENTA EN EXCELSIUS SALUD</h2>
 <div class="contenedor-inputs">
-    <input type="text"name="nombre" placeholder="Nombre" class="input-48" required>
-    <input type="text" name="apellidos" placeholder="Apellidos" class="input-48" required>
-    <input type="email" name="email" placeholder="E-mail" class="input-100" required>
-    <input type="text" name="usuario" placeholder="Usuario" class="input-48"required>
-    <input type="password" name="clave" placeholder="Contraseña" class="input-48" required>
+    <input type="text"name="nombre" placeholder="Nombre" class="input-48" id="nombre" required>
+    <input type="text" name="apellidos" placeholder="Apellidos" class="input-48" id="apellidos" required>
+    <input type="text" name="telefono" placeholder="Teléfono" class="input-100"id="telefono" required>
+    <input type="email" name="email" placeholder="E-mail" class="input-100" id="email" required>
+    <input type="text" name="usuario" placeholder="Usuario" class="input-100"id="usuario" required>
+    <input type="password" name="clave" placeholder="Contraseña" class="input-48" id="clave" required>
+    <input type="password" name="clave2" placeholder="Repita contraseña" class="input-48" id="clave2" required>
  
     <input type="submit" value="Registrar" class="btn-enviar">
-    <p class="form-link">¿Ya tienes una cuenta?<a href="login.php">Ingresa aqui</a></p>
+    <p class="form-link">¿Ya tiene una cuenta?<a href="login.php">Ingrese aqui</a></p>
+    <p class="form-link"><a href="recuperar-contra.php">¿Olvidó su contraseña?</a></p>
+    
 </div>
+      <div class="alert alert-info">
+          Cuenta sólo para pacientes. Para registrarse como profesional, comuníquese <a href="contacto.php">AQUÍ.</a>
+      </div>
        
    </div>
     

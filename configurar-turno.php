@@ -24,6 +24,16 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
     $resultado3=$connect->query($consulta3);
     $fila3= mysqli_fetch_assoc($resultado3);
     
+    
+//Para saber si tiene configuracion de horario:
+    $consulta_config="SELECT * FROM config_horario WHERE profesional_idProfesional=$id_profesional_session";
+    $resultado_config=$connect->query($consulta_config);
+    if(mysqli_num_rows($resultado_config)>0)
+    {
+       // echo '<script>alert("Tiene algo");</script>';
+        header('Location: http://localhost:8080/excelsius2/ver-config-horarios.php');
+    }
+    
 } else {
     
             if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']!=1) {
@@ -175,6 +185,9 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
     </div>
     
     <div id="contenido">
+      <div class="alert alert-danger" style="margin-top:20px;">
+          <strong>¡IMPORTANTE!:</strong> Una vez configurado sus horarios no podrá revertirlos manualmente, para ello deberá comunicarse con la Gerencia. Al presionar el botón Guardar configuración se enviará su informacion.
+      </div>
        <div id="titulo"><h1>Configuración de horarios</h1></div>
     
     

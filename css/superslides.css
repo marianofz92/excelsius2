@@ -47,11 +47,11 @@ font-family:  'Montserrat', sans-serif;
   color:white;
   padding: 0px;
   text-align: center;
-  line-height: 48px;
+  line-height: 40px;
   font-weight: bold;
   border-radius: 50%;
-  
 }
+
 .slides-navigation a:hover {
     background: black;
 

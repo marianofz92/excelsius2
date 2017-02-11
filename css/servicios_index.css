@@ -35,10 +35,11 @@ margin: auto;
 padding-left: 60px;
     background: rgba(255,255,255,0.3);
 }
+
 #contenido h1{
 color: #183152;
-border-bottom: 3px solid cadetblue;  
-    
+border-bottom: 3px solid cadetblue; 
+font-size: 25px;    
 }
 
 .contenedor2{
@@ -52,10 +53,9 @@ min-width: 200px;
 
 }
 .contenedor2 h1{
-    margin-bottom: 20px;
-    
-    
+    margin-bottom: 20px;   
 }
+
 .contenedor2 ul li{
     margin-left: 20px;
 }

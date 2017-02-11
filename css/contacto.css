@@ -1,5 +1,5 @@
 #contacto {
-    margin-top: 150px;
+    margin-top: 110px;
     margin-bottom: 250px;
 }
 
@@ -12,7 +12,7 @@
     border-radius: 7px; 
 }
 
-input, textarea {
+#contacto input, #contacto textarea {
     width: 100%;
     margin-bottom: 20px;
     padding: 7px;
@@ -26,16 +26,21 @@ textarea {
 }
 
 #boton {
-    background: cadetblue;
+     text-decoration: none;
+     background: cadetblue;
     color: #fff;
-    padding: 15px;
-    width: 200px;
+    padding: 12px;
+    width: 100%;
     font-family: 'montserrat', sans-serif;
-
+    border-radius: 4px;
+    border-style: none;
+    font-size: 18px;
+    height: 50px
 }
 
 #boton:hover {
     cursor: pointer;
+    background-color: #458f91
 }
 
 #contacto h1 {

@@ -18,26 +18,32 @@
     width: 100%;
     margin-bottom: 20px;
     padding: 7px;
-    box-sizing: border-box;   
+    box-sizing: border-box;
+    border-radius: 4px;
+    border-style: none
 }
 
 #consulta textarea {
-    min-height: 100px;
-    max-height: 200px;
-    max-width: 100%;  
+    min-height: 150px;
+    max-height: 300px;
+    max-width: 100%; 
 }
 
 #consulta #boton {
     background: cadetblue;
     color: #fff;
-    padding: 15px;
+    padding: 12px;
     width: 100%;
     font-family: 'montserrat', sans-serif;
-    border-radius: 8px;
+    border-radius: 4px;
+    margin-top: 15px;
+    border-style: none;
+    font-size: 18px
 }
 
 #consulta #boton:hover {
     cursor: pointer;
+    background-color: #458f91
 }
 
 #consulta h1 {

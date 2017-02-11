@@ -9,11 +9,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
     $enlace='panel-profesional.php';
     $privilegio=$_SESSION['privilegio'];
    $id_usuario= $_SESSION['id_usuario'];
-    $consulta ="SELECT * FROM profesionales2 WHERE usuario_idUsuario=$id_usuario";
+   /* $consulta ="SELECT * FROM profesionales2 WHERE usuario_idUsuario=$id_usuario";
     $resultado=$connect->query($consulta);
     $fila= mysqli_fetch_assoc($resultado);
     $id_profesional_session=$fila['id_profesional'];
-    $_SESSION['id_profesional'] = $id_profesional_session;
+    $_SESSION['id_profesional'] = $id_profesional_session;*/
     
       
     $consulta3 = "SELECT img FROM profesionales2 WHERE usuario_idUsuario = $id_usuario";
@@ -64,7 +64,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
        
       
         <script type="text/javascript" src="sweetalert/sweetalert.min.js"></script>
-        <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+<!--        <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>-->
         <script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
         
         <script type="text/javascript" src="alertify/alertify.min.js"></script>
@@ -73,6 +73,10 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
         alertify.defaults.transition = "zoom";
         </script>
        
+        <script src="bootstrap/js/jquery.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="js/jquery.js"></script>
+          
         
         
     </head>
@@ -189,11 +193,47 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
     <form class="formulario"  method="get" id="formulario" action="listar-turnos-profesional.php"> 
       
       <div class="panel-body">
-      <input id="fecha_ver_turnos" class="fecha-inp"  placeholder="SELECCIONE LA FECHA DEL TURNO"  type="text" required name="fecha_ver_turnos">
+      <input id="fecha_ver_turnos" class="fecha-inp"  placeholder="SELECCIONE LA FECHA DEL TURNO"  type="text" required name="fecha_ver_turnos" readonly>
       <br>
       <br>
       <input type="submit" value="Consultar" class="btnconsulta btn btn-primary"  id="btnconsultar" >
-     <script src="js/jquery-ui.min.js"></script>
+     
+      <?php 
+   
+        $id_usuario= $_SESSION['id_usuario']; 
+        $consulta1 ="SELECT * FROM profesionales2 WHERE usuario_idUsuario=$id_usuario";
+        $resultado1=$connect->query($consulta1);
+        $fila1= mysqli_fetch_assoc($resultado1);
+        $id_profesional=$_SESSION['id_profesional_sesion'];
+   
+        //$id_profesional=$fila1['id_profesional'];
+        $consulta5 ="SELECT * FROM dias_desact WHERE Profesional_idProfesional = $id_profesional";
+        $resultado5=$connect->query($consulta5);
+        
+        $cadenaFinal = ""; 
+        while($fila5= mysqli_fetch_assoc($resultado5)){
+   
+        $desde = date("d-m-Y", strtotime($fila5['desde']));
+        $hasta = date("d-m-Y", strtotime($fila5['hasta']));
+   
+        $fechaInicio=strtotime($desde);
+        $fechaFin=strtotime($hasta);
+        $cadenaFechas="";    
+        for($i=$fechaInicio; $i<=$fechaFin; $i+=86400){
+            //echo date("d-m-Y", $i)."<br>";
+            $cadenaFechas=$cadenaFechas.'*'.date("d-m-Y", $i);
+        }
+            
+        $cadenaFechas0=substr($cadenaFechas, 1);
+        $cadenaFechas1=$cadenaFechas0.'*';
+        $cadenaFinal=$cadenaFinal.$cadenaFechas1;     
+        }    
+        
+            echo' <input type="hidden" name="fechas" value="'.$cadenaFinal.'; ">';
+
+        ?>
+      
+      <script src="js/jquery-ui.min.js"></script>
        <script src="js/datepicker-es.js"></script>
         <script>
         $("#fecha_ver_turnos").datepicker( $.datepicker.regional[ "es" ]);
@@ -219,10 +259,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION[
             </div>
         </footer>
         
-        <script src="bootstrap/js/jquery.js"></script>
-        <script src="bootstrap/js/bootstrap.min.js"></script>
-        <script src="js/jquery.js"></script>
-        <script src="js/main.js"></script>  
+        <script src="js/main.js"></script>
               
     </body>
 </html>

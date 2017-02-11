@@ -24,15 +24,16 @@
     padding: 10px;
     border-radius: 5px;
 }
+
 #resultados{
- min-height: 200px;   
+ min-height: 100px;   
 max-height: 400px;
- overflow: scroll;
+ overflow: auto;
 height: 100%;
 overflow-x: hidden;
-
-    
+   
 }
+
 .art a{
     text-decoration: none;
     color:#183152;

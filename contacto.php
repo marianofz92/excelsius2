@@ -184,7 +184,7 @@ else {
                         <input type="text" name="correo" placeholder="Correo" required>
                         <input type="text" name="telefono" placeholder="Telefono" required>
                         <textarea name="mensaje" placeholder="Escriba aquí su mensaje" required></textarea>
-                        <input type="submit" value="ENVIAR" id="boton" >
+                        <input type="submit" value="Enviar" id="boton" >
                     </form>
                 </div>
             </section>  

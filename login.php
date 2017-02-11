@@ -51,7 +51,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
 <ul> 
 
-<li id="item-ingresar"><a href="<?php echo $enlace ?>"><?php echo $usuario ?><img src="img/user.png" alt=""></a></li>
+
 <li><a href="index.php">Inicio</a></li>
 <li><a href="nosotros.php">Nosotros</a></li>
 <li><a href="profesionales.php">Profesionales</a></li>
@@ -64,13 +64,13 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 </nav> 
 </div>
 
-<a href="<?php echo $enlace ?>" class="etiqueta-ingresar"> <?php echo $usuario ?> <img src="img/user.png" alt=""> </a>
+
 
 </header>
 <main>
     <section id="contenedor_login">
         <div id="ingreso-sistema">
-       <p>Ingreso a Excelsius Salud</p>
+       <p><img src="img/logoblanco.png" alt=""></p>
    </div>     
    <div id="logeo">
 <form action="checklogin.php" method="post" >
@@ -82,6 +82,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     <br><br>
     <input type="submit" class="btn-enviar" name="Submit" value="Ingresar"> <br> <br>
 <a class="crear-cuenta" href="registro-formulario.php">¿No tiene cuenta? Haga clic aqui para crear una</a>
+<br>
+<a class="crear-cuenta" href="registro-formulario.php">¿Olvidó su contraseña?</a>
 </form>
 </div>
    

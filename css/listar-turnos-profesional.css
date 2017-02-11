@@ -258,7 +258,8 @@ position: relative;
 #tabla thead th{
     background-color: #C9F2EB;
     text-align: center;
-    vertical-align: middle
+    vertical-align: middle;
+    font-size: 12px;
 }
 
 #tabla td {

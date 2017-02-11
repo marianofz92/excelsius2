@@ -6,10 +6,16 @@ require_once('conn/connect.php');
 
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     $usuario=$_SESSION['username']; 
+    $id_usuario= $_SESSION['id_usuario'];
     $consulta="SELECT * FROM usuario WHERE nombre_usuario ='$usuario'";
     $resultado=$connect->query($consulta);
     $fila=mysqli_fetch_assoc($resultado);
     $privilegio=$fila['privilegio'];
+    
+    $consulta3 = "SELECT img FROM profesionales2 WHERE usuario_idUsuario = $id_usuario";
+    $resultado3=$connect->query($consulta3);
+    $fila3= mysqli_fetch_assoc($resultado3);
+    
     if($privilegio ==1)//MEDICO TIENE PRIVILEGIO 1
     {
         $enlace='#';
@@ -67,12 +73,21 @@ else {
 <ul> 
 
 <li id="item-ingresar"><a href="<?php echo $enlace ?>"><img src="<?php 
+    
+    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']==0){
+    
                 if(isset($fila['img_paciente'])){
                     echo 'data:image/jpg;base64,'.base64_encode($fila['img_paciente']);
                 }else{
                     echo 'img/default_avatar.png';
                 }
-                
+                } else {
+        
+                        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true  && $_SESSION['privilegio']==1){
+                             echo 'data:image/jpg;base64,'.base64_encode($fila3['img']);
+                        }
+        
+                      }
                 ?>" alt=""><?php echo $usuario ?><span class="caret"></span></a>
    
     
@@ -123,7 +138,7 @@ else {
               <button class="dropdown-toggle"  id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               <span class="glyphicon glyphicon-user"></span>'.$usuario.'
                 <span class="caret"></span>
-                <style type="text/css"> #dropdownMenu1 .glyphicon-user { margin-right: 8.6px;}
+                <style type="text/css"> #dropdownMenu1 .glyphicon-user { margin-right: 8.4px;}
                 </style>
               </button>
               <ul id="dropdownMenu2" class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -237,7 +252,7 @@ else {
                         <input type="text" name="nombre" placeholder="Nombre" required>
                         <input type="text" name="correo" placeholder="Correo" required>
                         <textarea name="consulta" placeholder="Escriba aquí su consulta" required></textarea>
-                        <input type="submit" value="ENVIAR" id="boton" >
+                        <input type="submit" value="Enviar" id="boton" >
                     </form>
                 </div>
             </section>

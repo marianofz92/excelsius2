@@ -202,3 +202,30 @@ position: relative;
 #formulario {
     box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+#rangos-desact {
+    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#rangos-desact table th {
+    background-color: #C9F2EB;
+    text-align: center;
+}
+
+#rangos-desact td {
+    vertical-align: middle;
+    text-align: center
+}
+
+#rangos-desact {
+    overflow: auto;
+}
+
+
+#rangos-desact table {
+     min-width: 300px;
+}
+
+#contenedor-rango {
+    
+}

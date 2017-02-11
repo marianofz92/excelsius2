@@ -13,6 +13,10 @@ $fecha_hasta= $anioh . '-' . $mesh . '-' . $diah;
 
 $consulta = "INSERT INTO dias_desact (id_dias_desact, desde, hasta, Profesional_idProfesional) VALUES (NULL, '$fecha_desde', '$fecha_hasta', $id_profesional)";
 $resultado=$connect->query($consulta);
+if($resultado>0)
+   {
+        header('Location: http://localhost/github/excelsius2/desactivar-rango.php');
+   }
 
 
 

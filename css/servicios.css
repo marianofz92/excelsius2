@@ -36,7 +36,7 @@ background: rgba(255,255,255,0.3);
 #contenido h1{
 color: #183152;
 border-bottom: 3px solid cadetblue;  
-    
+ font-size: 25px;   
 }
 
 .contenedor2{

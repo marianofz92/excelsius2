@@ -5,8 +5,8 @@ box-sizing: border-box;
 body{
     margin: 0;
     font-family: sans-serif;
-   
 }
+
 h1{
     color: white;
     text-align: center;
@@ -17,8 +17,12 @@ h1{
     max-width: 500px;
     margin: 100px auto;
     background: white;
-    margin-bottom: 200px;   
+    margin-bottom: 200px;
+    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
 }
+
 .form-titulo{
     background: cadetblue;
     color: #fff;
@@ -30,16 +34,17 @@ h1{
     border-top-right-radius: 7px;
     border-bottom: 5px solid #183152;
 }
+
 .contenedor-inputs{
     
     padding: 25px 30px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    border: 1.5px solid #183152;
-
-
+    
+    margin-top: -10px
 }
+
 .input-48{
 
     width: 48%;
@@ -47,7 +52,7 @@ h1{
 .input-100{
     width: 100%;
 }
-input{
+.contenedor-inputs input{
     margin-bottom: 15px;
     padding: 15px;
     font-size: 16px;
@@ -70,4 +75,12 @@ input{
     margin: 7px;
     font-size: 14px;
     text-align: center;
+}
+
+main { 
+    background-color: #ecf0f1;
+}
+
+#contenedor_registro {
+    padding-bottom: 3px
 }

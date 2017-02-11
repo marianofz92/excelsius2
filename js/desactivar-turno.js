@@ -27,7 +27,3 @@ function desactivarTurnos(){
 alert("Horario/s desactivado/s");
          
 }
-function recargar(){
-    var fecha=$('input[name="oculto"]').val();
-location.href="desactivar-dia.php"
-}
